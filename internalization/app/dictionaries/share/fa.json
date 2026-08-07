@@ -15,7 +15,13 @@
   "components": {
     "profile": {
       "userProfile": "پروفایل کاربر",
-      "close": "بستن"
+      "close": "بستن",
+      "exit": {
+        "title": "خروج",
+        "confirmExitMessage": "آیا از خروج اطمینان دارید؟",
+        "confirm": "خروج",
+        "cancel": "انصراف"
+      }
     },
     "modeController": {
       "description": "تغییر حالت"

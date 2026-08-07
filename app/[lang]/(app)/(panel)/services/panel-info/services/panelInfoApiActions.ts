@@ -27,10 +27,15 @@ interface UserInfo {
 }
 
 const getUserInfoApi = "/users/info";
+const logoutApi = "/auth/logout";
 
 function getUserInfo({ signal }: { signal: AbortSignal }) {
   return axios.get<UserInfo>(getUserInfoApi, { signal });
 }
 
+function logout() {
+  return axios.post(logoutApi);
+}
+
 export type { UserInfo };
-export { getUserInfo, getUserInfoApi };
+export { getUserInfo, getUserInfoApi, logoutApi, logout };

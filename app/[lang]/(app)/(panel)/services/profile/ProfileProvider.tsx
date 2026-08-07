@@ -16,13 +16,27 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePanelInfo } from "../panel-info/panelInfoContext";
 import { IoMdPerson } from "react-icons/io";
+import { IoExitOutline } from "react-icons/io5";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useLogout } from "../panel-info/hooks/useLogout";
+import { Spinner } from "@/components/ui/spinner";
 
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const { userInfo } = usePanelInfo();
+  const logout = useLogout();
   const {
     shareDictionary: { components: componentsDic },
   } = useShareDictionary();
-  console.log(componentsDic);
   const [isOpen, setIsOpen] = useState(false);
   const { localeInfo } = useBaseConfig();
 
@@ -40,7 +54,10 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
       {children}
       <Drawer
         open={isOpen}
-        onOpenChange={(state) => setIsOpen(state)}
+        onOpenChange={(state) => {
+          if (logout.isPending) return;
+          setIsOpen(state);
+        }}
         direction={localeInfo.contentDirection === "rtl" ? "left" : "right"}
       >
         <DrawerContent dir={localeInfo.contentDirection}>
@@ -67,6 +84,49 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
                   {userInfo.data?.user.username}
                 </p>
               </div>
+            </div>
+            <div className="mt-6">
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button
+                    className="w-full h-auto justify-start text-destructive border-destructive bg-destructive/5"
+                    variant="outline"
+                    disabled={logout.isPending}
+                  >
+                    {logout.isPending ? (
+                      <Spinner className="size-8" />
+                    ) : (
+                      <IoExitOutline className="size-8" />
+                    )}
+
+                    <span>{componentsDic.profile.exit.title}</span>
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      {componentsDic.profile.exit.title}
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-md">
+                      {componentsDic.profile.exit.confirmExitMessage}
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="md:w-24">
+                      {componentsDic.profile.exit.cancel}
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-destructive hover:bg-destructive md:w-24"
+                      onClick={() => {
+                        if (logout.isPending) return;
+                        logout.mutate();
+                      }}
+                    >
+                      {componentsDic.profile.exit.confirm}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
           <DrawerFooter className="p-0">
