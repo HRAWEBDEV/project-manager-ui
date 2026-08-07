@@ -1,0 +1,47 @@
+{
+  "title": "احراز هویت",
+  "signIn": {
+    "title": "ورود",
+    "welcome": "خوش آمدید",
+    "orContinueWith": "ورود با",
+    "doNotHaveAccount": "حساب کاربری ندارید؟",
+    "signUp": "ثبت نام",
+    "withPassword": {
+      "username": "نام کاربری",
+      "password": "رمز عبور",
+      "forgetPassword": "فراموشی رمز عبور؟",
+      "fillRequiredFields": "فیلد‌های الزامی را پر کنید",
+      "invalidCredentials": "نام کاربری یا رمز عبور اشتباه است",
+      "login": "ورود"
+    }
+  },
+  "signUp": {
+    "title": "ثبت نام",
+    "userInfo": {
+      "title": "اطلاعات کاربر",
+      "username": "نام کاربری",
+      "firstName": "نام",
+      "lastName": "نام‌خانوادگی",
+      "email": "ایمیل",
+      "phoneNumber": "شماره همراه",
+      "signIn": "ورود",
+      "fillRequiredFields": "فیلد‌های الزامی را پر کنید",
+      "haveAccount": "حساب کاربری دارید؟"
+    },
+    "organizationInfo": {
+      "title": "اطلاعات سازمان",
+      "name": "نام سازمان",
+      "description": "توضیحات",
+      "password": "رمز عبور",
+      "confirmPassword": "تایید رمز عبور",
+      "confirmPasswordDoestNotMatch": "رمز عبور و تایید رمز عبور مطابقت ندارند",
+      "fillRequiredFields": "فیلد‌های الزامی را پر کنید"
+    },
+    "accountInfo": {
+      "title": "اطلاعات حساب"
+    },
+    "next": "بعدی",
+    "previous": "قبلی",
+    "confirm": "تایید"
+  }
+}

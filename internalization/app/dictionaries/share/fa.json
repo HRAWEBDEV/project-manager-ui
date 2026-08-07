@@ -1,0 +1,31 @@
+{
+  "title": "share dictionary",
+  "system": {
+    "modes": {
+      "light": "حالت روز",
+      "dark": "حالت شب",
+      "system": "سیستمی"
+    }
+  },
+  "tabs": {
+    "home": "خانه",
+    "menus": "منوها",
+    "profile": "پروفایل"
+  },
+  "components": {
+    "modeController": {
+      "description": "تغییر حالت"
+    },
+    "notFound": {
+      "title": "صفحه‌ای یافت نشد",
+      "goHome": "برو به خانه"
+    },
+    "noItemFound": {
+      "title": "آیتمی یافت نشد."
+    },
+    "unExpectedError": {
+      "title": "خطایی رخ داده است",
+      "pleaseTryAgainLater": "لطفا دوباره تلاش کنید"
+    }
+  }
+}
