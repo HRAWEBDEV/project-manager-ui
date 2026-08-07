@@ -13,6 +13,10 @@
     "profile": "پروفایل"
   },
   "components": {
+    "profile": {
+      "userProfile": "پروفایل کاربر",
+      "close": "بستن"
+    },
     "modeController": {
       "description": "تغییر حالت"
     },

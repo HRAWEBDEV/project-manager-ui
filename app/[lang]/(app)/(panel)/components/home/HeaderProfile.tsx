@@ -2,15 +2,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePanelInfo } from "../../services/panel-info/panelInfoContext";
 import { Spinner } from "@/components/ui/spinner";
 import { IoMdPerson, IoMdArrowDropdown } from "react-icons/io";
+import { useProfile } from "../../services/profile/profileContext";
 
 export default function HeaderProfile() {
+  const { toggleProfile } = useProfile();
   const {
     userInfo: { data, isFetching, isSuccess },
   } = usePanelInfo();
   return (
-    <button className="flex items-center">
+    <button className="flex items-center" onClick={() => toggleProfile(true)}>
       <IoMdArrowDropdown />
-      <p className="text-sm font-medium min-w-24 max-w-28 truncate mx-2">
+      <p className="text-sm font-medium max-w-28 truncate mx-2">
         {isSuccess ? `${data?.user.firstName} ${data?.user.lastName}` : "..."}
       </p>
       <Avatar className="size-9">
