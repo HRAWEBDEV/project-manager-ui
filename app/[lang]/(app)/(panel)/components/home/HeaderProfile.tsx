@@ -11,8 +11,8 @@ export default function HeaderProfile() {
   } = usePanelInfo();
   return (
     <button className="flex items-center" onClick={() => toggleProfile(true)}>
-      <IoMdArrowDropdown />
-      <p className="text-sm font-medium max-w-28 truncate mx-2">
+      <IoMdArrowDropdown className="hidden sm:block" />
+      <p className="text-sm font-medium max-w-28 truncate mx-2 hidden sm:block">
         {isSuccess ? `${data?.user.firstName} ${data?.user.lastName}` : "..."}
       </p>
       <Avatar className="size-9">

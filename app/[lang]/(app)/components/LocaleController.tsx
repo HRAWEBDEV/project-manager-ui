@@ -28,7 +28,7 @@ function LocaleControllerButton() {
   const modeButton = (
     <Button
       type="button"
-      variant="outline"
+      variant="ghost"
       size="icon-lg"
       className="relative rounded-full h-11 w-11"
     >

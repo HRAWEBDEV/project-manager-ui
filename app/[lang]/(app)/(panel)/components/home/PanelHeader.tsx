@@ -3,6 +3,7 @@ import { SidebarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "../../services/sidebar/sidebarContext";
 import HeaderProfile from "./HeaderProfile";
+import HeaderTools from "./HeaderTools";
 
 export default function PanelHeader() {
   const { toggleSidebar } = useSidebar();
@@ -19,7 +20,8 @@ export default function PanelHeader() {
             <SidebarIcon className="size-6" />
           </Button>
         </div>
-        <div>
+        <div className="flex gap-2">
+          <HeaderTools />
           <HeaderProfile />
         </div>
       </div>

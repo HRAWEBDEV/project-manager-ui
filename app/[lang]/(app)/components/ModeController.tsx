@@ -38,7 +38,7 @@ function ModeControllerButton() {
   const modeButton = (
     <Button
       type="button"
-      variant="outline"
+      variant="ghost"
       size="icon-lg"
       className="rounded-full w-11 h-11"
     >
@@ -50,7 +50,7 @@ function ModeControllerButton() {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) <div></div>;
+  if (!isMounted) return <>{modeButton}</>;
 
   return (
     <>
