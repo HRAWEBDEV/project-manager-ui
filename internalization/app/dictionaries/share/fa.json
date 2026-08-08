@@ -7,11 +7,6 @@
       "system": "سیستمی"
     }
   },
-  "tabs": {
-    "home": "خانه",
-    "menus": "منوها",
-    "profile": "پروفایل"
-  },
   "components": {
     "profile": {
       "userProfile": "پروفایل کاربر",
@@ -22,6 +17,11 @@
         "confirm": "خروج",
         "cancel": "انصراف"
       }
+    },
+    "navigation": {
+      "chats": "گفتگوها",
+      "projects": "پروژه‌ها",
+      "tasks": "وظیفه‌ها"
     },
     "modeController": {
       "description": "تغییر حالت"

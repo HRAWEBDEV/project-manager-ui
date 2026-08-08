@@ -1,5 +1,5 @@
-import { ModeControllerButton } from "../../../components/ModeController";
-import { LocaleControllerButton } from "../../../components/LocaleController";
+import { ModeControllerButton } from "../../../../components/ModeController";
+import { LocaleControllerButton } from "../../../../components/LocaleController";
 
 export default function HeaderTools() {
   return (

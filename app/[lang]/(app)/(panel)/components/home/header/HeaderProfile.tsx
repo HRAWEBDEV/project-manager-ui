@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { usePanelInfo } from "../../services/panel-info/panelInfoContext";
+import { usePanelInfo } from "../../../services/panel-info/panelInfoContext";
 import { Spinner } from "@/components/ui/spinner";
 import { IoMdPerson, IoMdArrowDropdown } from "react-icons/io";
-import { useProfile } from "../../services/profile/profileContext";
+import { useProfile } from "../../../services/profile/profileContext";
 
 export default function HeaderProfile() {
   const { toggleProfile } = useProfile();

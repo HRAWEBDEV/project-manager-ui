@@ -3,7 +3,7 @@ import { ComponentProps, CSSProperties } from "react";
 import {
   SIDEBAR_WIDTH_MOBILE,
   useSidebar,
-} from "../../services/sidebar/sidebarContext";
+} from "../../../services/sidebar/sidebarContext";
 import { cn } from "@/lib/utils";
 import {
   Sheet,
@@ -158,15 +158,4 @@ function SidebarInset({ className, ...props }: ComponentProps<"main">) {
   );
 }
 
-function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
-  const { localeInfo } = useBaseConfig();
-  return (
-    <Sidebar
-      className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
-      side={localeInfo.contentDirection === "rtl" ? "right" : "left"}
-      {...props}
-    ></Sidebar>
-  );
-}
-
-export { Sidebar, SidebarTrigger, SidebarInset, AppSidebar };
+export { Sidebar, SidebarTrigger, SidebarInset };

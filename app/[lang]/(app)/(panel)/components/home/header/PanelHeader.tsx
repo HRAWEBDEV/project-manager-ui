@@ -1,7 +1,7 @@
 "use client";
 import { SidebarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useSidebar } from "../../services/sidebar/sidebarContext";
+import { useSidebar } from "../../../services/sidebar/sidebarContext";
 import HeaderProfile from "./HeaderProfile";
 import HeaderTools from "./HeaderTools";
 
