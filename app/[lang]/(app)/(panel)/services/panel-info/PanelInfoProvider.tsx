@@ -1,10 +1,13 @@
 "use client";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { type PanelInfo, PanelInfoContext } from "./panelInfoContext";
 import { useQuery } from "@tanstack/react-query";
 import { getUserInfoApi, getUserInfo } from "./services/panelInfoApiActions";
+import { useExit } from "./hooks/useExit";
 
 export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
+  const exit = useExit();
+
   const {
     data: userInfo,
     isLoading: isLoadingUserInfo,
@@ -29,6 +32,11 @@ export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
       isError: isErrorUserInfo,
     },
   };
+
+  useEffect(() => {
+    if (!isErrorUserInfo) return;
+    exit();
+  }, [isErrorUserInfo, exit]);
   return (
     <PanelInfoContext.Provider value={ctx}>
       {children}

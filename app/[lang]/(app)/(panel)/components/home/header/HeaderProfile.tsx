@@ -7,10 +7,14 @@ import { useProfile } from "../../../services/profile/profileContext";
 export default function HeaderProfile() {
   const { toggleProfile } = useProfile();
   const {
-    userInfo: { data, isFetching, isSuccess },
+    userInfo: { data, isFetching, isSuccess, isLoading },
   } = usePanelInfo();
   return (
-    <button className="flex items-center" onClick={() => toggleProfile(true)}>
+    <button
+      disabled={isLoading}
+      className="flex items-center"
+      onClick={() => toggleProfile(true)}
+    >
       <IoMdArrowDropdown className="hidden sm:block" />
       <p className="text-sm font-medium max-w-28 truncate mx-2 hidden sm:block">
         {isSuccess ? `${data?.user.firstName} ${data?.user.lastName}` : "..."}

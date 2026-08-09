@@ -3,6 +3,8 @@ import { getNavItemIcon } from "../../../utils/getNavItemIcon";
 import { Button } from "@/components/ui/button";
 import { useShareDictionary } from "@/app/[lang]/(app)/services/share-dictionary/shareDictionaryContext";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import { usePanelInfo } from "../../../services/panel-info/panelInfoContext";
 
 function NavigationItems({ item }: { item: (typeof navItems)[number] }) {
   const {
@@ -26,12 +28,19 @@ function NavigationItems({ item }: { item: (typeof navItems)[number] }) {
   );
 }
 function NavigationList() {
+  const {
+    userInfo: { isLoading },
+  } = usePanelInfo();
   return (
     <div>
       <ul className="p-2 grid gap-1">
-        {navItems.map((item) => (
-          <NavigationItems key={item.title} item={item} />
-        ))}
+        {navItems.map((item) =>
+          isLoading ? (
+            <Skeleton key={item.title} className="h-12" />
+          ) : (
+            <NavigationItems key={item.title} item={item} />
+          ),
+        )}
       </ul>
     </div>
   );
