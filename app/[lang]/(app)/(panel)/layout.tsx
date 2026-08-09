@@ -1,9 +1,10 @@
 import PanelHeader from "@/app/[lang]/(app)/(panel)/components/home/header/PanelHeader";
-import { SidebarInset } from "./components/home/navigation/Sidebar";
 import SidebarProvider from "./services/sidebar/SidebarProvider";
 import { PanelInfoProvider } from "./services/panel-info/PanelInfoProvider";
 import { ProfileProvider } from "./services/profile/ProfileProvider";
 import AppSidebar from "./components/home/navigation/Navigation";
+import Tabs from "./components/tabs/Tabs";
+import MainWrapper from "./components/home/main/MainWrapper";
 
 export default function PanelLayout({ children }: LayoutProps<"/[lang]">) {
   return (
@@ -14,7 +15,8 @@ export default function PanelLayout({ children }: LayoutProps<"/[lang]">) {
             <PanelHeader />
             <div className="flex flex-1">
               <AppSidebar />
-              <SidebarInset>{children}</SidebarInset>
+              <MainWrapper>{children}</MainWrapper>
+              <Tabs />
             </div>
           </ProfileProvider>
         </SidebarProvider>

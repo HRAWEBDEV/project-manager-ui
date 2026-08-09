@@ -1,5 +1,9 @@
 export const navItems = [
   {
+    title: "home",
+    href: "",
+  },
+  {
     title: "chats",
     href: "",
   },

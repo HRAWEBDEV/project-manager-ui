@@ -11,6 +11,7 @@
     "profile": {
       "userProfile": "پروفایل کاربر",
       "close": "بستن",
+      "settings": "تنظیمات",
       "exit": {
         "title": "خروج",
         "confirmExitMessage": "آیا از خروج اطمینان دارید؟",
@@ -19,6 +20,7 @@
       }
     },
     "navigation": {
+      "home": "خانه",
       "chats": "گفتگوها",
       "projects": "پروژه‌ها",
       "tasks": "وظیفه‌ها"

@@ -17,6 +17,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePanelInfo } from "../panel-info/panelInfoContext";
 import { IoMdPerson } from "react-icons/io";
 import { IoExitOutline } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -85,7 +86,15 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
                 </p>
               </div>
             </div>
-            <div className="mt-6">
+            <div className="mt-6 grid gap-3">
+              <Button
+                className="w-full h-auto justify-start text-neutral-600 dark:text-neutral-400 bg-neutral-600/5 dark:bg-neutral-400/5"
+                variant="outline"
+                disabled={logout.isPending}
+              >
+                <IoSettingsSharp className="size-8" />
+                <span>{componentsDic.profile.settings}</span>
+              </Button>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button
