@@ -12,16 +12,16 @@ export default function PanelLayout({ children }: LayoutProps<"/[lang]">) {
     <div className="[--header-height:calc(--spacing(14))]">
       <PanelInfoProvider>
         <SidebarProvider className="flex flex-col">
-          <ProfileProvider>
-            <SettingProvider>
+          <SettingProvider>
+            <ProfileProvider>
               <PanelHeader />
               <div className="flex flex-1">
                 <AppSidebar />
                 <MainWrapper>{children}</MainWrapper>
                 <Tabs />
               </div>
-            </SettingProvider>
-          </ProfileProvider>
+            </ProfileProvider>
+          </SettingProvider>
         </SidebarProvider>
       </PanelInfoProvider>
     </div>

@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useLogout } from "../panel-info/hooks/useLogout";
 import { Spinner } from "@/components/ui/spinner";
+import { useSetting } from "../setting/settingContext";
 
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const { userInfo } = usePanelInfo();
@@ -40,6 +41,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
   } = useShareDictionary();
   const [isOpen, setIsOpen] = useState(false);
   const { localeInfo } = useBaseConfig();
+  const { toggleSetting } = useSetting();
 
   function toggleProfile(state?: boolean) {
     setIsOpen((prev) => (state === undefined ? !prev : state));
@@ -91,6 +93,10 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
                 className="w-full h-auto justify-start text-neutral-600 dark:text-neutral-400 bg-neutral-600/5 dark:bg-neutral-400/5"
                 variant="outline"
                 disabled={logout.isPending}
+                onClick={() => {
+                  toggleSetting(true);
+                  toggleProfile(false);
+                }}
               >
                 <IoSettingsSharp className="size-8" />
                 <span>{componentsDic.profile.settings}</span>

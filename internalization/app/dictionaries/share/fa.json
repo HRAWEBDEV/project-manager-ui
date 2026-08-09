@@ -19,6 +19,9 @@
         "cancel": "انصراف"
       }
     },
+    "settings": {
+      "title": "تنظیمات"
+    },
     "navigation": {
       "home": "خانه",
       "chats": "گفتگوها",
