@@ -2,8 +2,11 @@
 import { ReactNode, useEffect } from "react";
 import { type PanelInfo, PanelInfoContext } from "./panelInfoContext";
 import { useQuery } from "@tanstack/react-query";
-import { getUserInfoApi, getUserInfo } from "./services/panelInfoApiActions";
 import { useExit } from "./hooks/useExit";
+import {
+  getUserInfo,
+  getUserInfoApi,
+} from "../../user/services/userApiActions";
 
 export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
   const exit = useExit();

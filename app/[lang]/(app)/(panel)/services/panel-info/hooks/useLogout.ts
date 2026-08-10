@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { logout } from "../services/panelInfoApiActions";
+import { logout } from "../../../user/services/userApiActions";
 import { useExit } from "./useExit";
 
 export function useLogout() {

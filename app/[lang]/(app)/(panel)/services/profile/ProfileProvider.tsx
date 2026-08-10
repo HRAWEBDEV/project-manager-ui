@@ -31,6 +31,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useLogout } from "../panel-info/hooks/useLogout";
 import { Spinner } from "@/components/ui/spinner";
+import WorkspaceController from "../../components/WorkspaceController";
+import { RiEdit2Fill } from "react-icons/ri";
 import { useSetting } from "../setting/settingContext";
 
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
@@ -73,7 +75,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
             </DrawerDescription>
           </DrawerHeader>
           <div className="grow overflow-auto p-4">
-            <div className="flex items-start gap-4">
+            <div className="flex items-start gap-4 pe-11 relative">
               <Avatar className="shrink-0 size-20">
                 <AvatarFallback className="bg-neutral-200 dark:bg-neutral-800">
                   <IoMdPerson className="size-10 text-neutral-500" />
@@ -87,8 +89,24 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
                   {userInfo.data?.user.username}
                 </p>
               </div>
+              <div className="absolute top-0 inset-e-0">
+                <Button
+                  variant="outline"
+                  className="rounded-full size-11 bg-neutral-200 dark:bg-neutral-800"
+                  onClick={() => {
+                    toggleSetting(true, "userInfo");
+                    toggleProfile(false);
+                  }}
+                >
+                  <RiEdit2Fill className="size-5" />
+                </Button>
+              </div>
             </div>
             <div className="mt-6 grid gap-3">
+              <WorkspaceController
+                variant="outline"
+                className="w-full h-auto justify-start text-start"
+              />
               <Button
                 className="w-full h-auto justify-start text-neutral-600 dark:text-neutral-400 bg-neutral-600/5 dark:bg-neutral-400/5"
                 variant="outline"

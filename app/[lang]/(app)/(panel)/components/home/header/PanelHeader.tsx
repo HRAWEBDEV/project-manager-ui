@@ -10,7 +10,7 @@ export default function PanelHeader() {
   return (
     <header className="sticky top-0 z-(--panel-header-zindex) flex w-full items-center border-b bg-primary text-primary-foreground">
       <div className="flex h-(--header-height) w-full items-center justify-between gap-2 px-4">
-        <div>
+        <div className="flex gap-4 items-center">
           <Button
             className="h-8 w-8"
             variant="ghost"
@@ -19,6 +19,7 @@ export default function PanelHeader() {
           >
             <SidebarIcon className="size-6" />
           </Button>
+          <h1 className="text-xl font-medium">اطلـــــــــــــــــس</h1>
         </div>
         <div className="flex gap-2">
           <HeaderTools />

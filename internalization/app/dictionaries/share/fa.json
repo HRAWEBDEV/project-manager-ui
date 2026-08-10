@@ -20,7 +20,10 @@
       }
     },
     "settings": {
-      "title": "تنظیمات"
+      "title": "تنظیمات",
+      "userInfo": {
+        "title": "کاربری"
+      }
     },
     "navigation": {
       "home": "خانه",

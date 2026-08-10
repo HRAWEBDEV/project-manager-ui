@@ -1,6 +1,6 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
-import { type UserInfo } from "./services/panelInfoApiActions";
+import { type UserInfo } from "../../user/services/userApiActions";
 
 interface PanelInfo {
   userInfo: {

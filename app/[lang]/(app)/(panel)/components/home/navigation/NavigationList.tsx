@@ -5,6 +5,7 @@ import { useShareDictionary } from "@/app/[lang]/(app)/services/share-dictionary
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePanelInfo } from "../../../services/panel-info/panelInfoContext";
+import WorkspaceController from "../../WorkspaceController";
 
 function NavigationItems({ item }: { item: (typeof navItems)[number] }) {
   const {
@@ -33,15 +34,21 @@ function NavigationList() {
   } = usePanelInfo();
   return (
     <div>
-      <ul className="p-2 grid gap-1">
-        {navItems.map((item) =>
-          isLoading ? (
-            <Skeleton key={item.title} className="h-12" />
-          ) : (
-            <NavigationItems key={item.title} item={item} />
-          ),
-        )}
-      </ul>
+      <div className="p-2">
+        <WorkspaceController
+          variant="outline"
+          className="w-full h-11 mb-2 bg-neutral-200 dark:bg-neutral-800 text-start"
+        />
+        <ul className="pt-0 grid gap-1">
+          {navItems.map((item) =>
+            isLoading ? (
+              <Skeleton key={item.title} className="h-12" />
+            ) : (
+              <NavigationItems key={item.title} item={item} />
+            ),
+          )}
+        </ul>
+      </div>
     </div>
   );
 }
