@@ -10,7 +10,6 @@ import {
 
 export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
   const exit = useExit();
-
   const {
     data: userInfo,
     isLoading: isLoadingUserInfo,

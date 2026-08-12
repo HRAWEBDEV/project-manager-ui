@@ -6,23 +6,28 @@ import { SettingProvider } from "./services/setting/SettingProvider";
 import AppSidebar from "./components/home/navigation/Navigation";
 import Tabs from "./components/tabs/Tabs";
 import MainWrapper from "./components/home/main/MainWrapper";
+import AxiosOrganizationInterceptor from "./services/axios/AxiosOrganizationInterceptor";
+import WorkspaceProvider from "./services/workspace/WorkspaceProvider";
 
 export default function PanelLayout({ children }: LayoutProps<"/[lang]">) {
   return (
     <div className="[--header-height:calc(--spacing(14))]">
       <PanelInfoProvider>
-        <SidebarProvider className="flex flex-col">
-          <SettingProvider>
-            <ProfileProvider>
-              <PanelHeader />
-              <div className="flex flex-1">
-                <AppSidebar />
-                <MainWrapper>{children}</MainWrapper>
-                <Tabs />
-              </div>
-            </ProfileProvider>
-          </SettingProvider>
-        </SidebarProvider>
+        <AxiosOrganizationInterceptor />
+        <WorkspaceProvider>
+          <SidebarProvider className="flex flex-col">
+            <SettingProvider>
+              <ProfileProvider>
+                <PanelHeader />
+                <div className="flex flex-1">
+                  <AppSidebar />
+                  <MainWrapper>{children}</MainWrapper>
+                  <Tabs />
+                </div>
+              </ProfileProvider>
+            </SettingProvider>
+          </SidebarProvider>
+        </WorkspaceProvider>
       </PanelInfoProvider>
     </div>
   );

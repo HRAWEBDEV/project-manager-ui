@@ -19,7 +19,7 @@ export default function PanelHeader() {
           >
             <SidebarIcon className="size-6" />
           </Button>
-          <h1 className="text-xl font-medium">اطلـــــــــــــــــس</h1>
+          <h1 className="text-xl font-medium">اطلـــــــــــــــس</h1>
         </div>
         <div className="flex gap-2">
           <HeaderTools />

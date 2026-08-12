@@ -19,6 +19,10 @@
         "cancel": "انصراف"
       }
     },
+    "workspace": {
+      "title": "میزکار",
+      "search": "جستجو"
+    },
     "settings": {
       "title": "تنظیمات",
       "userInfo": {
