@@ -15,7 +15,8 @@ export default function WorkspaceController(
       components: { workspace: workspaceDic },
     },
   } = useShareDictionary();
-  const { isFetching, isSuccess, toggleWorkspace } = useWorkspaceContext();
+  const { isFetching, toggleWorkspace, activeWorkspace } =
+    useWorkspaceContext();
   return (
     <Button {...props} onClick={() => toggleWorkspace(true)}>
       <MdWorkspaces className="size-8" />
@@ -24,7 +25,7 @@ export default function WorkspaceController(
           {workspaceDic.title}:
         </span>
         {isFetching && <Spinner />}
-        {isSuccess && <span>فرانت اند</span>}
+        <span>{activeWorkspace?.name || "---"}</span>
       </div>
       <ChevronsUpDown />
     </Button>

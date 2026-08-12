@@ -32,6 +32,7 @@ interface UserInfo {
 
 const getUserInfoApi = "/users/info";
 const logoutApi = "/auth/logout";
+const getUserOrganizationsApi = "/users/organizations";
 
 function getUserInfo({ signal }: { signal: AbortSignal }) {
   return axios.get<UserInfo>(getUserInfoApi, { signal });
@@ -41,5 +42,18 @@ function logout() {
   return axios.post(logoutApi);
 }
 
+function getUserOrganizations({ signal }: { signal: AbortSignal }) {
+  return axios.get<{
+    organizations: Organization[];
+  }>(getUserOrganizationsApi, { signal });
+}
+
 export type { UserInfo, User, Organization };
-export { getUserInfo, getUserInfoApi, logoutApi, logout };
+export {
+  getUserInfo,
+  getUserInfoApi,
+  logoutApi,
+  logout,
+  getUserOrganizationsApi,
+  getUserOrganizations,
+};

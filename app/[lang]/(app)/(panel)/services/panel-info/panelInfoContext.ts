@@ -1,10 +1,22 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
-import { type UserInfo } from "../../user/services/userApiActions";
+import {
+  type UserInfo,
+  type Organization,
+} from "../../user/services/userApiActions";
 
 interface PanelInfo {
   userInfo: {
     data?: UserInfo;
+    isError: boolean;
+    isLoading: boolean;
+    isSuccess: boolean;
+    isFetching: boolean;
+  };
+  organizations: {
+    data?: Organization[];
+    activeOrganization: Organization | null;
+    onChangeActiveOrganization: (id: string) => unknown;
     isError: boolean;
     isLoading: boolean;
     isSuccess: boolean;

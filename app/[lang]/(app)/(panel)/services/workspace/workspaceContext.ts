@@ -5,6 +5,8 @@ import { Workspace } from "../../workspace/services/workspaceApiActions";
 interface WorkspaceCotnextProps {
   isOpen: boolean;
   data?: Workspace[];
+  onChangeActiveWorkspace: (slug: string) => unknown;
+  activeWorkspace: Workspace | null;
   isLoading: boolean;
   isSuccess: boolean;
   isError: boolean;

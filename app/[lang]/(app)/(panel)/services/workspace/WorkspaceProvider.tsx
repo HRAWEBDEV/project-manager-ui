@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useEffect, useCallback } from "react";
 import {
   type WorkspaceCotnextProps,
   workspaceContext,
@@ -27,14 +27,20 @@ import {
 import { FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { AiOutlineEnter } from "react-icons/ai";
+import { useSlugs } from "../../hooks/useSlugs";
+import { useRouter } from "next/navigation";
 
 export default function WorkspaceProvider({
   children,
 }: {
   children: ReactNode;
 }) {
+  const router = useRouter();
+  const { workspace, lang } = useSlugs();
   const [isOpen, setIsOpen] = useState(false);
-  const { userInfo } = usePanelInfo();
+  const {
+    organizations: { activeOrganization, onChangeActiveOrganization },
+  } = usePanelInfo();
   const {
     shareDictionary: {
       components: { workspace: workspaceDic },
@@ -46,7 +52,7 @@ export default function WorkspaceProvider({
 
   const { data, isLoading, isFetching, isError, isSuccess } = useQuery({
     staleTime: "static",
-    enabled: userInfo.isSuccess,
+    enabled: !!activeOrganization,
     queryKey: [getWorkspacesApi],
     async queryFn({ signal }) {
       const res = await getWorkspaces({ signal });
@@ -54,15 +60,38 @@ export default function WorkspaceProvider({
     },
   });
 
+  const activeWorkspace =
+    data?.workspaces.find((item) => item.slug === workspace) || null;
+
+  const handleChangeActiveWorkspace = useCallback(
+    (slug: string) => {
+      if (!isSuccess || !lang) return;
+      const activeWorkspace = data.workspaces.find(
+        (item) => item.slug === slug,
+      );
+      if (!activeWorkspace) return;
+      onChangeActiveOrganization(activeWorkspace.organizationId);
+      router.replace(`/${lang}/${activeWorkspace.slug}`);
+    },
+    [isSuccess, data, lang, router, onChangeActiveOrganization],
+  );
+
   const ctx: WorkspaceCotnextProps = {
     isOpen,
     toggleWorkspace,
+    onChangeActiveWorkspace: handleChangeActiveWorkspace,
     data: data?.workspaces,
+    activeWorkspace,
     isLoading,
     isFetching,
     isError,
     isSuccess,
   };
+
+  useEffect(() => {
+    if (!isSuccess || !!workspace || !data.workspaces.length) return;
+    handleChangeActiveWorkspace(data.workspaces[0].slug);
+  }, [isSuccess, workspace, handleChangeActiveWorkspace, data]);
 
   return (
     <workspaceContext.Provider value={ctx}>
@@ -92,23 +121,31 @@ export default function WorkspaceProvider({
             </div>
             <div className="p-4 pt-0">
               <ul>
-                {data?.workspaces.map((item) => (
-                  <li key={item.id}>
-                    <Button
-                      variant="outline"
-                      className="w-full h-auto min-h-11 flex-col text-start items-start gap-1 font-normal py-2 pe-12 relative"
-                      size="lg"
-                    >
-                      <h4 className="font-medium text-md">{item.name}</h4>
-                      <p className="text-sm text-neutral-700 dark:text-neutral-400">
-                        {item.description}
-                      </p>
-                      <div className="absolute inset-e-2 text-neutral-500/80 top-1/2 -translate-y-1/2">
-                        <AiOutlineEnter className="size-8" />
-                      </div>
-                    </Button>
-                  </li>
-                ))}
+                {data?.workspaces.map((item) => {
+                  const isActive = activeWorkspace?.slug === item.slug;
+                  return (
+                    <li key={item.id}>
+                      <Button
+                        data-active={isActive}
+                        variant="outline"
+                        className="w-full h-auto min-h-11 flex-col text-start items-start gap-1 font-normal py-2 pe-12 relative data-[active='true']:bg-secondary/20"
+                        size="lg"
+                        onClick={() => {
+                          if (isActive) return;
+                          onChangeActiveOrganization(item.slug);
+                        }}
+                      >
+                        <h4 className="font-medium text-md">{item.name}</h4>
+                        <p className="text-sm text-neutral-700 dark:text-neutral-400">
+                          {item.description}
+                        </p>
+                        <div className="absolute inset-e-2 text-neutral-500/80 top-1/2 -translate-y-1/2">
+                          <AiOutlineEnter className="size-8" />
+                        </div>
+                      </Button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

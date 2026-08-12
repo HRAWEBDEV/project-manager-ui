@@ -1,14 +1,19 @@
 "use client";
-import { ReactNode, useEffect } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { type PanelInfo, PanelInfoContext } from "./panelInfoContext";
 import { useQuery } from "@tanstack/react-query";
 import { useExit } from "./hooks/useExit";
 import {
+  type Organization,
   getUserInfo,
   getUserInfoApi,
+  getUserOrganizationsApi,
+  getUserOrganizations,
 } from "../../user/services/userApiActions";
 
 export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
+  const [activeOrganization, setActiveOrganization] =
+    useState<Organization | null>(null);
   const exit = useExit();
   const {
     data: userInfo,
@@ -25,6 +30,33 @@ export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
     },
   });
 
+  const {
+    data: organizations,
+    isLoading: isLoadingOrganizations,
+    isSuccess: isSuccessOrganizations,
+    isFetching: isFetchingOrganizations,
+    isError: isErrorOrganizations,
+  } = useQuery({
+    staleTime: "static",
+    queryKey: [getUserOrganizationsApi],
+    async queryFn({ signal }) {
+      const res = await getUserOrganizations({ signal });
+      return res.data;
+    },
+  });
+
+  const handleChangeActiveOrganization = useCallback(
+    (id: string) => {
+      if (!isSuccessOrganizations) return;
+      const activeOrganization = organizations.organizations.find(
+        (item) => item.id === id,
+      );
+      if (!activeOrganization) return;
+      setActiveOrganization(activeOrganization);
+    },
+    [isSuccessOrganizations, organizations],
+  );
+
   const ctx: PanelInfo = {
     userInfo: {
       data: userInfo,
@@ -33,12 +65,37 @@ export const PanelInfoProvider = ({ children }: { children: ReactNode }) => {
       isFetching: isFetchingUserInfo,
       isError: isErrorUserInfo,
     },
+    organizations: {
+      data: organizations?.organizations,
+      activeOrganization,
+      onChangeActiveOrganization: handleChangeActiveOrganization,
+      isLoading: isLoadingOrganizations,
+      isSuccess: isSuccessOrganizations,
+      isFetching: isFetchingOrganizations,
+      isError: isErrorOrganizations,
+    },
   };
 
   useEffect(() => {
-    if (!isErrorUserInfo) return;
+    if (!isErrorUserInfo || !isErrorOrganizations) return;
     exit();
-  }, [isErrorUserInfo, exit]);
+  }, [isErrorUserInfo, exit, isErrorOrganizations]);
+
+  useEffect(() => {
+    if (
+      !isSuccessOrganizations ||
+      !!activeOrganization ||
+      !organizations.organizations.length
+    )
+      return;
+    handleChangeActiveOrganization(organizations.organizations[0].id);
+  }, [
+    isSuccessOrganizations,
+    activeOrganization,
+    organizations,
+    handleChangeActiveOrganization,
+  ]);
+
   return (
     <PanelInfoContext.Provider value={ctx}>
       {children}

@@ -45,14 +45,12 @@ export default function MainWrapper({
   }
 
   useEffect(() => {
-    console.log(document.body);
     if (!mainWrapperRef.current) return;
     const abortController = new AbortController();
     document.documentElement.setAttribute("data-scroll-dicretion", "up");
     mainWrapperRef.current!.addEventListener(
       "scroll",
       () => {
-        console.log(mainWrapperRef);
         debouncer();
       },
       {
