@@ -13,6 +13,7 @@ import { settingsTabs } from "./utils/settingsTabs";
 import { getSettingsIcon } from "./utils/getSettingsIcon";
 import { Button } from "@/components/ui/button";
 import UserInfo from "../../user/components/UserInfo";
+import OrganizationInfo from "../../user/components/OrganizationInfo";
 
 const defaultTab = settingsTabs[0];
 
@@ -44,6 +45,9 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
     if (activeTab.title === "userInfo") {
       return <UserInfo />;
     }
+    if (activeTab.title === "organization") {
+      return <OrganizationInfo />;
+    }
     return null;
   }
 
@@ -65,6 +69,7 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
                       data-active={activeTab.title === tab.title}
                       variant="ghost"
                       className='rounded-none h-auto flex-col w-full text-neutral-600 dark:text-neutral-400 border-border border-e sm:border-b sm:border-e-0 min-h-20 min-w-24 sm:min-w-auto data-[active="true"]:bg-primary data-[active="true"]:text-primary-foreground'
+                      onClick={() => setActiveTab(tab)}
                     >
                       {getSettingsIcon(tab.title, { className: "size-6" })}
                       <span className="text-sm">

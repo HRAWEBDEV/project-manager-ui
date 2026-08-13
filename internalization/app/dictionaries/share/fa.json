@@ -19,6 +19,14 @@
         "cancel": "انصراف"
       }
     },
+    "organization": {
+      "title": "سازمان",
+      "name": "نام",
+      "description": "توضیحات",
+      "editInfo": "ویرایش اطلاعات",
+      "changeImage": "تغییر تصویر",
+      "removeImage": "حذف تصویر"
+    },
     "workspace": {
       "title": "میزکار",
       "search": "جستجو",
@@ -40,6 +48,9 @@
     },
     "settings": {
       "title": "تنظیمات",
+      "organization": {
+        "title": "سازمان"
+      },
       "userInfo": {
         "title": "کاربری"
       }
