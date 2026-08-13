@@ -18,17 +18,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useShareDictionary } from "../../../services/share-dictionary/shareDictionaryContext";
-import { Field } from "@/components/ui/field";
-import {
-  InputGroup,
-  InputGroupInput,
-  InputGroupAddon,
-} from "@/components/ui/input-group";
-import { FaSearch } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
-import { AiOutlineEnter } from "react-icons/ai";
 import { useSlugs } from "../../hooks/useSlugs";
 import { useRouter } from "next/navigation";
+import WorkspaceList from "../../workspace/components/WorkspaceList";
 
 export default function WorkspaceProvider({
   children,
@@ -39,7 +31,7 @@ export default function WorkspaceProvider({
   const { workspace, lang } = useSlugs();
   const [isOpen, setIsOpen] = useState(false);
   const {
-    organizations: { activeOrganization, onChangeActiveOrganization },
+    organizations: { activeOrganization },
   } = usePanelInfo();
   const {
     shareDictionary: {
@@ -70,10 +62,9 @@ export default function WorkspaceProvider({
         (item) => item.slug === slug,
       );
       if (!activeWorkspace) return;
-      onChangeActiveOrganization(activeWorkspace.organizationId);
       router.replace(`/${lang}/${activeWorkspace.slug}`);
     },
-    [isSuccess, data, lang, router, onChangeActiveOrganization],
+    [isSuccess, data, lang, router],
   );
 
   const ctx: WorkspaceCotnextProps = {
@@ -104,50 +95,8 @@ export default function WorkspaceProvider({
             </DialogTitle>
             <DialogDescription className="hidden"></DialogDescription>
           </DialogHeader>
-          <div className="grow overflow-hidden pt-0 scroll-smooth flex flex-col">
-            <div className="p-4 sticky top-0">
-              <Field>
-                <InputGroup className="h-10 bg-neutral-100 dark:bg-neutral-900">
-                  <InputGroupAddon align="inline-start">
-                    <FaSearch className="size-5" />
-                  </InputGroupAddon>
-                  <InputGroupInput
-                    id="search"
-                    type="search"
-                    placeholder={`${workspaceDic.search} ...`}
-                  />
-                </InputGroup>
-              </Field>
-            </div>
-            <div className="p-4 pt-0">
-              <ul>
-                {data?.workspaces.map((item) => {
-                  const isActive = activeWorkspace?.slug === item.slug;
-                  return (
-                    <li key={item.id}>
-                      <Button
-                        data-active={isActive}
-                        variant="outline"
-                        className="w-full h-auto min-h-11 flex-col text-start items-start gap-1 font-normal py-2 pe-12 relative data-[active='true']:bg-secondary/20"
-                        size="lg"
-                        onClick={() => {
-                          if (isActive) return;
-                          onChangeActiveOrganization(item.slug);
-                        }}
-                      >
-                        <h4 className="font-medium text-md">{item.name}</h4>
-                        <p className="text-sm text-neutral-700 dark:text-neutral-400">
-                          {item.description}
-                        </p>
-                        <div className="absolute inset-e-2 text-neutral-500/80 top-1/2 -translate-y-1/2">
-                          <AiOutlineEnter className="size-8" />
-                        </div>
-                      </Button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+          <div className="grow overflow-auto pt-0 scroll-smooth flex flex-col">
+            <WorkspaceList />
           </div>
         </DialogContent>
       </Dialog>

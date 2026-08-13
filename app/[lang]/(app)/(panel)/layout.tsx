@@ -7,6 +7,7 @@ import AppSidebar from "./components/home/navigation/Navigation";
 import Tabs from "./components/tabs/Tabs";
 import MainWrapper from "./components/home/main/MainWrapper";
 import AxiosOrganizationInterceptor from "./services/axios/AxiosOrganizationInterceptor";
+import AxiosCredentialInterceptor from "./services/axios/AxiosCredentialInterceptor";
 import WorkspaceProvider from "./services/workspace/WorkspaceProvider";
 
 export default function PanelLayout({ children }: LayoutProps<"/[lang]">) {
@@ -15,6 +16,7 @@ export default function PanelLayout({ children }: LayoutProps<"/[lang]">) {
       <PanelInfoProvider>
         <AxiosOrganizationInterceptor />
         <WorkspaceProvider>
+          <AxiosCredentialInterceptor />
           <SidebarProvider className="flex flex-col">
             <SettingProvider>
               <ProfileProvider>

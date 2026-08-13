@@ -21,7 +21,8 @@
     },
     "workspace": {
       "title": "میزکار",
-      "search": "جستجو"
+      "search": "جستجو",
+      "addWorkspace": "افزودن میزکار"
     },
     "settings": {
       "title": "تنظیمات",
