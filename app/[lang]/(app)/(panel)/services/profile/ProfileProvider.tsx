@@ -103,10 +103,12 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
               </div>
             </div>
             <div className="mt-6 grid gap-3">
-              <WorkspaceController
-                variant="outline"
-                className="w-full h-auto justify-start text-start"
-              />
+              <div onClick={() => toggleProfile(false)}>
+                <WorkspaceController
+                  variant="outline"
+                  className="w-full h-auto justify-start text-start"
+                />
+              </div>
               <Button
                 className="w-full h-auto justify-start text-neutral-600 dark:text-neutral-400 bg-neutral-600/5 dark:bg-neutral-400/5"
                 variant="outline"

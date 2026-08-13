@@ -13,10 +13,11 @@ import { useShareDictionary } from "../../../services/share-dictionary/shareDict
 import { useWorkspaceContext } from "../../services/workspace/workspaceContext";
 import NoItemFound from "../../../components/NoItemFound";
 import Highlighter from "react-highlight-words";
+import { RiEdit2Fill } from "react-icons/ri";
 
 export default function WorkspaceList() {
   const [searchedWorkspace, setSearchedWorkspace] = useState("");
-  const { data, activeWorkspace, onChangeActiveWorkspace } =
+  const { data, activeWorkspace, onChangeActiveWorkspace, toggleWorkspace } =
     useWorkspaceContext();
   const {
     shareDictionary: {
@@ -62,13 +63,17 @@ export default function WorkspaceList() {
             visibleItems.map((item) => {
               const isActive = activeWorkspace?.slug === item.slug;
               return (
-                <li key={item.id}>
+                <li
+                  key={item.id}
+                  className="grid grid-cols-[1fr_max-content] items-center gap-1"
+                >
                   <Button
                     data-active={isActive}
                     variant="outline"
                     className="w-full h-auto min-h-11 flex-col text-start items-start gap-1 font-normal py-2 pe-12 relative data-[active='true']:bg-secondary/20"
                     size="lg"
                     onClick={() => {
+                      toggleWorkspace(false);
                       if (isActive) return;
                       onChangeActiveWorkspace(item.slug);
                     }}
@@ -85,6 +90,13 @@ export default function WorkspaceList() {
                     <div className="absolute inset-e-2 text-neutral-500/80 top-1/2 -translate-y-1/2">
                       <AiOutlineEnter className="size-8" />
                     </div>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="rounded-full size-11 bg-neutral-200 dark:bg-neutral-800"
+                    onClick={() => {}}
+                  >
+                    <RiEdit2Fill className="size-5" />
                   </Button>
                 </li>
               );

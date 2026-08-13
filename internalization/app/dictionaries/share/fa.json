@@ -24,6 +24,11 @@
       "search": "جستجو",
       "addWorkspace": "افزودن میزکار"
     },
+    "userInfo": {
+      "title": "اطلاعات کاربر",
+      "changeImage": "تغییر تصویر",
+      "removeImage": "حذف تصویر"
+    },
     "settings": {
       "title": "تنظیمات",
       "userInfo": {

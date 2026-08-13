@@ -12,6 +12,7 @@ import {
 import { settingsTabs } from "./utils/settingsTabs";
 import { getSettingsIcon } from "./utils/getSettingsIcon";
 import { Button } from "@/components/ui/button";
+import UserInfo from "../../user/components/UserInfo";
 
 const defaultTab = settingsTabs[0];
 
@@ -38,6 +39,13 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
     isOpen,
     toggleSetting,
   };
+
+  function renderContent() {
+    if (activeTab.title === "userInfo") {
+      return <UserInfo />;
+    }
+    return null;
+  }
 
   return (
     <SettingContext.Provider value={ctx}>
@@ -67,7 +75,7 @@ export function SettingProvider({ children }: { children: React.ReactNode }) {
                 ))}
               </ul>
             </div>
-            <div className="grow p-4 overflow-auto"></div>
+            <div className="grow p-4 overflow-auto">{renderContent()}</div>
           </div>
         </DialogContent>
       </Dialog>
