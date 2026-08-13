@@ -1,12 +1,19 @@
 "use client";
+import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useShareDictionary } from "../../../services/share-dictionary/shareDictionaryContext";
 import { usePanelInfo } from "../../services/panel-info/panelInfoContext";
 import { Field, FieldLabel } from "@/components/ui/field";
-import { InputGroup, InputGroupInput } from "@/components/ui/input-group";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+} from "@/components/ui/input-group";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function UserInfo() {
+  const [showPassword, setShowPassword] = useState(false);
   const { userInfo } = usePanelInfo();
   const {
     shareDictionary: {
@@ -80,7 +87,24 @@ export default function UserInfo() {
           <Field className="gap-2">
             <FieldLabel htmlFor="password">{userInfoDic.password}</FieldLabel>
             <InputGroup className="bg-background">
-              <InputGroupInput id="password" />
+              <InputGroupInput
+                id="password"
+                type={showPassword ? "text" : "password"}
+              />
+              <InputGroupAddon align="inline-end" className="-me-3">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-lg"
+                  onClick={() => setShowPassword((pre) => !pre)}
+                >
+                  {showPassword ? (
+                    <FaEyeSlash className="size-5" />
+                  ) : (
+                    <FaEye className="size-5" />
+                  )}
+                </Button>
+              </InputGroupAddon>
             </InputGroup>
           </Field>
           <Field className="gap-2">
@@ -88,7 +112,7 @@ export default function UserInfo() {
               {userInfoDic.confirmPassword}
             </FieldLabel>
             <InputGroup className="bg-background">
-              <InputGroupInput id="confirmPassword" />
+              <InputGroupInput id="confirmPassword" type="password" />
             </InputGroup>
           </Field>
           <div className="flex justify-end col-span-full">
