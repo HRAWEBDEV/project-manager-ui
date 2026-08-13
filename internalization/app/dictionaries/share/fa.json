@@ -26,8 +26,17 @@
     },
     "userInfo": {
       "title": "اطلاعات کاربر",
+      "username": "نام کاربری",
+      "firstName": "نام",
+      "lastName": "نام‌خانوادگی",
+      "email": "ایمیل",
+      "phoneNumber": "شماره همراه",
       "changeImage": "تغییر تصویر",
-      "removeImage": "حذف تصویر"
+      "removeImage": "حذف تصویر",
+      "password": "رمز عبور",
+      "confirmPassword": "تکرار رمز عبور",
+      "editInfo": "ویرایش اطلاعات",
+      "changePassword": "تغییر رمز"
     },
     "settings": {
       "title": "تنظیمات",

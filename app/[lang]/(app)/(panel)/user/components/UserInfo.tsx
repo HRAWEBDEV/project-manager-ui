@@ -36,59 +36,65 @@ export default function UserInfo() {
           </Button>
         </div>
       </div>
-      <form className="border border-border rounded-md p-4 mb-4">
+      <form className="border border-border rounded-md p-4 mb-4 bg-neutral-100 dark:bg-neutral-900">
         <div className="grid grid-cols-2 gap-4">
           <Field className="gap-2 col-span-full">
-            <FieldLabel>username</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="username">{userInfoDic.username}</FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="username" />
             </InputGroup>
           </Field>
           <Field className="gap-2">
-            <FieldLabel>firstname</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="firstName">{userInfoDic.firstName}</FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="firstName" />
             </InputGroup>
           </Field>
           <Field className="gap-2">
-            <FieldLabel>lastname</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="lastName">{userInfoDic.lastName}</FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="lastName" />
             </InputGroup>
           </Field>
           <Field className="gap-2">
-            <FieldLabel>email</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="email">{userInfoDic.email}</FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="email" />
             </InputGroup>
           </Field>
           <Field className="gap-2">
-            <FieldLabel>phonenumber</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="phoneNumber">
+              {userInfoDic.phoneNumber}
+            </FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="phoneNumber" />
             </InputGroup>
           </Field>
           <div className="flex justify-end col-span-full">
-            <Button className="w-32"></Button>
+            <Button className="w-32">{userInfoDic.editInfo}</Button>
           </div>
         </div>
       </form>
-      <form className="border border-border rounded-md p-4">
+      <form className="border border-destructive bg-destructive/5 rounded-md p-4">
         <div className="grid grid-cols-2 gap-4">
           <Field className="gap-2">
-            <FieldLabel>password</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="password">{userInfoDic.password}</FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="password" />
             </InputGroup>
           </Field>
           <Field className="gap-2">
-            <FieldLabel>confirmPassword</FieldLabel>
-            <InputGroup>
-              <InputGroupInput />
+            <FieldLabel htmlFor="confirmPassword">
+              {userInfoDic.confirmPassword}
+            </FieldLabel>
+            <InputGroup className="bg-background">
+              <InputGroupInput id="confirmPassword" />
             </InputGroup>
           </Field>
           <div className="flex justify-end col-span-full">
-            <Button className="w-32"></Button>
+            <Button variant="destructive" className="w-32">
+              {userInfoDic.changePassword}
+            </Button>
           </div>
         </div>
       </form>
