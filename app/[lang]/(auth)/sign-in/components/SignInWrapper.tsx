@@ -11,7 +11,7 @@ export default function SignInWrapper({ dic }: { dic: AuthDictionary }) {
             <h1 className="text-2xl font-bold">{dic.signIn.welcomeback}</h1>
           </div>
           <p className="text-balance text-muted-foreground">
-            {dic.signIn.alinCloudHotelManagement}
+            {dic.signIn.projectAndTeamManagementApp}
           </p>
         </div>
         <SignInWithPassword dic={dic} />
