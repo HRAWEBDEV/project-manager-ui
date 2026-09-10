@@ -1,0 +1,17 @@
+{
+  "title": "احراز هویت",
+  "signIn": {
+    "title": "ورود",
+    "alinCloudHotelManagement": "آلین، برنامه ابری مدیریت اقامتگاه",
+    "welcomeback": "خوش آمدید",
+    "orConinueWith": "یا ورود با",
+    "signIn": "ورود",
+    "doNotHaveAnAccount": "حساب کاربری ندارید؟",
+    "singUp": "ثبت نام",
+    "withPassword": {
+      "username": "نام کاربری",
+      "password": "رمز عبور",
+      "forgotPassword": "فراموشی رمز عبور؟"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "title": "share dictionary",
+  "components": {
+    "modeController": {
+      "title": "حالت روشنایی",
+      "light": "روشن",
+      "dark": "تاریک",
+      "system": "سیستم"
+    },
+    "connectivity": {
+      "connectionLost": "اتصال به اینترنت قطع شده است",
+      "connected": "متصل"
+    },
+    "settings": {
+      "title": "تنظیمات",
+      "logoutConfirmMessage": "از برنامه خارج می‌شوید؟",
+      "userInfo": "اطلاعات کاربری",
+      "general": "عمومی",
+      "logout": "خروج",
+      "confirm": "تایید",
+      "cancel": "انصراف"
+    },
+    "history": {
+      "back": "بازگشت"
+    }
+  }
+}
