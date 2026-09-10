@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "../globals.css";
 import { cn } from "@/lib/utils";
 import localFont from "next/font/local";
-import { DEVELOPMENT } from "@/utils/env";
 import {
   type Locale,
   getLocalInfo,
@@ -16,6 +15,7 @@ import { getAuthDictionary } from "@/internalization/app/dictionaries/auth/dicti
 import { getShareDictionary } from "@/internalization/app/dictionaries/share/dictionary";
 import ShareDictionaryProvider from "@/services/share-dictionary/ShareDictionaryProvider";
 import AxiosBaseConfig from "./services/axios-interceptors/AxiosBaseConfig";
+import { Toaster } from "@/components/ui/toast";
 
 export function generateStaticParams(): { lang: Locale }[] {
   return localesList.map((lang) => ({
@@ -162,6 +162,7 @@ export default async function RootLayout({
               <QueryClientProvider>{children}</QueryClientProvider>
             </BaseConfigProvider>
           </ShareDictionaryProvider>
+          <Toaster />
         </TooltipProvider>
       </body>
     </html>

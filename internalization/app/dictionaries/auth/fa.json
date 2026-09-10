@@ -11,7 +11,9 @@
     "withPassword": {
       "username": "نام کاربری",
       "password": "رمز عبور",
-      "forgotPassword": "فراموشی رمز عبور؟"
+      "forgotPassword": "فراموشی رمز عبور؟",
+      "fillRequiredFields": "فیلدهای اجباری را پر کنید",
+      "wrongSignInCredentials": "نام کاربری یا رمز عبور اشتباه است"
     }
   }
 }

@@ -1,21 +1,16 @@
 import { z } from "zod";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 
-function signInWithPasswordSchema({}: { dic: AuthDictionary }) {
-  return z
-    .object({
-      username: z.string().min(3),
-      password: z.string().min(3),
-      confirmPassword: z.string(),
-    })
-    .refine(({ password, confirmPassword }) => password === confirmPassword, {
-      path: ["confirmPassword"],
-    });
+function createSignInWithPasswordSchema({ dic }: { dic: AuthDictionary }) {
+  return z.object({
+    username: z.string().min(3, dic.signIn.withPassword.fillRequiredFields),
+    password: z.string().min(3, dic.signIn.withPassword.fillRequiredFields),
+  });
 }
 
 type SignInWithPasswordProps = z.infer<
-  ReturnType<typeof signInWithPasswordSchema>
+  ReturnType<typeof createSignInWithPasswordSchema>
 >;
 
 export type { SignInWithPasswordProps };
-export { signInWithPasswordSchema };
+export { createSignInWithPasswordSchema };
