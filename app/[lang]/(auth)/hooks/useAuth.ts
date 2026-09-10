@@ -5,7 +5,7 @@ import {
 } from "@/app/[lang]/(auth)/services/authApiActions";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 import { AxiosError } from "axios";
-import { toast } from "@/components/ui/toast";
+import { toast } from "sonner";
 
 function useSignIn({ dic }: { dic: AuthDictionary }) {
   const mut = useMutation({
@@ -14,10 +14,7 @@ function useSignIn({ dic }: { dic: AuthDictionary }) {
     },
     onError(err: AxiosError) {
       if (err.response?.status === 401) {
-        toast.add({
-          title: dic.signIn.withPassword.wrongSignInCredentials,
-          type: "error",
-        });
+        toast.error(dic.signIn.withPassword.wrongSignInCredentials);
       }
     },
   });
