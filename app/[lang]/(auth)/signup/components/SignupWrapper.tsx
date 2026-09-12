@@ -8,8 +8,36 @@ import SignupOrganizationInfo from "./SignupOrganizationInfo";
 import SignupConfirm from "./SignupConfirm";
 import { FieldGroup } from "@/components/ui/field";
 import { Button } from "@/components/ui/button";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  type UserInfoSchema,
+  type OrganizationInfoSchema,
+  createUserInfoSchema,
+  createOrganizationInfo,
+} from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 
 export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
+  const userInfoUseForm = useForm<UserInfoSchema>({
+    resolver: zodResolver(createUserInfoSchema({ dic })),
+    defaultValues: {
+      username: "",
+      firstName: "",
+      lastName: "",
+      email: "",
+      phoneNumber: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+  const organizationUseForm = useForm<OrganizationInfoSchema>({
+    resolver: zodResolver(createOrganizationInfo({ dic })),
+    defaultValues: {
+      name: "",
+      description: "",
+    },
+  });
+
   const [activeStep, setActiveStep] =
     useState<(typeof signupSteps)[number]>("userInfo");
   const activeSignupStepIndex = signupSteps.findIndex(
@@ -25,10 +53,14 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
         activeSignupStepIndex={activeSignupStepIndex}
       />
       <FieldGroup className="gap-3 p-4 pt-2 grow">
-        {activeStep === "userInfo" && <SignupUserInfo dic={dic} />}
-        {activeStep === "organizationInfo" && (
-          <SignupOrganizationInfo dic={dic} />
-        )}
+        <FormProvider {...userInfoUseForm}>
+          {activeStep === "userInfo" && <SignupUserInfo dic={dic} />}
+        </FormProvider>
+        <FormProvider {...organizationUseForm}>
+          {activeStep === "organizationInfo" && (
+            <SignupOrganizationInfo dic={dic} />
+          )}
+        </FormProvider>
         {activeStep === "confirmInfo" && <SignupConfirm dic={dic} />}
         <div className="flex justify-between gap-4 mt-auto">
           <div>

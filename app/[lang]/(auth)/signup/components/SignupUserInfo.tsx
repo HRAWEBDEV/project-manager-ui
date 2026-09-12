@@ -5,8 +5,11 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { useFormContext } from "react-hook-form";
+import { UserInfoSchema } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 
 export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
+  const {} = useFormContext<UserInfoSchema>();
   return (
     <>
       <div className="grid gap-3 md:grid-cols-2">

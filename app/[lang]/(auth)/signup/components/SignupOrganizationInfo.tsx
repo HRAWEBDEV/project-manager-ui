@@ -5,12 +5,15 @@ import {
   InputGroupInput,
   InputGroupTextarea,
 } from "@/components/ui/input-group";
+import { useFormContext } from "react-hook-form";
+import { OrganizationInfoSchema } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 
 export default function SignupOrganizationInfo({
   dic,
 }: {
   dic: AuthDictionary;
 }) {
+  const {} = useFormContext<OrganizationInfoSchema>();
   return (
     <>
       <Field>
