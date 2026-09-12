@@ -5,70 +5,94 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { UserInfoSchema } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
+import { NumericFormat } from "react-number-format";
 
 export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
-  const {} = useFormContext<UserInfoSchema>();
+  const {
+    register,
+    formState: { errors },
+    control,
+  } = useFormContext<UserInfoSchema>();
   return (
     <>
       <div className="grid gap-3 md:grid-cols-2">
-        <Field>
+        <Field data-invalid={!!errors.firstName}>
           <FieldLabel htmlFor="firstName">
             {dic.signup.userInfo.firstName} *
           </FieldLabel>
-          <InputGroup>
-            <InputGroupInput id="firstName" />
+          <InputGroup data-invalid={!!errors.firstName}>
+            <InputGroupInput id="firstName" {...register("firstName")} />
           </InputGroup>
         </Field>
-        <Field>
+        <Field data-invalid={!!errors.lastName}>
           <FieldLabel htmlFor="lastName">
             {dic.signup.userInfo.lastName} *
           </FieldLabel>
-          <InputGroup>
-            <InputGroupInput id="lastName" />
+          <InputGroup data-invalid={!!errors.lastName}>
+            <InputGroupInput id="lastName" {...register("lastName")} />
           </InputGroup>
         </Field>
       </div>
-      <Field>
+      <Field data-invalid={!!errors.username}>
         <FieldLabel htmlFor="username">
           {dic.signup.userInfo.username} *
         </FieldLabel>
-        <InputGroup>
-          <InputGroupInput id="username" />
+        <InputGroup data-invalid={!!errors.username}>
+          <InputGroupInput id="username" {...register("username")} />
         </InputGroup>
       </Field>
       <div className="grid gap-3 md:grid-cols-2">
-        <Field>
+        <Field data-invalid={!!errors.email}>
           <FieldLabel htmlFor="email">{dic.signup.userInfo.email} *</FieldLabel>
-          <InputGroup>
-            <InputGroupInput id="email" />
+          <InputGroup data-invalid={!!errors.email}>
+            <InputGroupInput id="email" {...register("email")} />
           </InputGroup>
         </Field>
-        <Field>
-          <FieldLabel htmlFor="phoneNumber">
-            {dic.signup.userInfo.phoneNumber}
-          </FieldLabel>
-          <InputGroup>
-            <InputGroupInput id="phoneNumber" />
-          </InputGroup>
-        </Field>
+        <Controller
+          control={control}
+          name="phoneNumber"
+          render={({ field: { onChange, value, ...other } }) => (
+            <Field data-invalid={!!errors.phoneNumber}>
+              <FieldLabel htmlFor="phoneNumber">
+                {dic.signup.userInfo.phoneNumber}
+              </FieldLabel>
+              <InputGroup data-invalid={!!errors.phoneNumber}>
+                <NumericFormat
+                  id="phoneNumber"
+                  customInput={InputGroupInput}
+                  {...other}
+                  value={value}
+                  allowLeadingZeros
+                  decimalScale={0}
+                  onValueChange={({ value }) => {
+                    onChange(value);
+                  }}
+                />
+              </InputGroup>
+            </Field>
+          )}
+        />
       </div>
       <div className="grid gap-3 md:grid-cols-2 p-2 bg-neutral-100 dark:bg-neutral-900 rounded-md">
-        <Field>
+        <Field data-invalid={!!errors.password}>
           <FieldLabel htmlFor="password">
             {dic.signup.userInfo.password} *
           </FieldLabel>
-          <InputGroup>
-            <InputGroupInput id="password" />
+          <InputGroup data-invalid={!!errors.password}>
+            <InputGroupInput id="password" {...register("password")} />
           </InputGroup>
         </Field>
-        <Field>
+        <Field data-invalid={!!errors.confirmPassword}>
           <FieldLabel htmlFor="confirmPassword">
             {dic.signup.userInfo.confirmPassword} *
           </FieldLabel>
-          <InputGroup>
-            <InputGroupInput id="confirmPassword" />
+          <InputGroup data-invalid={!!errors.confirmPassword}>
+            <InputGroupInput
+              id="confirmPassword"
+              {...register("confirmPassword")}
+            />
           </InputGroup>
         </Field>
       </div>
