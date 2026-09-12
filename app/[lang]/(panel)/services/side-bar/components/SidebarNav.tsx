@@ -10,26 +10,7 @@ import { MdOutlineBedroomParent } from "react-icons/md";
 type FileTreeItem = { name: string } | { name: string; items: FileTreeItem[] };
 
 export default function SidebarNav() {
-  const fileTree: FileTreeItem[] = [
-    {
-      name: "اقامتگاه",
-      items: [
-        { name: "رزرو جدید" },
-        { name: "پذیرش" },
-        { name: "رک اتاق‌ها" },
-        { name: "رزرو ورودی" },
-      ],
-    },
-    {
-      name: "خانه‌داری",
-      items: [
-        { name: "رزرو جدید" },
-        { name: "پذیرش" },
-        { name: "رک اتاق‌ها" },
-        { name: "رزرو ورودی" },
-      ],
-    },
-  ];
+  const fileTree: FileTreeItem[] = [];
 
   const renderItem = (fileItem: FileTreeItem) => {
     if ("items" in fileItem) {
