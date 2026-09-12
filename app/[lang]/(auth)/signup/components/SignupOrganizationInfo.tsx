@@ -13,26 +13,30 @@ export default function SignupOrganizationInfo({
 }: {
   dic: AuthDictionary;
 }) {
-  const {} = useFormContext<OrganizationInfoSchema>();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<OrganizationInfoSchema>();
   return (
     <>
-      <Field>
+      <Field data-invalid={!!errors.name}>
         <FieldLabel htmlFor="name">
           {dic.signup.organizationInfo.name} *
         </FieldLabel>
-        <InputGroup>
-          <InputGroupInput id="name" />
+        <InputGroup data-invalid={!!errors.name}>
+          <InputGroupInput id="name" {...register("name")} />
         </InputGroup>
       </Field>
-      <Field>
+      <Field data-invalid={!!errors.description}>
         <FieldLabel htmlFor="description">
           {dic.signup.organizationInfo.description}
         </FieldLabel>
-        <InputGroup>
+        <InputGroup data-invalid={!!errors.description}>
           <InputGroupTextarea
             rows={6}
             id="description"
             className="field-sizing-fixed"
+            {...register("description")}
           />
         </InputGroup>
       </Field>

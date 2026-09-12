@@ -23,7 +23,8 @@
       "organizationInfo": "اطلاعات سازمان",
       "confirmInfo": "تایید اطلاعات",
       "confirm": "تایید",
-      "prev": "قبلی"
+      "prev": "قبلی",
+      "return": "بازگشت"
     },
     "userInfo": {
       "username": "نام کاربری",

@@ -16,11 +16,14 @@ import {
   createUserInfoSchema,
   createOrganizationInfo,
 } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
+import Link from "next/link";
+import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 
 export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
   const [userInfo, setUserInfo] = useState<UserInfoSchema | null>(null);
   const [organizationInfo, setOrganizationInfo] =
     useState<OrganizationInfoSchema | null>(null);
+  const { locale } = useBaseConfig();
   const userInfoUseForm = useForm<UserInfoSchema>({
     resolver: zodResolver(createUserInfoSchema({ dic })),
     defaultValues: {
@@ -49,7 +52,7 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
   const isLastStep = activeSignupStepIndex === 2;
   const isFirstStep = activeSignupStepIndex === 0;
   return (
-    <div className="md:min-h-112.5 flex flex-col">
+    <form className="md:min-h-112.5 flex flex-col">
       <SignupSteps
         dic={dic}
         activeStep={activeStep}
@@ -67,6 +70,17 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
         {activeStep === "confirmInfo" && <SignupConfirm dic={dic} />}
         <div className="flex justify-between gap-4 mt-auto">
           <div>
+            {isFirstStep && (
+              <Button
+                className="w-28"
+                variant="destructive"
+                render={
+                  <Link href={`/${locale}/sign-in`}>
+                    {dic.signup.steps.return}
+                  </Link>
+                }
+              ></Button>
+            )}
             {!isFirstStep && (
               <Button
                 className="w-28"
@@ -89,7 +103,9 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
           <div>
             <Button
               className="w-28"
-              onClick={() => {
+              type="submit"
+              onClick={(e) => {
+                e.preventDefault();
                 if (activeStep === "userInfo") {
                   userInfoUseForm.handleSubmit((data) => {
                     setActiveStep("organizationInfo");
@@ -113,6 +129,6 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
           </div>
         </div>
       </FieldGroup>
-    </div>
+    </form>
   );
 }
