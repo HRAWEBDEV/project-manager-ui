@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 import { Field, FieldLabel } from "@/components/ui/field";
 import {
@@ -8,8 +9,11 @@ import {
 import { useFormContext, Controller } from "react-hook-form";
 import { UserInfoSchema } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 import { NumericFormat } from "react-number-format";
+import { Button } from "@/components/ui/button";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 
 export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
+  const [showPassword, setShowPassword] = useState(false);
   const {
     register,
     formState: { errors },
@@ -81,7 +85,27 @@ export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
             {dic.signup.userInfo.password} *
           </FieldLabel>
           <InputGroup data-invalid={!!errors.password}>
-            <InputGroupInput id="password" {...register("password")} />
+            <InputGroupInput
+              id="password"
+
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+            />
+            <InputGroupAddon align="inline-end" className="-me-2">
+              <Button
+                variant="ghost"
+                size="icon-lg"
+                type="button"
+
+                onClick={() => setShowPassword((pre) => !pre)}
+              >
+                {showPassword ? (
+                  <FaEye className="size-5" />
+                ) : (
+                  <FaEyeSlash className="size-5" />
+                )}
+              </Button>
+            </InputGroupAddon>
           </InputGroup>
         </Field>
         <Field data-invalid={!!errors.confirmPassword}>
@@ -90,6 +114,7 @@ export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
           </FieldLabel>
           <InputGroup data-invalid={!!errors.confirmPassword}>
             <InputGroupInput
+              type="password"
               id="confirmPassword"
               {...register("confirmPassword")}
             />

@@ -18,6 +18,9 @@ import {
 } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 
 export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
+  const [userInfo, setUserInfo] = useState<UserInfoSchema | null>(null);
+  const [organizationInfo, setOrganizationInfo] =
+    useState<OrganizationInfoSchema | null>(null);
   const userInfoUseForm = useForm<UserInfoSchema>({
     resolver: zodResolver(createUserInfoSchema({ dic })),
     defaultValues: {
@@ -88,11 +91,17 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
               className="w-28"
               onClick={() => {
                 if (activeStep === "userInfo") {
-                  setActiveStep("organizationInfo");
+                  userInfoUseForm.handleSubmit((data) => {
+                    setActiveStep("organizationInfo");
+                    setUserInfo(data);
+                  })();
                   return;
                 }
                 if (activeStep === "organizationInfo") {
-                  setActiveStep("confirmInfo");
+                  organizationUseForm.handleSubmit((data) => {
+                    setActiveStep("confirmInfo");
+                    setOrganizationInfo(data);
+                  })();
                   return;
                 }
                 if (activeStep === "confirmInfo") {
