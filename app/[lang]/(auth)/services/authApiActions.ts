@@ -8,9 +8,28 @@ interface SignInProps {
   password: string;
 }
 
+interface SignUpProps {
+  user: {
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string | null;
+    password: string;
+  };
+  organization: {
+    name: string;
+    description: string | null;
+  };
+}
+
 function singIn(props: SignInProps) {
   return axios.post(signInApi, props);
 }
 
+function singup(props: SignUpProps) {
+  return axios.post(signupApi, props);
+}
+
 export type { SignInProps };
-export { signInApi, signupApi, singIn };
+export { signInApi, signupApi, singIn, singup };
