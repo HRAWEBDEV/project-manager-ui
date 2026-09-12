@@ -15,5 +15,29 @@
       "fillRequiredFields": "فیلدهای اجباری را پر کنید",
       "wrongSignInCredentials": "نام کاربری یا رمز عبور اشتباه است"
     }
+  },
+  "signup": {
+    "title": "ثبت نام",
+    "steps": {
+      "userInfo": "اطلاعات کاربر",
+      "organizationInfo": "اطلاعات سازمان",
+      "confirmInfo": "تایید اطلاعات",
+      "confirm": "تایید",
+      "prev": "قبلی"
+    },
+    "userInfo": {
+      "username": "نام کاربری",
+      "email": "ایمیل",
+      "phoneNumber": "شماره همراه",
+      "firstName": "نام",
+      "lastName": "نام خانوادگی",
+      "password": "رمز عبور",
+      "confirmPassword": "تکرار رمز عبور"
+    },
+    "organisationInfo": {
+      "name": "نام سازمان",
+      "decription": "توضیحات",
+      "fillRequiredFields": "فیلدهای اجباری را پر کنید"
+    }
   }
 }

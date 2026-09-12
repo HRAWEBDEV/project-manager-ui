@@ -1,6 +1,8 @@
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 import SignInWithPassword from "./SignInWithPassword";
 import { FieldGroup } from "@/components/ui/field";
+import SignInOptions from "./SignInOptions";
+import SingUpNow from "./SingUpNow";
 
 export default function SignInWrapper({ dic }: { dic: AuthDictionary }) {
   return (
@@ -15,6 +17,8 @@ export default function SignInWrapper({ dic }: { dic: AuthDictionary }) {
           </p>
         </div>
         <SignInWithPassword dic={dic} />
+        <SignInOptions dic={dic} />
+        <SingUpNow dic={dic} />
       </FieldGroup>
     </form>
   );

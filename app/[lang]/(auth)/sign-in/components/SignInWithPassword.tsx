@@ -15,8 +15,6 @@ import {
   InputGroupAddon,
 } from "@/components/ui/input-group";
 import { FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa6";
-import SignInOptions from "./SignInOptions";
-import SingUpNow from "./SingUpNow";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
@@ -130,8 +128,6 @@ export default function SignInWithPassword({ dic }: { dic: AuthDictionary }) {
           {dic.signIn.signIn}
         </Button>
       </Field>
-      <SignInOptions dic={dic} />
-      <SingUpNow dic={dic} />
     </>
   );
 }

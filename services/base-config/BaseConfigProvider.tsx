@@ -35,18 +35,18 @@ export default function BaseConfigProvider({ children, activeLocale }: Props) {
     setLocale: onChangeLocale,
   };
 
-  useEffect(() => {
-    const ctx = new AbortController();
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.returnValue = true;
-      return true;
-    };
-    window.onbeforeunload = handleBeforeUnload;
-    window.addEventListener("beforeunload", handleBeforeUnload, {
-      signal: ctx.signal,
-    });
-    return () => ctx.abort();
-  }, []);
+  // useEffect(() => {
+  //   const ctx = new AbortController();
+  //   const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+  //     e.returnValue = true;
+  //     return true;
+  //   };
+  //   window.onbeforeunload = handleBeforeUnload;
+  //   window.addEventListener("beforeunload", handleBeforeUnload, {
+  //     signal: ctx.signal,
+  //   });
+  //   return () => ctx.abort();
+  // }, []);
 
   return (
     <baseConfigContext.Provider value={ctx}>
