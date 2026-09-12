@@ -1,12 +1,11 @@
 "use client";
-// import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { IoMdArrowDropup } from "react-icons/io";
-import { LiaHotelSolid } from "react-icons/lia";
 import ConnectivityInfo from "@/app/[lang]/(panel)/components/ConnectivityInfo";
 import { useSettingsContext } from "../../settings/settingsContext";
+import { BsPersonWorkspace } from "react-icons/bs";
 
-export default function SidebarHotelInfo() {
+export default function SidebarWorkspaceInfo() {
   const { toggleOpen } = useSettingsContext();
   return (
     <div>
@@ -19,14 +18,7 @@ export default function SidebarHotelInfo() {
         onClick={() => toggleOpen(true)}
       >
         <div className="flex gap-2 items-center grow text-neutral-700 dark:text-neutral-400">
-          <LiaHotelSolid className="size-12" />
-          {/* <Avatar className="size-12"> */}
-          {/*   <AvatarImage */}
-          {/*     src="https://github.com/shadcn.png" */}
-          {/*     alt="profile image" */}
-          {/*   /> */}
-          {/*   <AvatarFallback>CN</AvatarFallback> */}
-          {/* </Avatar> */}
+          <BsPersonWorkspace className="size-8" />
           <div className="grow grid">
             <h3 className="mb-0.5 truncate">مدیر سیستم</h3>
             <p className="text-xs text-primary truncate">هتل عباسی</p>

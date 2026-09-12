@@ -3,7 +3,7 @@ import { ComponentProps } from "react";
 import { Sidebar } from "./Sidebar";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import SidebarLogo from "./SidebarLogo";
-import SidebarHotelInfo from "./SidebarHotelInfo";
+import SidebarWorkspaceInfo from "./SidebarWorkspaceInfo";
 import SidebarNav from "./SidebarNav";
 
 export default function AppSidebar({
@@ -19,7 +19,7 @@ export default function AppSidebar({
     >
       <SidebarLogo />
       <SidebarNav />
-      <SidebarHotelInfo />
+      <SidebarWorkspaceInfo />
     </Sidebar>
   );
 }
