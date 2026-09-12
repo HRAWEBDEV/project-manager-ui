@@ -1,7 +1,7 @@
 import { axios } from "@/app/utils/defaultAxios";
 
 const signInApi = "/auth/sign-in";
-const signupApi = "/auth/signup";
+const signupApi = "/auth/sign-up";
 
 interface SignInProps {
   username: string;
@@ -27,9 +27,9 @@ function singIn(props: SignInProps) {
   return axios.post(signInApi, props);
 }
 
-function singup(props: SignUpProps) {
+function signup(props: SignUpProps) {
   return axios.post(signupApi, props);
 }
 
-export type { SignInProps };
-export { signInApi, signupApi, singIn, singup };
+export type { SignInProps, SignUpProps };
+export { signInApi, signupApi, singIn, signup };

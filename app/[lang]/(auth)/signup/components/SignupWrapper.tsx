@@ -18,11 +18,16 @@ import {
 } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 import Link from "next/link";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
+import { useSignup } from "@/app/[lang]/(auth)/hooks/useAuth";
+import { Spinner } from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
 
 export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
   const [userInfo, setUserInfo] = useState<UserInfoSchema | null>(null);
   const [organizationInfo, setOrganizationInfo] =
     useState<OrganizationInfoSchema | null>(null);
+  const confirmSignup = useSignup({ dic });
+  const router = useRouter();
   const { locale } = useBaseConfig();
   const userInfoUseForm = useForm<UserInfoSchema>({
     resolver: zodResolver(createUserInfoSchema({ dic })),
@@ -74,6 +79,7 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
               <Button
                 className="w-28"
                 variant="destructive"
+                disabled={confirmSignup.isPending}
                 render={
                   <Link href={`/${locale}/sign-in`}>
                     {dic.signup.steps.return}
@@ -85,6 +91,8 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
               <Button
                 className="w-28"
                 variant="outline"
+
+                disabled={confirmSignup.isPending}
                 onClick={() => {
                   if (activeStep === "organizationInfo") {
                     setActiveStep("userInfo");
@@ -104,6 +112,7 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
             <Button
               className="w-28"
               type="submit"
+              disabled={confirmSignup.isPending}
               onClick={(e) => {
                 e.preventDefault();
                 if (activeStep === "userInfo") {
@@ -121,9 +130,29 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
                   return;
                 }
                 if (activeStep === "confirmInfo") {
+                  if (userInfo === null || organizationInfo === null) return;
+                  confirmSignup
+                    .mutateAsync({
+                      user: {
+                        username: userInfo.username,
+                        firstName: userInfo.firstName,
+                        lastName: userInfo.lastName,
+                        email: userInfo.email,
+                        phoneNumber: userInfo.phoneNumber || null,
+                        password: userInfo.password,
+                      },
+                      organization: {
+                        name: organizationInfo.name,
+                        description: organizationInfo.description || null,
+                      },
+                    })
+                    .then(() => {
+                      router.replace(`/${locale}`);
+                    });
                 }
               }}
             >
+              {confirmSignup.isPending && <Spinner />}
               {dic.signup.steps.confirm}
             </Button>
           </div>

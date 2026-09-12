@@ -1,7 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import {
   type SignInProps,
+  type SignUpProps,
   singIn,
+  signup,
 } from "@/app/[lang]/(auth)/services/authApiActions";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 import { AxiosError } from "axios";
@@ -21,4 +23,14 @@ function useSignIn({ dic }: { dic: AuthDictionary }) {
   return mut;
 }
 
-export { useSignIn };
+function useSignup({ dic }: { dic: AuthDictionary }) {
+  const mut = useMutation({
+    mutationFn(props: SignUpProps) {
+      return signup(props);
+    },
+    onError(err: AxiosError) {},
+  });
+  return mut;
+}
+
+export { useSignIn, useSignup };
