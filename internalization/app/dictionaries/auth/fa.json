@@ -34,9 +34,9 @@
       "password": "رمز عبور",
       "confirmPassword": "تکرار رمز عبور"
     },
-    "organisationInfo": {
+    "organizationInfo": {
       "name": "نام سازمان",
-      "decription": "توضیحات",
+      "description": "توضیحات",
       "fillRequiredFields": "فیلدهای اجباری را پر کنید"
     }
   }
