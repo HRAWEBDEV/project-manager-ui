@@ -54,10 +54,14 @@ export default function SettingsProvider({
             <AlertDialogTitle>{dic.logoutConfirmMessage}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel variant="outline">
+            <AlertDialogCancel disabled={isPendingLogout} variant="outline">
               {dic.cancel}
             </AlertDialogCancel>
-            <AlertDialogAction variant="destructive" onClick={() => logout()}>
+            <AlertDialogAction
+              disabled={isPendingLogout}
+              variant="destructive"
+              onClick={() => logout()}
+            >
               {dic.confirm}
             </AlertDialogAction>
           </AlertDialogFooter>
