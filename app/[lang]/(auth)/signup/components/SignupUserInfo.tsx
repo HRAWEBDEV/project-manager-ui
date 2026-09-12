@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
-import { Field, FieldLabel } from "@/components/ui/field";
+import {
+  Field,
+  FieldLabel,
+  FieldContent,
+  FieldError,
+} from "@/components/ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -119,6 +124,11 @@ export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
               {...register("confirmPassword")}
             />
           </InputGroup>
+          <FieldContent>
+            {!!errors.confirmPassword && (
+              <FieldError>{errors.confirmPassword.message}</FieldError>
+            )}
+          </FieldContent>
         </Field>
       </div>
     </>

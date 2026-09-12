@@ -72,7 +72,13 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
             <SignupOrganizationInfo dic={dic} />
           )}
         </FormProvider>
-        {activeStep === "confirmInfo" && <SignupConfirm dic={dic} />}
+        {activeStep === "confirmInfo" && !!userInfo && !!organizationInfo && (
+          <SignupConfirm
+            dic={dic}
+            userInfo={userInfo}
+            organizationInfo={organizationInfo}
+          />
+        )}
         <div className="flex justify-between gap-4 mt-auto">
           <div>
             {isFirstStep && (
@@ -91,7 +97,6 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
               <Button
                 className="w-28"
                 variant="outline"
-
                 disabled={confirmSignup.isPending}
                 onClick={() => {
                   if (activeStep === "organizationInfo") {
@@ -104,6 +109,7 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
                   }
                 }}
               >
+                {confirmSignup.isPending && <Spinner />}
                 {dic.signup.steps.prev}
               </Button>
             )}

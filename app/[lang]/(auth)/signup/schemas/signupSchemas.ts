@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 
-function createUserInfoSchema({}: { dic: AuthDictionary }) {
+function createUserInfoSchema({ dic }: { dic: AuthDictionary }) {
   return z
     .object({
       username: z.string().min(3),
@@ -14,6 +14,7 @@ function createUserInfoSchema({}: { dic: AuthDictionary }) {
     })
     .refine(({ password, confirmPassword }) => confirmPassword === password, {
       path: ["confirmPassword"],
+      message: dic.signup.userInfo.wrongConfirmPassword,
     });
 }
 function createOrganizationInfo({}: { dic: AuthDictionary }) {

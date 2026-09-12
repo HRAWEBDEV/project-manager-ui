@@ -33,7 +33,8 @@
       "firstName": "نام",
       "lastName": "نام خانوادگی",
       "password": "رمز عبور",
-      "confirmPassword": "تکرار رمز عبور"
+      "confirmPassword": "تکرار رمز عبور",
+      "wrongConfirmPassword": "تکرار رمز عبور اشتباه است"
     },
     "organizationInfo": {
       "name": "نام سازمان",
