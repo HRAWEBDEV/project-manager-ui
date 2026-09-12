@@ -1,4 +1,5 @@
 import { axios } from "@/app/utils/defaultAxios";
+import { type Organization } from "@/app/[lang]/(panel)/organizations/services/organizationsApiActions";
 
 interface User {
   id: string;
@@ -15,16 +16,6 @@ interface User {
   createdAt: string;
 }
 
-interface Organization {
-  id: string;
-  description: string | null;
-  logo: string | null;
-  name: string;
-  slug: string;
-  updatedAt: string;
-  createdAt: string;
-}
-
 interface UserInfo {
   user: User;
   organization: Organization;
@@ -32,9 +23,16 @@ interface UserInfo {
 
 const userBaseApi = "/users";
 const userInfoApi = `${userBaseApi}/info`;
+const userOrganizationsApi = `${userBaseApi}/organizations`;
 
 function getUserInfo({ signal }: { signal: AbortSignal }) {
   return axios.get<UserInfo>(userInfoApi, { signal });
 }
 
-export { userInfoApi, getUserInfo };
+function getUserOrganizations({ signal }: { signal: AbortSignal }) {
+  return axios.get<{ organizations: Organization[] }>(userOrganizationsApi, {
+    signal,
+  });
+}
+
+export { userInfoApi, userOrganizationsApi, getUserInfo, getUserOrganizations };

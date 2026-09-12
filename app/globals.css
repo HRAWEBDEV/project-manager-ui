@@ -5,6 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --animate-slide-3s: slide-away 3s linear infinite;
+  --animate-slide-2s: slide-away 2s linear infinite;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -118,6 +120,15 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+@keyframes slide-away {
+  0% {
+    transform: translate(-100%, 0);
+  }
+  100% {
+    transform: translate(400%, 0);
+  }
 }
 
 @layer base {

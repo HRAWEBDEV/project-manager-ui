@@ -3,6 +3,7 @@ import { useState } from "react";
 import { type ProfileContextProps, ProfileContext } from "./profileContext";
 import { ReactNode } from "react";
 import { useUsersInfo } from "@/app/[lang]/(panel)/users/hooks/useUsers";
+import LinearLoading from "@/components/LinearLoading";
 
 export default function ProfileProvider({ children }: { children: ReactNode }) {
   const usersInfoQuery = useUsersInfo();
@@ -19,6 +20,11 @@ export default function ProfileProvider({ children }: { children: ReactNode }) {
   };
   return (
     <ProfileContext.Provider value={ctx}>
+      {usersInfoQuery.isLoading && (
+        <div className="w-full">
+          <LinearLoading />
+        </div>
+      )}
       {usersInfoQuery.isSuccess && children}
     </ProfileContext.Provider>
   );
