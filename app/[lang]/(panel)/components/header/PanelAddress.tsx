@@ -14,12 +14,8 @@ export default function PanelAddress() {
           <BreadcrumbLink href="#">خـــانه</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator className="hidden lg:block" />
-        <BreadcrumbItem className="hidden lg:block">
-          <BreadcrumbLink href="#">اقامتی</BreadcrumbLink>
-        </BreadcrumbItem>
-        <BreadcrumbSeparator className="hidden lg:block" />
         <BreadcrumbItem>
-          <BreadcrumbPage>رزرو جدید</BreadcrumbPage>
+          <BreadcrumbPage>پروژه‌ها</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

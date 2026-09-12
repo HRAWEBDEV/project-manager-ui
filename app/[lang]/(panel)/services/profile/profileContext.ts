@@ -1,8 +1,10 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
+import { useUsersInfo } from "../../users/hooks/useUsers";
 
 interface ProfileContextProps {
   open: boolean;
+  usersInfoQuery: ReturnType<typeof useUsersInfo>;
   onToggle: (state?: boolean) => unknown;
 }
 
