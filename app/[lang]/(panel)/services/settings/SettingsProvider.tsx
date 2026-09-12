@@ -20,7 +20,7 @@ export default function SettingsProvider({
 }: {
   children: ReactNode;
 }) {
-  const logout = useLogout();
+  const { logout, isPending: isPendingLogout } = useLogout();
   const {
     shareDictionary: {
       components: { settings: dic },

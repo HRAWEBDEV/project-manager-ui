@@ -4,6 +4,7 @@ import {
   type SignUpProps,
   singIn,
   signup,
+  logout,
 } from "@/app/[lang]/(auth)/services/authApiActions";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 import { AxiosError } from "axios";
@@ -33,4 +34,14 @@ function useSignup({ dic }: { dic: AuthDictionary }) {
   return mut;
 }
 
-export { useSignIn, useSignup };
+function useLogout() {
+  const mut = useMutation({
+    mutationFn() {
+      return logout();
+    },
+    onError(err: AxiosError) {},
+  });
+  return mut;
+}
+
+export { useSignIn, useSignup, useLogout };
