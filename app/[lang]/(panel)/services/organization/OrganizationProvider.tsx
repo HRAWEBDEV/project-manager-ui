@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import LinearLoading from "@/components/LinearLoading";
 import { type Organization } from "../../organizations/services/organizationsApiActions";
+import OrganzationAxiosInterceptor from "./OrganzationAxiosInterceptor";
 
 export default function OrganizationProvider({
   children,
@@ -57,7 +58,12 @@ export default function OrganizationProvider({
           <LinearLoading />
         </div>
       )}
-      {!!activeOrganization && children}
+      {!!activeOrganization && (
+        <>
+          <OrganzationAxiosInterceptor />
+          {children}
+        </>
+      )}
     </OrganizationContext.Provider>
   );
 }
