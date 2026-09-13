@@ -3,18 +3,20 @@ import { OutOfContext } from "@/utils/OutOfContext";
 import { useUserOrganizations } from "@/app/[lang]/(panel)/users/hooks/useUsers";
 import { type Organization } from "../../organizations/services/organizationsApiActions";
 
-interface WorkspaceContextProps {
+interface OrganizationContextProps {
   userOrganizationsQuery: ReturnType<typeof useUserOrganizations>;
   activeOrganization: Organization;
 }
 
-const WorkspaceContext = createContext<WorkspaceContextProps | null>(null);
+const OrganizationContext = createContext<OrganizationContextProps | null>(
+  null,
+);
 
-function useWorkspaceContext() {
-  const val = use(WorkspaceContext);
-  if (!val) throw new OutOfContext("WorkspaceContext");
+function useOrganizationContext() {
+  const val = use(OrganizationContext);
+  if (!val) throw new OutOfContext("OrganizationContext");
   return val;
 }
 
-export type { WorkspaceContextProps };
-export { WorkspaceContext, useWorkspaceContext };
+export type { OrganizationContextProps };
+export { OrganizationContext, useOrganizationContext };

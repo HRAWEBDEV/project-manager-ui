@@ -1,5 +1,5 @@
 "use client";
-import { WorkspaceContext } from "./workspaceContext";
+import { OrganizationContext } from "./organizationContext";
 import { ReactNode, useMemo, useEffect, useCallback } from "react";
 import { useUserOrganizations } from "@/app/[lang]/(panel)/users/hooks/useUsers";
 import { useParams, useRouter } from "next/navigation";
@@ -7,7 +7,7 @@ import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import LinearLoading from "@/components/LinearLoading";
 import { type Organization } from "../../organizations/services/organizationsApiActions";
 
-export default function WorkspaceProvider({
+export default function OrganizationProvider({
   children,
 }: {
   children: ReactNode;
@@ -51,13 +51,13 @@ export default function WorkspaceProvider({
   }, [activeOrganization, organizationParam, handleChangeOrganization]);
 
   return (
-    <WorkspaceContext.Provider value={ctx}>
+    <OrganizationContext.Provider value={ctx}>
       {userOrganizationsQuery.isLoading && (
         <div className="w-full">
           <LinearLoading />
         </div>
       )}
       {!!activeOrganization && children}
-    </WorkspaceContext.Provider>
+    </OrganizationContext.Provider>
   );
 }
