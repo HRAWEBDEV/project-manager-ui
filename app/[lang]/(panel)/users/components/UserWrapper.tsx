@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldLabel, FieldGroup } from "@/components/ui/field";
 import { InputGroup, InputGroupInput } from "@/components/ui/input-group";
 import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 export default function UserInfo() {
   const {
@@ -27,7 +28,7 @@ export default function UserInfo() {
     reset,
     register,
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
     handleSubmit,
   } = useForm<UpdateUserSchema>({
     resolver: zodResolver(createUpdateUserSchema()),
@@ -118,19 +119,19 @@ export default function UserInfo() {
           />
           <div className="flex justify-end gap-2">
             <Button
-              disabled={confirmUpdateUser.isPending}
+              disabled={confirmUpdateUser.isPending || !isDirty}
               type="submit"
               onClick={(e) => {
                 e.preventDefault();
                 handleSubmit((data) => {
-                  confirmUpdateUser.mutate({
+                  confirmUpdateUser.mutateAsync({
                     firstName: data.firstName,
                     lastName: data.lastName,
                     username: data.username,
                     email: data.email,
                     phoneNumber: data.phoneNumber || null,
                   });
-                })();
+                })().then(() => toast.success(dic.changesSavedSuccessfully));
               }}
             >
               {confirmUpdateUser.isPending && <Spinner />}

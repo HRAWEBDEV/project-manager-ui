@@ -23,6 +23,7 @@
       "cancel": "انصراف"
     },
     "userInfo": {
+      "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
       "username": "نام کاربری",
       "firstName": "نام",
       "lastName": "نام خانوادگی",

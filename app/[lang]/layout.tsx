@@ -162,7 +162,11 @@ export default async function RootLayout({
               <QueryClientProvider>{children}</QueryClientProvider>
             </BaseConfigProvider>
           </ShareDictionaryProvider>
-          <Toaster position="top-center" richColors />
+          <Toaster
+            position="top-center"
+            richColors
+            className="font-[inherit]!"
+          />
         </TooltipProvider>
       </body>
     </html>

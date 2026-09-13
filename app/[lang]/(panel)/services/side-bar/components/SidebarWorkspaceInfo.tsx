@@ -28,7 +28,7 @@ export default function SidebarWorkspaceInfo() {
         <div className="flex gap-2 items-center grow text-neutral-700 dark:text-neutral-400">
           <BsPersonWorkspace className="size-8" />
           <div className="grow grid">
-            <h3 className="mb-0.5 truncate">مدیر سیستم</h3>
+            <h3 className="mb-1 truncate">مدیر سیستم</h3>
             <p className="text-xs text-primary truncate">
               <span>{dic.workspaceName}: </span>
               <span>{activeWorksapce.name}</span>
