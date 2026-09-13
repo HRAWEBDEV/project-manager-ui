@@ -14,8 +14,15 @@ export default function HeaderProfile() {
       onClick={() => toggleOpen(true)}
     >
       <Avatar>
-        <AvatarImage src="https://github.com/shadcn.png" alt="profile image" />
-        <AvatarFallback>CN</AvatarFallback>
+        {usersInfoQuery.data?.user.avatar && (
+          <AvatarImage
+            src={usersInfoQuery.data?.user.avatar}
+            alt="user profile image"
+          />
+        )}
+        <AvatarFallback>
+          {usersInfoQuery.data?.user.firstName[0]}
+        </AvatarFallback>
       </Avatar>
       <p className="text-sm text-neutral-700 dark:text-neutral-400 font-normal truncate max-w-32 hidden md:block">
         {usersInfoQuery.data?.user.firstName}{" "}

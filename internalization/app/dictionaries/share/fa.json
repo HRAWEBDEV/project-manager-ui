@@ -30,7 +30,9 @@
       "lastName": "نام خانوادگی",
       "email": "ایمیل",
       "phoneNumber": "شماره همراه",
-      "saveChanges": "ذخیره تغییرات"
+      "saveChanges": "ذخیره تغییرات",
+      "changeAvatar": "تغییر تصویر",
+      "removeAvatar": "حذف تصویر"
     },
     "organizationInfo": {
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",

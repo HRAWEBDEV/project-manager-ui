@@ -36,7 +36,7 @@ export default function SettingsModal() {
 
   return (
     <Dialog open={open} onOpenChange={(state) => toggleOpen(state)}>
-      <DialogContent className="p-0 gap-0 sm:max-w-xl h-[85dvh] max-h-160 flex flex-col overflow-hidden">
+      <DialogContent className="p-0 gap-0 sm:max-w-2xl h-[85dvh] max-h-160 flex flex-col overflow-hidden">
         <DialogHeader className="border-b border-border p-4">
           <DialogTitle>{dic.title}</DialogTitle>
           <DialogDescription className="hidden">{dic.title}</DialogDescription>
