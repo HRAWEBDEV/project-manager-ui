@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { settingItems } from "../utils/settingItems";
 import { getSettingsIcon } from "../utils/getSettingsIcon";
 import UserWrapper from "../../../users/components/UserWrapper";
+import OrganizationWrapper from "../../../organizations/components/OrganizationWrapper";
 
 export default function SettingsModal() {
   const { open, activeTab, toggleOpen, setShowConfirmlogout } =
@@ -26,6 +27,8 @@ export default function SettingsModal() {
     switch (activeTab) {
       case "userInfo":
         return <UserWrapper />;
+      case "organization":
+        return <OrganizationWrapper />;
       default:
         return null;
     }

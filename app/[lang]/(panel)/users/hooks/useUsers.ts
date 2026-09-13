@@ -31,7 +31,7 @@ function useUsersInfo() {
 
 function useUserOrganizations() {
   const userOrganizationsQuery = useQuery({
-    staleTime: "static",
+    staleTime: Infinity,
     queryKey: [userOrganizationsApi],
     async queryFn({ signal }) {
       const res = await getUserOrganizations({ signal });

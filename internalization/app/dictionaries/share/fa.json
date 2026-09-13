@@ -31,6 +31,12 @@
       "phoneNumber": "شماره همراه",
       "saveChanges": "ذخیره تغییرات"
     },
+    "organizationInfo": {
+      "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
+      "name": "نام سازمان",
+      "description": "توضیحات",
+      "saveChanges": "ذخیره تغییرات"
+    },
     "workspaceInfo": {
       "workspaceName": "نام میزکار"
     },
