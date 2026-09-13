@@ -1,11 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { IoMdArrowDropup } from "react-icons/io";
-import ConnectivityInfo from "@/app/[lang]/(panel)/components/ConnectivityInfo";
 import { useSettingsContext } from "../../settings/settingsContext";
 import { BsPersonWorkspace } from "react-icons/bs";
+import { useWorkspacesContext } from "../../../[organization]/services/workspaces/workspacesContext";
+import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
+import ConnectivityInfo from "../../../[organization]/[workspace]/components/ConnectivityInfo";
 
 export default function SidebarWorkspaceInfo() {
+  const {
+    shareDictionary: {
+      components: { workspaceInfo: dic },
+    },
+  } = useShareDictionary();
+  const { activeWorksapce } = useWorkspacesContext();
   const { toggleOpen } = useSettingsContext();
   return (
     <div>
@@ -21,7 +29,10 @@ export default function SidebarWorkspaceInfo() {
           <BsPersonWorkspace className="size-8" />
           <div className="grow grid">
             <h3 className="mb-0.5 truncate">مدیر سیستم</h3>
-            <p className="text-xs text-primary truncate">هتل عباسی</p>
+            <p className="text-xs text-primary truncate">
+              <span>{dic.workspaceName}: </span>
+              <span>{activeWorksapce.name}</span>
+            </p>
           </div>
           <IoMdArrowDropup />
         </div>

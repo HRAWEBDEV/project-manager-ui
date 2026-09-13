@@ -20,6 +20,9 @@
       "confirm": "تایید",
       "cancel": "انصراف"
     },
+    "workspaceInfo": {
+      "workspaceName": "نام میزکار"
+    },
     "history": {
       "back": "بازگشت"
     }
