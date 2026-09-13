@@ -14,6 +14,7 @@ import {
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { IoIosWarning } from "react-icons/io";
 import { useLogout } from "../../hooks/useLogout";
+import { type SettingTab } from "./utils/settingItems";
 
 export default function SettingsProvider({
   children,
@@ -28,14 +29,20 @@ export default function SettingsProvider({
   } = useShareDictionary();
   const [open, setOpen] = useState(false);
   const [showConfirmLogout, setShowConfirmlogout] = useState(false);
+  const [activeTab, setActiveTab] = useState<SettingTab>("userInfo");
 
-  function onToggle(state?: boolean) {
-    setOpen((pre) => (state === undefined ? !pre : state));
+  function onToggle(state?: boolean, tab?: SettingTab) {
+    const newState = state === undefined ? !open : state;
+    if (newState) {
+      setActiveTab(tab || "userInfo");
+    }
+    setOpen(newState);
   }
 
   const ctx: SettingsContextProps = {
     open,
     showConfirmLogout,
+    activeTab,
     setShowConfirmlogout,
     toggleOpen: onToggle,
   };

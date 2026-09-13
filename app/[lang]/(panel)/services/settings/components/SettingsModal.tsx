@@ -13,7 +13,8 @@ import { settingItems } from "../utils/settingItems";
 import { getSettingsIcon } from "../utils/getSettingsIcon";
 
 export default function SettingsModal() {
-  const { open, toggleOpen, setShowConfirmlogout } = useSettingsContext();
+  const { open, activeTab, toggleOpen, setShowConfirmlogout } =
+    useSettingsContext();
   const {
     shareDictionary: {
       components: { settings: dic },
@@ -30,15 +31,17 @@ export default function SettingsModal() {
           <div className="bg-neutral-100 dark:bg-neutral-800 overflow-auto flex sm:flex-col">
             {settingItems.map((item) => (
               <Button
+                data-active={activeTab === item.key}
                 variant="ghost"
                 key={item.key}
                 data-logout={item.key === "logout"}
-                className="text-start justify-stretch rounded-none font-normal text-neutral-700 dark:text-neutral-400 data-[logout='true']:text-destructive h-11"
+                className="text-start justify-stretch rounded-none font-normal text-neutral-700 dark:text-neutral-400 data-[logout='true']:text-destructive data-[active='true']:bg-primary data-[active='true']:text-primary-foreground  h-11"
                 onClick={() => {
                   if (item.key === "logout") {
                     setShowConfirmlogout(true);
                     return;
                   }
+                  toggleOpen(true, item.key);
                 }}
               >
                 {getSettingsIcon(item.key, { className: "size-5" })}

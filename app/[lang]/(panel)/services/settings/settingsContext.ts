@@ -1,10 +1,12 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
+import { type SettingTab } from "./utils/settingItems";
 
 interface SettingsContextProps {
   open: boolean;
   showConfirmLogout: boolean;
-  toggleOpen: (state?: boolean) => unknown;
+  activeTab: SettingTab;
+  toggleOpen: (state?: boolean, tab?: SettingTab) => unknown;
   setShowConfirmlogout: (state: boolean) => unknown;
 }
 
