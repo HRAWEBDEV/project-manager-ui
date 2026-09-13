@@ -13,7 +13,7 @@ import { useLogout } from "../../hooks/useLogout";
 function useUsersInfo() {
   const { logout } = useLogout();
   const userInfoQuery = useQuery({
-    staleTime: "static",
+    staleTime: Infinity,
     queryKey: [userInfoApi],
     async queryFn({ signal }) {
       const res = await getUserInfo({ signal });

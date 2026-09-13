@@ -6,11 +6,11 @@ function createUpdateUserSchema() {
     firstName: z.string().min(1),
     lastName: z.string().min(1),
     email: z.email().min(1),
-    phoneNumber: z.email(),
+    phoneNumber: z.string(),
   });
 }
 
-type UpdateUserSchema = z.infer<typeof createUpdateUserSchema>;
+type UpdateUserSchema = z.infer<ReturnType<typeof createUpdateUserSchema>>;
 
 export type { UpdateUserSchema };
 export { createUpdateUserSchema };

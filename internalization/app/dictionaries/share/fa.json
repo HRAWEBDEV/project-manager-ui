@@ -22,6 +22,14 @@
       "confirm": "تایید",
       "cancel": "انصراف"
     },
+    "userInfo": {
+      "username": "نام کاربری",
+      "firstName": "نام",
+      "lastName": "نام خانوادگی",
+      "email": "ایمیل",
+      "phoneNumber": "شماره همراه",
+      "saveChanges": "ذخیره تغییرات"
+    },
     "workspaceInfo": {
       "workspaceName": "نام میزکار"
     },
