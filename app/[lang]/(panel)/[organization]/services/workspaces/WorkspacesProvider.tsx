@@ -6,7 +6,6 @@ import { useParams, useRouter } from "next/navigation";
 import { useOrganizationContext } from "../../../services/organization/organizationContext";
 import { type Workspace } from "../../workspaces/services/workspacesApiActions";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
-import LinearLoading from "@/components/LinearLoading";
 import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
 
 export default function WorkspacesProvider({
@@ -61,11 +60,6 @@ export default function WorkspacesProvider({
 
   return (
     <WorkspacesContext.Provider value={ctx}>
-      {workspacesQuery.isLoading && (
-        <div className="w-full">
-          <LinearLoading />
-        </div>
-      )}
       {activeWorksapce && (
         <>
           <WorkspaceAxiosInterceptor />
