@@ -1,10 +1,12 @@
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
+  type UpdateUser,
   userInfoApi,
   userOrganizationsApi,
   getUserInfo,
   getUserOrganizations,
+  updateUser,
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import { useLogout } from "../../hooks/useLogout";
 
@@ -39,4 +41,19 @@ function useUserOrganizations() {
   return userOrganizationsQuery;
 }
 
-export { useUsersInfo, useUserOrganizations };
+function useUpdateUser() {
+  const queryClient = useQueryClient();
+  const updateUserMutation = useMutation({
+    mutationFn(props: UpdateUser) {
+      return updateUser(props);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [userInfoApi],
+      });
+    },
+  });
+  return updateUserMutation;
+}
+
+export { useUsersInfo, useUserOrganizations, useUpdateUser };

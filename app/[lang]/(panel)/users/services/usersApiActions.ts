@@ -16,6 +16,11 @@ interface User {
   createdAt: string;
 }
 
+type UpdateUser = Pick<
+  User,
+  "username" | "firstName" | "lastName" | "email" | "phoneNumber"
+>;
+
 interface UserInfo {
   user: User;
   organization: Organization;
@@ -35,4 +40,15 @@ function getUserOrganizations({ signal }: { signal: AbortSignal }) {
   });
 }
 
-export { userInfoApi, userOrganizationsApi, getUserInfo, getUserOrganizations };
+function updateUser(props: UpdateUser) {
+  return axios.patch<{ id: string }>(userBaseApi, props);
+}
+
+export type { User, UserInfo, UpdateUser };
+export {
+  userInfoApi,
+  userOrganizationsApi,
+  getUserInfo,
+  getUserOrganizations,
+  updateUser,
+};
