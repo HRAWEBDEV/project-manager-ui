@@ -10,6 +10,9 @@ export const settingItems = [
     key: "workspace",
   },
   {
+    key: "projects",
+  },
+  {
     key: "general",
   },
   {
