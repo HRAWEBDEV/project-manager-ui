@@ -49,7 +49,7 @@ function useLogout() {
       router.push(`/${locale}/sign-in`);
       setTimeout(() => {
         queryClient.clear();
-      }, 300);
+      }, 500);
     },
     onError() {},
   });

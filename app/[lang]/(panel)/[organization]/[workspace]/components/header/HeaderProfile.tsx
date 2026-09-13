@@ -16,7 +16,7 @@ export default function HeaderProfile() {
       <Avatar>
         {usersInfoQuery.data?.user.avatar && (
           <AvatarImage
-            src={`${process.env.NEXT_PUBLIC_API_URI}${usersInfoQuery.data?.user.avatar}`}
+            src={`${process.env.NEXT_PUBLIC_SERVER_URI}${usersInfoQuery.data?.user.avatar}`}
             alt="user profile image"
           />
         )}

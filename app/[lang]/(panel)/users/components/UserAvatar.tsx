@@ -25,7 +25,7 @@ export default function UserAvatar() {
       <Avatar className="size-36">
         {usersInfoQuery.data?.user.avatar && (
           <AvatarImage
-            src={`http://192.168.1.119:8080${usersInfoQuery.data?.user.avatar}`}
+            src={`${process.env.NEXT_PUBLIC_SERVER_URI}${usersInfoQuery.data?.user.avatar}`}
             alt="user profile image"
           />
         )}
