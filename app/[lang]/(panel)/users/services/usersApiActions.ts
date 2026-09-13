@@ -29,6 +29,7 @@ interface UserInfo {
 const userBaseApi = "/users";
 const userInfoApi = `${userBaseApi}/info`;
 const userOrganizationsApi = `${userBaseApi}/organizations`;
+const userAvatarApi = `${userBaseApi}/avatar`;
 
 function getUserInfo({ signal }: { signal: AbortSignal }) {
   return axios.get<UserInfo>(userInfoApi, { signal });
@@ -44,11 +45,22 @@ function updateUser(props: UpdateUser) {
   return axios.patch<{ id: string }>(userBaseApi, props);
 }
 
+function updateUserAvatar(data: FormData) {
+  return axios.post(userAvatarApi, data);
+}
+
+function deleteUserAvatar() {
+  return axios.delete(userAvatarApi);
+}
+
 export type { User, UserInfo, UpdateUser };
 export {
   userInfoApi,
   userOrganizationsApi,
+  userAvatarApi,
   getUserInfo,
   getUserOrganizations,
   updateUser,
+  deleteUserAvatar,
+  updateUserAvatar,
 };

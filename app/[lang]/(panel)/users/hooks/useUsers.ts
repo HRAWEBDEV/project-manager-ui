@@ -7,6 +7,8 @@ import {
   getUserInfo,
   getUserOrganizations,
   updateUser,
+  deleteUserAvatar,
+  updateUserAvatar,
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import { useLogout } from "../../hooks/useLogout";
 
@@ -56,4 +58,40 @@ function useUpdateUser() {
   return updateUserMutation;
 }
 
-export { useUsersInfo, useUserOrganizations, useUpdateUser };
+function useDeleteUserAvatar() {
+  const queryClient = useQueryClient();
+  const deleteUserAvatarMutation = useMutation({
+    mutationFn() {
+      return deleteUserAvatar();
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [userInfoApi],
+      });
+    },
+  });
+  return deleteUserAvatarMutation;
+}
+
+function useUpdateUserAvatar() {
+  const queryClient = useQueryClient();
+  const updateUserAvatarMutation = useMutation({
+    mutationFn(data: FormData) {
+      return updateUserAvatar(data);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [userInfoApi],
+      });
+    },
+  });
+  return updateUserAvatarMutation;
+}
+
+export {
+  useUsersInfo,
+  useUserOrganizations,
+  useUpdateUser,
+  useUpdateUserAvatar,
+  useDeleteUserAvatar,
+};
