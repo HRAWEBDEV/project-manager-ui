@@ -5,6 +5,13 @@ import { Button } from "@/components/ui/button";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { FaCheck } from "react-icons/fa6";
 import { useWorkspacesContext } from "../../services/workspaces/workspacesContext";
+import { Field } from "@/components/ui/field";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { FaSearch, FaPlus } from "react-icons/fa";
 
 export default function WorkspacesWrapper() {
   const { activeWorksapce } = useWorkspacesContext();
@@ -19,7 +26,25 @@ export default function WorkspacesWrapper() {
   } = useShareDictionary();
   return (
     <div>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+      <div className="mb-4 grid gap-2 grid-cols-[1fr_max-content]">
+        <Field>
+          <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
+            <InputGroupInput
+              id="search"
+
+              placeholder={dic.search + " ..."}
+            />
+            <InputGroupAddon align="inline-end">
+              <FaSearch className="size-4" />
+            </InputGroupAddon>
+          </InputGroup>
+        </Field>
+        <Button>
+          <FaPlus className="size-3" />
+          {dic.newWorkspace}
+        </Button>
+      </div>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {workspacesQuery.data?.workspaces.map((workspace) => {
           const isActive = workspace.id === activeWorksapce.id;
           return (
@@ -43,8 +68,8 @@ export default function WorkspacesWrapper() {
                   <p className="text-center">{workspace.name}</p>
                 </div>
                 <div>
-                  <div>
-                    <span className="text-neutral-500">
+                  <div className="mb-1">
+                    <span className="text-neutral-500 text-xs">
                       {dic.organizationName}:{" "}
                     </span>
                     <span className="text-neutral-700 dark:text-neutral-400">

@@ -44,7 +44,10 @@
     },
     "workspaceInfo": {
       "workspaceName": "نام میزکار",
-      "organizationName": "نام سازمان"
+      "organizationName": "نام سازمان",
+      "createDate": "تاریخ ایجاد",
+      "search": "جستجو",
+      "newWorkspace": "میزکار جدید"
     },
     "history": {
       "back": "بازگشت"
