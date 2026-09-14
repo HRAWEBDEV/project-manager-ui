@@ -48,11 +48,15 @@
       "removeAvatar": "حذف تصویر"
     },
     "workspaceInfo": {
+      "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
       "workspaceName": "نام میزکار",
       "organizationName": "نام سازمان",
       "createDate": "تاریخ ایجاد",
       "search": "جستجو",
-      "newWorkspace": "میزکار جدید"
+      "newWorkspace": "میزکار جدید",
+      "description": "توضیحات",
+      "saveChanges": "ذخیره تغییرات",
+      "create": "ایجاد"
     },
     "history": {
       "back": "بازگشت"
