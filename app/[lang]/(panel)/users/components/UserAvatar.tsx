@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { useDeleteUserAvatar, useUpdateUserAvatar } from "../hooks/useUsers";
 import { Spinner } from "@/components/ui/spinner";
-import { useProfile } from "../../[organization]/services/profile/profileContext";
+import { useProfile } from "../../services/profile/profileContext";
 
 export default function UserAvatar() {
   const fileInputRef = useRef<HTMLInputElement>(null);

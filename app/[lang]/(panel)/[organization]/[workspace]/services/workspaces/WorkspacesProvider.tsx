@@ -1,11 +1,11 @@
 "use client";
 import { ReactNode, useMemo, useEffect, useCallback } from "react";
 import { WorkspacesContext } from "./workspacesContext";
-import { useWorkspaces } from "../../workspaces/hooks/useWorkspaces";
 import { useParams, useRouter } from "next/navigation";
-import { useOrganizationContext } from "../../../services/organization/organizationContext";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
+import { useOrganizationContext } from "@/app/[lang]/(panel)/services/organization/organizationContext";
+import { useWorkspaces } from "../../../workspaces/hooks/useWorkspaces";
 
 export default function WorkspacesProvider({
   children,

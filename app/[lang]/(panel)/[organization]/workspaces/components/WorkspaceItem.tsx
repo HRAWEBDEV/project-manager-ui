@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { getSettingsIcon } from "../../services/settings/utils/getSettingsIcon";
-import { useWorkspacesContext } from "../../services/workspaces/workspacesContext";
 import { Workspace } from "../services/workspacesApiActions";
 import { FaCheck } from "react-icons/fa6";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
+import { useWorkspacesContext } from "../../[workspace]/services/workspaces/workspacesContext";
+import { getSettingsIcon } from "../../[workspace]/services/settings/utils/getSettingsIcon";
 
 export default function WorkspaceItem({
   workspace,

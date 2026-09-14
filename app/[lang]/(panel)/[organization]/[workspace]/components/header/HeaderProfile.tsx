@@ -1,8 +1,8 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useSettingsContext } from "../../../services/settings/settingsContext";
-import { useProfile } from "../../../services/profile/profileContext";
+import { useSettingsContext } from "../../services/settings/settingsContext";
+import { useProfile } from "@/app/[lang]/(panel)/services/profile/profileContext";
 
 export default function HeaderProfile() {
   const { toggleOpen } = useSettingsContext();

@@ -1,6 +1,6 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
-import { useUsersInfo } from "../../../users/hooks/useUsers";
+import { useUsersInfo } from "../../users/hooks/useUsers";
 
 interface ProfileContextProps {
   open: boolean;

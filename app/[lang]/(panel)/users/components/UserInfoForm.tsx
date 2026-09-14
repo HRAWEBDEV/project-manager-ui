@@ -14,7 +14,7 @@ import { Field, FieldLabel, FieldGroup } from "@/components/ui/field";
 import { InputGroup, InputGroupInput } from "@/components/ui/input-group";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
-import { useProfile } from "../../[organization]/services/profile/profileContext";
+import { useProfile } from "../../services/profile/profileContext";
 
 export default function UserInfoForm() {
   const {

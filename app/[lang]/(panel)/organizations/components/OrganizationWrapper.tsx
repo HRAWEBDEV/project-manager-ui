@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
-import { useProfile } from "../../[organization]/services/profile/profileContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -22,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useProfile } from "../../services/profile/profileContext";
 
 export default function OrganizationWrapper() {
   const fileInputRef = useRef<HTMLInputElement>(null);

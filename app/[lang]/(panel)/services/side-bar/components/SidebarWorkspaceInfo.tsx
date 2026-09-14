@@ -2,11 +2,11 @@
 import { Button } from "@/components/ui/button";
 import { IoMdArrowDropup } from "react-icons/io";
 import { BsPersonWorkspace } from "react-icons/bs";
-import { useWorkspacesContext } from "../../../[organization]/services/workspaces/workspacesContext";
 import { useOrganizationContext } from "../../../services/organization/organizationContext";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import ConnectivityInfo from "../../../[organization]/[workspace]/components/ConnectivityInfo";
-import { useSettingsContext } from "../../../[organization]/services/settings/settingsContext";
+import { useWorkspacesContext } from "../../../[organization]/[workspace]/services/workspaces/workspacesContext";
+import { useSettingsContext } from "../../../[organization]/[workspace]/services/settings/settingsContext";
 
 export default function SidebarWorkspaceInfo() {
   const {
