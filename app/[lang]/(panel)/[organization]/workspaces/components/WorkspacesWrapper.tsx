@@ -11,10 +11,16 @@ import {
 } from "@/components/ui/input-group";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import WorkspaceItem from "./WorkspaceItem";
+import EditWorkspaceDialog from "./EditWorkspaceDialog";
 import NoItemFound from "../../../components/NoItemFound";
+import { type Workspace } from "../services/workspacesApiActions";
 
 export default function WorkspacesWrapper() {
   const [search, setSearch] = useState("");
+  const [editingWorkspace, setEditingWorkspace] = useState<Workspace | null>(
+    null,
+  );
+  const [dialogOpen, setDialogOpen] = useState(false);
   const workspacesQuery = useWorkspaces();
   const {
     shareDictionary: {
@@ -45,7 +51,12 @@ export default function WorkspacesWrapper() {
             </InputGroupAddon>
           </InputGroup>
         </Field>
-        <Button>
+        <Button
+          onClick={() => {
+            setEditingWorkspace(null);
+            setDialogOpen(true);
+          }}
+        >
           <FaPlus className="size-3" />
           {dic.newWorkspace}
         </Button>
@@ -53,7 +64,16 @@ export default function WorkspacesWrapper() {
       {visibleWorkspaces.length > 0 ? (
         <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {visibleWorkspaces.map((workspace) => {
-            return <WorkspaceItem key={workspace.id} workspace={workspace} />;
+            return (
+              <WorkspaceItem
+                key={workspace.id}
+                workspace={workspace}
+                onEdit={() => {
+                  setEditingWorkspace(workspace);
+                  setDialogOpen(true);
+                }}
+              />
+            );
           })}
         </ul>
       ) : (
@@ -61,6 +81,11 @@ export default function WorkspacesWrapper() {
           <NoItemFound searchedText={search} />
         </div>
       )}
+      <EditWorkspaceDialog
+        workspace={editingWorkspace}
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+      />
     </div>
   );
 }

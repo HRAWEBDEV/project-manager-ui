@@ -21,8 +21,10 @@ import { toast } from "sonner";
 
 export default function EditWorkspace({
   workspace,
+  onSuccess,
 }: {
   workspace: Workspace | null;
+  onSuccess?: () => void;
 }) {
   const updateWorkspaceMutation = useUpdateWorkspace();
   const createWorkspaceMutation = useCreateWorkspace();
@@ -86,9 +88,10 @@ export default function EditWorkspace({
                       ...props,
                     })
                   : createWorkspaceMutation.mutateAsync(props);
-                mutation.then(() =>
-                  toast.success(dic.changesSavedSuccessfully),
-                );
+                mutation.then(() => {
+                  toast.success(dic.changesSavedSuccessfully);
+                  onSuccess?.();
+                });
               })();
             }}
           >

@@ -5,7 +5,13 @@ import { Workspace } from "../services/workspacesApiActions";
 import { FaCheck } from "react-icons/fa6";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 
-export default function WorkspaceItem({ workspace }: { workspace: Workspace }) {
+export default function WorkspaceItem({
+  workspace,
+  onEdit,
+}: {
+  workspace: Workspace;
+  onEdit: () => void;
+}) {
   const { activeWorksapce } = useWorkspacesContext();
   const workspaceIcon = getSettingsIcon("workspace", {
     className: "size-10",
@@ -32,6 +38,7 @@ export default function WorkspaceItem({ workspace }: { workspace: Workspace }) {
       <Button
         variant="outline"
         className="w-full flex-col h-auto p-2 gpa-2 items-stretch text-start border-0 pt-6"
+        onClick={onEdit}
       >
         <div className="flex flex-col gap-2 items-center mb-2 pb-2 border-b border-border">
           <div className="text-neutral-500">{workspaceIcon}</div>
