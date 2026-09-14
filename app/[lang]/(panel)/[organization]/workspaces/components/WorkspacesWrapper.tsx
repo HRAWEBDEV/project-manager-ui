@@ -30,7 +30,7 @@ export default function WorkspacesWrapper() {
             >
               <Button
                 variant="outline"
-                className="absolute top-1 inset-e-1 rounded-full size-9 grid place-content-center group-data-[active='true']:bg-teal-500/10"
+                className="absolute top-1 inset-e-1 rounded-full size-9 grid place-content-center group-data-[active='true']:bg-teal-500/10 z-1"
               >
                 <FaCheck className="size-5 text-neutral-400 dark:text-neutral-600 group-data-[active='true']:text-teal-700 dark:group-data-[active='true']:text-teal-400" />
               </Button>
