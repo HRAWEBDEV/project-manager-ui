@@ -15,6 +15,7 @@ import UserWrapper from "@/app/[lang]/(panel)/users/components/UserWrapper";
 import OrganizationWrapper from "@/app/[lang]/(panel)/organizations/components/OrganizationWrapper";
 import WorkspacesWrapper from "@/app/[lang]/(panel)/[organization]/workspaces/components/WorkspacesWrapper";
 import EditWorkspace from "@/app/[lang]/(panel)/[organization]/workspaces/components/EditWorkspace";
+import { useWorkspacesContext } from "../../workspaces/workspacesContext";
 
 export default function SettingsModal() {
   const { open, activeTab, toggleOpen, setShowConfirmlogout } =
@@ -24,6 +25,7 @@ export default function SettingsModal() {
       components: { settings: dic },
     },
   } = useShareDictionary();
+  const { activeWorksapce } = useWorkspacesContext();
 
   function renderSettingContent() {
     switch (activeTab) {
@@ -32,7 +34,7 @@ export default function SettingsModal() {
       case "organization":
         return <OrganizationWrapper />;
       case "workspace":
-        return <EditWorkspace workspace={null} />;
+        return <EditWorkspace workspace={activeWorksapce} />;
       case "myWorkspaces":
         return <WorkspacesWrapper />;
       default:
