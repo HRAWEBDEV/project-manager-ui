@@ -1,6 +1,11 @@
 {
   "title": "share dictionary",
   "components": {
+    "navigation": {
+      "chats": "گفتگوها",
+      "projects": "پروژه‌ها",
+      "notes": "یادداشت‌ها"
+    },
     "noItemFound": {
       "title": "آیتمی یافت نشد",
       "searchedText": "جستجو شده"

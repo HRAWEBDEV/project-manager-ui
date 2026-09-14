@@ -1,58 +1,31 @@
-import { ChevronRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
-import { MdOutlineBedroomParent } from "react-icons/md";
-
-type FileTreeItem = { name: string } | { name: string; items: FileTreeItem[] };
+import { navigationItems } from "../../../utils/navigationItems";
+import { getNavigationIcon } from "../../../utils/getNavigationIcon";
+import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 
 export default function SidebarNav() {
-  const fileTree: FileTreeItem[] = [];
-
-  const renderItem = (fileItem: FileTreeItem) => {
-    if ("items" in fileItem) {
-      return (
-        <Collapsible key={fileItem.name}>
-          <CollapsibleTrigger
-            render={
-              <Button
-                variant="ghost"
-                size="sm"
-                className="group w-full justify-start transition-none hover:bg-accent hover:text-accent-foreground text-start gap-2 font-normal"
-              >
-                <MdOutlineBedroomParent className="size-7" />
-                <div className="grow">{fileItem.name}</div>
-                <ChevronRightIcon className="transition-transform group-data-[panel-open]:rotate-90 rtl:rotate-180" />
-              </Button>
-            }
-          />
-          <CollapsibleContent className="mt-1 ms-8 style-lyra:ms-8">
-            <div className="flex flex-col gap-1">
-              {fileItem.items.map((child) => renderItem(child))}
-            </div>
-          </CollapsibleContent>
-        </Collapsible>
-      );
-    }
-    return (
-      <Button
-        key={fileItem.name}
-        variant="link"
-        size="sm"
-        className="w-full justify-start gap-2 text-foreground font-normal"
-      >
-        <span>{fileItem.name}</span>
-      </Button>
-    );
-  };
-
+  const {
+    shareDictionary: {
+      components: { navigation: dic },
+    },
+  } = useShareDictionary();
   return (
     <div className="w-full grow overflow-auto">
-      <div className="flex flex-col gap-1">
-        {fileTree.map((item) => renderItem(item))}
+      <div className="flex flex-col">
+        {navigationItems.map((item, i) => {
+          return (
+            <Button
+              data-active={i === 1}
+
+              variant="ghost"
+              key={item.type}
+              className="h-auto text-start justify-stretch min-h-14 gap-3 hover:bg-neutral-200 dark:hover:border-b-neutral-700 data-[active='true']:bg-primary data-[active='true']:text-primary-foreground"
+            >
+              {getNavigationIcon(item.type, { className: "size-6" })}
+              <span className="font-medium">{dic[item.type]}</span>
+            </Button>
+          );
+        })}
       </div>
     </div>
   );
