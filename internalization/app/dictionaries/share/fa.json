@@ -1,6 +1,9 @@
 {
   "title": "share dictionary",
   "components": {
+    "noItemFound": {
+      "title": "آیتمی یافت نشد"
+    },
     "modeController": {
       "title": "حالت روشنایی",
       "light": "روشن",
