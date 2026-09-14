@@ -6,6 +6,10 @@ import { type Workspace } from "../../workspaces/services/workspacesApiActions";
 interface WorkspacesContextProps {
   workspacesQuery: ReturnType<typeof useWorkspaces>;
   activeWorksapce: Workspace;
+  onChangeWorkspace: (
+    organizationSlug: string,
+    workspaceSlug: string,
+  ) => unknown;
 }
 
 const WorkspacesContext = createContext<WorkspacesContextProps | null>(null);

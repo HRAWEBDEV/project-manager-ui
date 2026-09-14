@@ -4,7 +4,6 @@ import { WorkspacesContext } from "./workspacesContext";
 import { useWorkspaces } from "../../workspaces/hooks/useWorkspaces";
 import { useParams, useRouter } from "next/navigation";
 import { useOrganizationContext } from "../../../services/organization/organizationContext";
-import { type Workspace } from "../../workspaces/services/workspacesApiActions";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
 
@@ -40,21 +39,25 @@ export default function WorkspacesProvider({
   ]);
 
   const handleChangeWorkspace = useCallback(
-    (workspace: Workspace) => {
-      router.replace(`/${locale}/${activeOrganization.slug}/${workspace.slug}`);
+    (organzationSlug: string, workspaceSlug: string) => {
+      router.replace(`/${locale}/${organzationSlug}/${workspaceSlug}`);
     },
-    [activeOrganization, locale, router],
+    [locale, router],
   );
 
   const ctx = {
     workspacesQuery,
     activeWorksapce: activeWorksapce!,
+    onChangeWorkspace: handleChangeWorkspace,
   };
 
   useEffect(() => {
     if (!activeWorksapce) return;
     if (!workspaceParam || workspaceParam !== activeWorksapce?.slug) {
-      handleChangeWorkspace(activeWorksapce);
+      handleChangeWorkspace(
+        activeWorksapce.organizationSlug,
+        activeWorksapce.slug,
+      );
     }
   }, [activeWorksapce, workspaceParam, handleChangeWorkspace]);
 

@@ -9,6 +9,7 @@ interface Workspace {
   organizationId: string;
   organizationName: string;
   organizationRole: string;
+  organizationSlug: string;
   workspaceMemberRole: string;
 }
 

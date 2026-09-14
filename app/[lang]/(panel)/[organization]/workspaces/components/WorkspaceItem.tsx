@@ -12,7 +12,7 @@ export default function WorkspaceItem({
   workspace: Workspace;
   onEdit: () => void;
 }) {
-  const { activeWorksapce } = useWorkspacesContext();
+  const { activeWorksapce, onChangeWorkspace } = useWorkspacesContext();
   const workspaceIcon = getSettingsIcon("workspace", {
     className: "size-10",
   });
@@ -32,6 +32,9 @@ export default function WorkspaceItem({
       <Button
         variant="outline"
         className="absolute top-1 inset-e-1 rounded-full size-9 grid place-content-center group-data-[active='true']:bg-teal-500/10 z-1"
+        onClick={() =>
+          onChangeWorkspace(workspace.organizationSlug, workspace.slug)
+        }
       >
         <FaCheck className="size-5 text-neutral-400 dark:text-neutral-600 group-data-[active='true']:text-teal-700 dark:group-data-[active='true']:text-teal-400" />
       </Button>
