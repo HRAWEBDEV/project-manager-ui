@@ -12,11 +12,17 @@ interface Workspace {
   workspaceMemberRole: string;
 }
 
+type UpdateWorkspace = Pick<Workspace, "name" | "description">;
+
 const workspacesBaseApi = "/workspaces";
 
 function getWorkspaces({ signal }: { signal: AbortSignal }) {
   return axios.get<{ workspaces: Workspace[] }>(workspacesBaseApi, { signal });
 }
 
-export type { Workspace };
-export { workspacesBaseApi, getWorkspaces };
+function updateWorkspace(id: string, props: UpdateWorkspace) {
+  return axios.patch<{ id: string }>(`${workspacesBaseApi}/${id}`, props);
+}
+
+export type { Workspace, UpdateWorkspace };
+export { workspacesBaseApi, getWorkspaces, updateWorkspace };
