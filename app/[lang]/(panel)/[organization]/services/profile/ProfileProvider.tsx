@@ -25,7 +25,7 @@ export default function ProfileProvider({ children }: { children: ReactNode }) {
           <LinearLoading />
         </div>
       )}
-      {usersInfoQuery.isSuccess && children}
+      {!!usersInfoQuery.data && children}
     </ProfileContext.Provider>
   );
 }

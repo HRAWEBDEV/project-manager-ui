@@ -16,10 +16,10 @@ function useUpdateOrganization() {
       return updateOrganization(props);
     },
     onSuccess() {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userOrganizationsApi],
       });
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userInfoApi],
       });
     },
@@ -34,10 +34,10 @@ function useUpdateOrganizationLogo() {
       return updateOrganizationLogo(data);
     },
     onSuccess() {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userOrganizationsApi],
       });
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userInfoApi],
       });
     },

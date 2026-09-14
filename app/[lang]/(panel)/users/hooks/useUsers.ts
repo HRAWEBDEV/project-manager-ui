@@ -1,5 +1,10 @@
 import { useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
 import {
   type UpdateUser,
   userInfoApi,
@@ -17,6 +22,7 @@ function useUsersInfo() {
   const userInfoQuery = useQuery({
     staleTime: Infinity,
     queryKey: [userInfoApi],
+    placeholderData: keepPreviousData,
     async queryFn({ signal }) {
       const res = await getUserInfo({ signal });
       return res.data;
@@ -35,6 +41,7 @@ function useUserOrganizations() {
   const userOrganizationsQuery = useQuery({
     staleTime: Infinity,
     queryKey: [userOrganizationsApi],
+    placeholderData: keepPreviousData,
     async queryFn({ signal }) {
       const res = await getUserOrganizations({ signal });
       return res.data;
@@ -50,7 +57,7 @@ function useUpdateUser() {
       return updateUser(props);
     },
     onSuccess() {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userInfoApi],
       });
     },
@@ -65,7 +72,7 @@ function useDeleteUserAvatar() {
       return deleteUserAvatar();
     },
     onSuccess() {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userInfoApi],
       });
     },
@@ -80,7 +87,7 @@ function useUpdateUserAvatar() {
       return updateUserAvatar(data);
     },
     onSuccess() {
-      queryClient.invalidateQueries({
+      queryClient.refetchQueries({
         queryKey: [userInfoApi],
       });
     },
