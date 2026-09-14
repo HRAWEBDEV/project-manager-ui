@@ -13,6 +13,7 @@ import { settingItems } from "../utils/settingItems";
 import { getSettingsIcon } from "../utils/getSettingsIcon";
 import UserWrapper from "@/app/[lang]/(panel)/users/components/UserWrapper";
 import OrganizationWrapper from "@/app/[lang]/(panel)/organizations/components/OrganizationWrapper";
+import WorkspacesWrapper from "@/app/[lang]/(panel)/[organization]/workspaces/components/WorkspacesWrapper";
 
 export default function SettingsModal() {
   const { open, activeTab, toggleOpen, setShowConfirmlogout } =
@@ -29,6 +30,8 @@ export default function SettingsModal() {
         return <UserWrapper />;
       case "organization":
         return <OrganizationWrapper />;
+      case "workspace":
+        return <WorkspacesWrapper />;
       default:
         return null;
     }

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { IoMdArrowDropup } from "react-icons/io";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { useWorkspacesContext } from "../../../[organization]/services/workspaces/workspacesContext";
+import { useOrganizationContext } from "../../../services/organization/organizationContext";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import ConnectivityInfo from "../../../[organization]/[workspace]/components/ConnectivityInfo";
 import { useSettingsContext } from "../../../[organization]/services/settings/settingsContext";
@@ -13,6 +14,7 @@ export default function SidebarWorkspaceInfo() {
       components: { workspaceInfo: dic },
     },
   } = useShareDictionary();
+  const { activeOrganization } = useOrganizationContext();
   const { activeWorksapce } = useWorkspacesContext();
   const { toggleOpen } = useSettingsContext();
   return (
@@ -28,7 +30,7 @@ export default function SidebarWorkspaceInfo() {
         <div className="flex gap-2 items-center grow text-neutral-700 dark:text-neutral-400">
           <BsPersonWorkspace className="size-8" />
           <div className="grow grid">
-            <h3 className="mb-1 truncate">مدیر سیستم</h3>
+            <h3 className="mb-1 truncate">{activeOrganization.name}</h3>
             <p className="text-xs text-primary truncate">
               <span>{dic.workspaceName}: </span>
               <span>{activeWorksapce.name}</span>

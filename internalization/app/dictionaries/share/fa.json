@@ -43,7 +43,8 @@
       "removeAvatar": "حذف تصویر"
     },
     "workspaceInfo": {
-      "workspaceName": "نام میزکار"
+      "workspaceName": "نام میزکار",
+      "organizationName": "نام سازمان"
     },
     "history": {
       "back": "بازگشت"
