@@ -1,18 +1,18 @@
 export const navigationItems = [
   {
     type: "chats",
-    path: "",
+    path: "chats",
   },
   {
     type: "projects",
-    path: "",
+    path: "projects",
   },
   {
     type: "tasks",
-    path: "",
+    path: "tasks",
   },
   {
     type: "notes",
-    path: "",
+    path: "notes",
   },
 ] as const;
