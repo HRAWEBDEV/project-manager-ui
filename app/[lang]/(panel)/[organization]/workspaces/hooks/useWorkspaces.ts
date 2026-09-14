@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  keepPreviousData,
+} from "@tanstack/react-query";
 import {
   type UpdateWorkspace,
   type CreateWorkspace,
@@ -12,6 +17,7 @@ import {
 function useWorkspaces() {
   const workspacesQuery = useQuery({
     queryKey: [workspacesBaseApi],
+    placeholderData: keepPreviousData,
     async queryFn({ signal }) {
       const res = await getWorkspaces({ signal });
       return res.data;
