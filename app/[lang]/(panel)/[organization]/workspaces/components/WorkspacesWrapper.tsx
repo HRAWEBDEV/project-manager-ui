@@ -19,7 +19,7 @@ export default function WorkspacesWrapper() {
   } = useShareDictionary();
   return (
     <div>
-      <ul className="grid grid-cols-[repeat(auto-fit,minmax(11rem,12rem))]">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {workspacesQuery.data?.workspaces.map((workspace) => {
           const isActive = workspace.id === activeWorksapce.id;
           return (
