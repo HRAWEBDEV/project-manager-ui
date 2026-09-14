@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/input-group";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import WorkspaceItem from "./WorkspaceItem";
+import NoItemFound from "../../../components/NoItemFound";
 
 export default function WorkspacesWrapper() {
   const [search, setSearch] = useState("");
@@ -20,6 +21,13 @@ export default function WorkspacesWrapper() {
       components: { workspaceInfo: dic },
     },
   } = useShareDictionary();
+
+  const visibleWorkspaces = search
+    ? workspacesQuery.data?.workspaces.filter((item) =>
+        item.name.includes(search),
+      ) || []
+    : workspacesQuery.data?.workspaces || [];
+
   return (
     <div>
       <div className="mb-4 grid gap-2 grid-cols-[1fr_max-content]">
@@ -42,11 +50,17 @@ export default function WorkspacesWrapper() {
           {dic.newWorkspace}
         </Button>
       </div>
-      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {workspacesQuery.data?.workspaces.map((workspace) => {
-          return <WorkspaceItem key={workspace.id} workspace={workspace} />;
-        })}
-      </ul>
+      {visibleWorkspaces.length > 0 ? (
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {visibleWorkspaces.map((workspace) => {
+            return <WorkspaceItem key={workspace.id} workspace={workspace} />;
+          })}
+        </ul>
+      ) : (
+        <div>
+          <NoItemFound searchedText={search} />
+        </div>
+      )}
     </div>
   );
 }

@@ -25,7 +25,7 @@ export default function SidebarWorkspaceInfo() {
       <Button
         variant="outline"
         className="w-full justify-stretch text-start p-2 h-auto bg-transparent rounded-none border-0 border-t"
-        onClick={() => toggleOpen(true, "workspace")}
+        onClick={() => toggleOpen(true, "myWorkspaces")}
       >
         <div className="flex gap-2 items-center grow text-neutral-700 dark:text-neutral-400">
           <BsPersonWorkspace className="size-8" />

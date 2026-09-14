@@ -4,6 +4,7 @@ import { RiLogoutBoxRFill } from "react-icons/ri";
 import { IoSettingsSharp, IoApps } from "react-icons/io5";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { GoOrganization } from "react-icons/go";
+import { MdWorkspaces } from "react-icons/md";
 import { settingItems } from "./settingItems";
 
 export function getSettingsIcon(
@@ -17,6 +18,8 @@ export function getSettingsIcon(
       return <GoOrganization {...props} />;
     case "workspace":
       return <BsPersonWorkspace {...props} />;
+    case "myWorkspaces":
+      return <MdWorkspaces {...props} />;
     case "projects":
       return <IoApps {...props} />;
     case "general":

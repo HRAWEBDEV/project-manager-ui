@@ -2,7 +2,8 @@
   "title": "share dictionary",
   "components": {
     "noItemFound": {
-      "title": "آیتمی یافت نشد"
+      "title": "آیتمی یافت نشد",
+      "searchedText": "جستجو شده"
     },
     "modeController": {
       "title": "حالت روشنایی",
@@ -19,6 +20,7 @@
       "logoutConfirmMessage": "از برنامه خارج می‌شوید؟",
       "userInfo": "اطلاعات کاربری",
       "organization": "سازمان",
+      "myWorkspaces": "میزکار‌های من",
       "workspace": "میزکار",
       "general": "عمومی",
       "projects": "پروژه‌‌ها",

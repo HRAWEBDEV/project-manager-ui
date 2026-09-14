@@ -31,6 +31,8 @@ export default function SettingsModal() {
       case "organization":
         return <OrganizationWrapper />;
       case "workspace":
+        return null;
+      case "myWorkspaces":
         return <WorkspacesWrapper />;
       default:
         return null;
