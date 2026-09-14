@@ -6,7 +6,11 @@ import {
   type UpdateWorkspaceSchema,
   createUpdateWorkspaceSchema,
 } from "../schemas/workspacesSchema";
-import { useUpdateWorkspace, useCreateWorkspace } from "../hooks/useWorkspaces";
+import {
+  useUpdateWorkspace,
+  useCreateWorkspace,
+  useDeleteWorkspace,
+} from "../hooks/useWorkspaces";
 import { type Workspace } from "../services/workspacesApiActions";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { FieldGroup, FieldLabel, Field } from "@/components/ui/field";
@@ -18,6 +22,18 @@ import {
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { IoIosWarning } from "react-icons/io";
 
 export default function EditWorkspace({
   workspace,
@@ -28,6 +44,7 @@ export default function EditWorkspace({
 }) {
   const updateWorkspaceMutation = useUpdateWorkspace();
   const createWorkspaceMutation = useCreateWorkspace();
+  const deleteWorkspaceMutation = useDeleteWorkspace();
   const {
     shareDictionary: {
       components: { workspaceInfo: dic },
@@ -42,7 +59,9 @@ export default function EditWorkspace({
     resolver: zodResolver(createUpdateWorkspaceSchema()),
   });
   const pendAction =
-    updateWorkspaceMutation.isPending || createWorkspaceMutation.isPending;
+    updateWorkspaceMutation.isPending ||
+    createWorkspaceMutation.isPending ||
+    deleteWorkspaceMutation.isPending;
 
   useEffect(() => {
     reset({
@@ -86,7 +105,46 @@ export default function EditWorkspace({
             />
           </InputGroup>
         </Field>
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-between gap-2">
+          <AlertDialog>
+            <AlertDialogTrigger
+              render={
+                <Button variant="destructive" disabled={pendAction}>
+                  {pendAction && <Spinner />}
+                  {dic.delete}
+                </Button>
+              }
+            />
+            <AlertDialogContent size="sm">
+              <AlertDialogHeader>
+                <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                  <IoIosWarning />
+                </AlertDialogMedia>
+                <AlertDialogTitle>
+                  {dic.deleteWorkspaceConfirmMessage}
+                </AlertDialogTitle>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={pendAction} variant="outline">
+                  {dic.cancel}
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  disabled={pendAction}
+                  variant="destructive"
+                  onClick={() => {
+                    if (!workspace) return;
+                    deleteWorkspaceMutation
+                      .mutateAsync(workspace.id)
+                      .then(() => {
+                        onSuccess?.();
+                      });
+                  }}
+                >
+                  {dic.confirm}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <Button
             className="w-32"
             type="submit"

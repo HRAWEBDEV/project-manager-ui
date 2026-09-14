@@ -56,7 +56,11 @@
       "newWorkspace": "میزکار جدید",
       "description": "توضیحات",
       "saveChanges": "ذخیره تغییرات",
-      "create": "ایجاد"
+      "create": "ایجاد",
+      "deleteWorkspaceConfirmMessage": "آیا از حذف میزکار اطمینان دارید؟",
+      "delete": "حذف",
+      "confirm": "تایید",
+      "cancel": "انصراف"
     },
     "history": {
       "back": "بازگشت"
