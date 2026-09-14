@@ -26,17 +26,17 @@ export default function WorkspacesWrapper() {
             <li
               data-active={isActive}
               key={workspace.id}
-              className="group relative pt-4 border border-border rounded-md"
+              className="group relative border border-border rounded-md"
             >
               <Button
                 variant="outline"
-                className="absolute top-1 inset-e-1 rounded-full size-10 grid place-content-center group-data-[active='true']:bg-teal-500/10"
+                className="absolute top-1 inset-e-1 rounded-full size-9 grid place-content-center group-data-[active='true']:bg-teal-500/10"
               >
-                <FaCheck className="size-6 text-neutral-400 dark:text-neutral-600 group-data-[active='true']:text-teal-700 dark:group-data-[active='true']:text-teal-400" />
+                <FaCheck className="size-5 text-neutral-400 dark:text-neutral-600 group-data-[active='true']:text-teal-700 dark:group-data-[active='true']:text-teal-400" />
               </Button>
               <Button
                 variant="outline"
-                className="w-full flex-col h-auto p-2 gpa-2 items-stretch text-start border-0"
+                className="w-full flex-col h-auto p-2 gpa-2 items-stretch text-start border-0 pt-6"
               >
                 <div className="flex flex-col gap-2 items-center mb-2 pb-2 border-b border-border">
                   <div className="text-neutral-500">{workspaceIcon}</div>
