@@ -13,6 +13,7 @@ interface Workspace {
 }
 
 type UpdateWorkspace = Pick<Workspace, "name" | "description">;
+type CreateWorkspace = Pick<Workspace, "name" | "description">;
 
 const workspacesBaseApi = "/workspaces";
 
@@ -24,5 +25,9 @@ function updateWorkspace(id: string, props: UpdateWorkspace) {
   return axios.patch<{ id: string }>(`${workspacesBaseApi}/${id}`, props);
 }
 
-export type { Workspace, UpdateWorkspace };
-export { workspacesBaseApi, getWorkspaces, updateWorkspace };
+function createWorkspace(props: CreateWorkspace) {
+  return axios.post<{ id: string }>(workspacesBaseApi, props);
+}
+
+export type { Workspace, UpdateWorkspace, CreateWorkspace };
+export { workspacesBaseApi, getWorkspaces, updateWorkspace, createWorkspace };
