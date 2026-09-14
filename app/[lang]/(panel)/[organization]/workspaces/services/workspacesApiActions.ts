@@ -29,5 +29,15 @@ function createWorkspace(props: CreateWorkspace) {
   return axios.post<{ id: string }>(workspacesBaseApi, props);
 }
 
+function deleteWorkspace(id: string) {
+  return axios.delete(`${workspacesBaseApi}/${id}`);
+}
+
 export type { Workspace, UpdateWorkspace, CreateWorkspace };
-export { workspacesBaseApi, getWorkspaces, updateWorkspace, createWorkspace };
+export {
+  workspacesBaseApi,
+  getWorkspaces,
+  updateWorkspace,
+  createWorkspace,
+  deleteWorkspace,
+};

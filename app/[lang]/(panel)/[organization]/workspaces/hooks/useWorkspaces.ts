@@ -1,7 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
-  getWorkspaces,
+  type UpdateWorkspace,
+  type CreateWorkspace,
   workspacesBaseApi,
+  getWorkspaces,
+  updateWorkspace,
+  createWorkspace,
+  deleteWorkspace,
 } from "../services/workspacesApiActions";
 
 function useWorkspaces() {
@@ -15,4 +20,54 @@ function useWorkspaces() {
   return workspacesQuery;
 }
 
-export { useWorkspaces };
+function useUpdateWorkspace() {
+  const queryClient = useQueryClient();
+  const updateWorkspaceMutation = useMutation({
+    mutationFn({ id, ...props }: { id: string } & UpdateWorkspace) {
+      return updateWorkspace(id, props);
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: [workspacesBaseApi],
+      });
+    },
+  });
+  return updateWorkspaceMutation;
+}
+
+function useCreateWorkspace() {
+  const queryClient = useQueryClient();
+  const createWorkspaceMutation = useMutation({
+    mutationFn(props: CreateWorkspace) {
+      return createWorkspace(props);
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: [workspacesBaseApi],
+      });
+    },
+  });
+  return createWorkspaceMutation;
+}
+
+function useDeleteWorkspace() {
+  const queryClient = useQueryClient();
+  const deleteWorkspaceMutation = useMutation({
+    mutationFn(id: string) {
+      return deleteWorkspace(id);
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: [workspacesBaseApi],
+      });
+    },
+  });
+  return deleteWorkspaceMutation;
+}
+
+export {
+  useWorkspaces,
+  useUpdateWorkspace,
+  useCreateWorkspace,
+  useDeleteWorkspace,
+};
