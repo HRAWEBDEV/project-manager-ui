@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { IoIosWarning } from "react-icons/io";
-import { useLogout } from "../../hooks/useLogout";
+import { useLogout } from "../../../hooks/useLogout";
 import { type SettingTab } from "./utils/settingItems";
 
 export default function SettingsProvider({

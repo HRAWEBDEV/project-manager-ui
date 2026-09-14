@@ -11,8 +11,8 @@ import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryC
 import { Button } from "@/components/ui/button";
 import { settingItems } from "../utils/settingItems";
 import { getSettingsIcon } from "../utils/getSettingsIcon";
-import UserWrapper from "../../../users/components/UserWrapper";
-import OrganizationWrapper from "../../../organizations/components/OrganizationWrapper";
+import UserWrapper from "@/app/[lang]/(panel)/users/components/UserWrapper";
+import OrganizationWrapper from "@/app/[lang]/(panel)/organizations/components/OrganizationWrapper";
 
 export default function SettingsModal() {
   const { open, activeTab, toggleOpen, setShowConfirmlogout } =

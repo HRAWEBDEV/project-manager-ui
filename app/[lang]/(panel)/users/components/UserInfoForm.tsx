@@ -6,7 +6,6 @@ import {
   createUpdateUserSchema,
 } from "@/app/[lang]/(panel)/users/schemas/userSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useProfile } from "../../services/profile/profileContext";
 import { useUpdateUser } from "@/app/[lang]/(panel)/users/hooks/useUsers";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { NumericFormat } from "react-number-format";
@@ -15,6 +14,7 @@ import { Field, FieldLabel, FieldGroup } from "@/components/ui/field";
 import { InputGroup, InputGroupInput } from "@/components/ui/input-group";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
+import { useProfile } from "../../[organization]/services/profile/profileContext";
 
 export default function UserInfoForm() {
   const {

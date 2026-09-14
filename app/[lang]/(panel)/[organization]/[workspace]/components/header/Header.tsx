@@ -3,7 +3,7 @@ import PanelAddress from "./PanelAddress";
 import HeaderProfile from "./HeaderProfile";
 import HeaderTools from "./HeaderTools";
 import { SidebarTrigger } from "@/app/[lang]/(panel)/services/side-bar/components/Sidebar";
-import HistoryControllers from "@/app/[lang]/(panel)/services/history/components/HistoryControllers";
+import HistoryControllers from "../../../services/history/components/HistoryControllers";
 
 export default function Header() {
   return (

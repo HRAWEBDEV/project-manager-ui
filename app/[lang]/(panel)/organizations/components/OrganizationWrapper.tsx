@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
-import { useProfile } from "../../services/profile/profileContext";
+import { useProfile } from "../../[organization]/services/profile/profileContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {

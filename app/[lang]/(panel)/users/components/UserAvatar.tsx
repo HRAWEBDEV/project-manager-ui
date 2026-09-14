@@ -2,10 +2,10 @@
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useProfile } from "../../services/profile/profileContext";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { useDeleteUserAvatar, useUpdateUserAvatar } from "../hooks/useUsers";
 import { Spinner } from "@/components/ui/spinner";
+import { useProfile } from "../../[organization]/services/profile/profileContext";
 
 export default function UserAvatar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
