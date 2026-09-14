@@ -8,6 +8,10 @@ export const navigationItems = [
     path: "",
   },
   {
+    type: "tasks",
+    path: "",
+  },
+  {
     type: "notes",
     path: "",
   },

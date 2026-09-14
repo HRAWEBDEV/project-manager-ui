@@ -4,7 +4,8 @@
     "navigation": {
       "chats": "گفتگوها",
       "projects": "پروژه‌ها",
-      "notes": "یادداشت‌ها"
+      "notes": "یادداشت‌ها",
+      "tasks": "وظایف"
     },
     "noItemFound": {
       "title": "آیتمی یافت نشد",

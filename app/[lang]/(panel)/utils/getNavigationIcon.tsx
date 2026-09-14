@@ -1,6 +1,6 @@
 import { SVGProps } from "react";
 import { navigationItems } from "./navigationItems";
-import { GrNotes, GrProjects } from "react-icons/gr";
+import { GrNotes, GrProjects, GrTask } from "react-icons/gr";
 import { BsChatSquareText } from "react-icons/bs";
 
 export function getNavigationIcon(
@@ -12,6 +12,8 @@ export function getNavigationIcon(
       return <BsChatSquareText {...props} />;
     case "projects":
       return <GrProjects {...props} />;
+    case "tasks":
+      return <GrTask {...props} />;
     case "notes":
       return <GrNotes {...props} />;
     default:
