@@ -27,17 +27,21 @@ export default function EditWorkspaceDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{workspace ? workspace.name : dic.newWorkspace}</DialogTitle>
+      <DialogContent className="p-0 gap-0 max-h-[80svh] overflow-hidden flex flex-col">
+        <DialogHeader className="p-4 border-b border-border">
+          <DialogTitle>
+            {workspace ? workspace.name : dic.newWorkspace}
+          </DialogTitle>
           <DialogDescription className="hidden">
             {workspace ? workspace.name : dic.newWorkspace}
           </DialogDescription>
         </DialogHeader>
-        <EditWorkspace
-          workspace={workspace}
-          onSuccess={() => onOpenChange(false)}
-        />
+        <div className="p-4 overflow-auto">
+          <EditWorkspace
+            workspace={workspace}
+            onSuccess={() => onOpenChange(false)}
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );

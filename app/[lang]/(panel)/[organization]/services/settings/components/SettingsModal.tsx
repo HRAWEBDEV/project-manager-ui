@@ -50,7 +50,7 @@ export default function SettingsModal() {
           <DialogDescription className="hidden">{dic.title}</DialogDescription>
         </DialogHeader>
         <div className="flex flex-col sm:grid sm:grid-cols-[11rem_1fr] grow overflow-hidden">
-          <div className="bg-neutral-100 dark:bg-neutral-800 overflow-auto flex sm:flex-col">
+          <div className="bg-neutral-100 dark:bg-neutral-800 overflow-auto flex sm:flex-col shrink-0">
             {settingItems.map((item) => (
               <Button
                 data-active={activeTab === item.key}

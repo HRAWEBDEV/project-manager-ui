@@ -54,6 +54,21 @@ export default function EditWorkspace({
   return (
     <form>
       <FieldGroup className="gap-4">
+        {workspace && (
+          <Field>
+            <FieldLabel htmlFor="organization-name">
+              {dic.organizationName}
+            </FieldLabel>
+            <InputGroup>
+              <InputGroupInput
+                id="organization-name"
+                readOnly
+                value={workspace.organizationName}
+              />
+            </InputGroup>
+          </Field>
+        )}
+
         <Field data-invalid={!!errors.name}>
           <FieldLabel htmlFor="name">{dic.workspaceName} *</FieldLabel>
           <InputGroup data-invalid={!!errors.name}>
@@ -73,6 +88,7 @@ export default function EditWorkspace({
         </Field>
         <div className="flex justify-end gap-2">
           <Button
+            className="w-32"
             type="submit"
             disabled={(workspace ? !isDirty : false) || pendAction}
             onClick={(e) => {

@@ -35,57 +35,59 @@ export default function WorkspacesWrapper() {
     : workspacesQuery.data?.workspaces || [];
 
   return (
-    <div>
-      <div className="mb-4 grid gap-2 grid-cols-[1fr_max-content]">
-        <Field>
-          <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
-            <InputGroupInput
-              id="search"
-              type="search"
-              placeholder={dic.search + " ..."}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <InputGroupAddon align="inline-end">
-              <FaSearch className="size-4" />
-            </InputGroupAddon>
-          </InputGroup>
-        </Field>
-        <Button
-          onClick={() => {
-            setEditingWorkspace(null);
-            setDialogOpen(true);
-          }}
-        >
-          <FaPlus className="size-3" />
-          {dic.newWorkspace}
-        </Button>
-      </div>
-      {visibleWorkspaces.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {visibleWorkspaces.map((workspace) => {
-            return (
-              <WorkspaceItem
-                key={workspace.id}
-                workspace={workspace}
-                onEdit={() => {
-                  setEditingWorkspace(workspace);
-                  setDialogOpen(true);
-                }}
+    <>
+      <div>
+        <div className="mb-4 grid gap-2 grid-cols-[1fr_max-content]">
+          <Field>
+            <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
+              <InputGroupInput
+                id="search"
+                type="search"
+                placeholder={dic.search + " ..."}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
-            );
-          })}
-        </ul>
-      ) : (
-        <div>
-          <NoItemFound searchedText={search} />
+              <InputGroupAddon align="inline-end">
+                <FaSearch className="size-4" />
+              </InputGroupAddon>
+            </InputGroup>
+          </Field>
+          <Button
+            onClick={() => {
+              setEditingWorkspace(null);
+              setDialogOpen(true);
+            }}
+          >
+            <FaPlus className="size-3" />
+            {dic.newWorkspace}
+          </Button>
         </div>
-      )}
+        {visibleWorkspaces.length > 0 ? (
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {visibleWorkspaces.map((workspace) => {
+              return (
+                <WorkspaceItem
+                  key={workspace.id}
+                  workspace={workspace}
+                  onEdit={() => {
+                    setEditingWorkspace(workspace);
+                    setDialogOpen(true);
+                  }}
+                />
+              );
+            })}
+          </ul>
+        ) : (
+          <div>
+            <NoItemFound searchedText={search} />
+          </div>
+        )}
+      </div>
       <EditWorkspaceDialog
         workspace={editingWorkspace}
         open={dialogOpen}
         onOpenChange={setDialogOpen}
       />
-    </div>
+    </>
   );
 }
