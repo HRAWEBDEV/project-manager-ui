@@ -3,16 +3,16 @@ import PanelAddress from "./PanelAddress";
 import HeaderProfile from "./HeaderProfile";
 import HeaderTools from "./HeaderTools";
 import { SidebarTrigger } from "@/app/[lang]/(panel)/services/side-bar/components/Sidebar";
-import HistoryControllers from "../../../services/history/components/HistoryControllers";
+// import HistoryControllers from "../../../services/history/components/HistoryControllers";
 
 export default function Header() {
   return (
     <header className="flex h-(--panel-header-height) shrink-0 items-center gap-2 border-b border-border">
       <div className="flex items-center gap-1 ps-4 grow">
         <SidebarTrigger />
-        <div className="hidden lg:block">
-          <HistoryControllers />
-        </div>
+        {/* <div className="hidden lg:block"> */}
+        {/*   <HistoryControllers /> */}
+        {/* </div> */}
         <Separator
           orientation="vertical"
           className="me-2 data-vertical:h-4 data-vertical:self-auto"
