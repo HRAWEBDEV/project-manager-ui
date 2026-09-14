@@ -12,10 +12,15 @@ interface Organization {
 type UpdateOrganization = Pick<Organization, "name" | "description">;
 
 const organizationsBaseApi = "/organizations";
+const organizationsLogoApi = `${organizationsBaseApi}/logo`;
 
 function updateOrganization(props: UpdateOrganization) {
   return axios.patch<{ id: string }>(organizationsBaseApi, props);
 }
 
+function updateOrganizationLogo(data: FormData) {
+  return axios.post(organizationsLogoApi, data);
+}
+
 export type { Organization, UpdateOrganization };
-export { organizationsBaseApi, updateOrganization };
+export { organizationsBaseApi, updateOrganization, updateOrganizationLogo };

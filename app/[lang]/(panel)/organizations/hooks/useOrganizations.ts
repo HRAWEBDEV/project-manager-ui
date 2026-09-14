@@ -6,6 +6,7 @@ import {
 import {
   type UpdateOrganization,
   updateOrganization,
+  updateOrganizationLogo,
 } from "../services/organizationsApiActions";
 
 function useUpdateOrganization() {
@@ -15,10 +16,9 @@ function useUpdateOrganization() {
       return updateOrganization(props);
     },
     onSuccess() {
-      // todo: fix this
-      // queryClient.invalidateQueries({
-      //   queryKey: [userOrganizationsApi],
-      // });
+      queryClient.invalidateQueries({
+        queryKey: [userOrganizationsApi],
+      });
       queryClient.invalidateQueries({
         queryKey: [userInfoApi],
       });
@@ -27,4 +27,22 @@ function useUpdateOrganization() {
   return updateOrganizationMutation;
 }
 
-export { useUpdateOrganization };
+function useUpdateOrganizationLogo() {
+  const queryClient = useQueryClient();
+  const updateOrganizationLogoMutation = useMutation({
+    mutationFn(data: FormData) {
+      return updateOrganizationLogo(data);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [userOrganizationsApi],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [userInfoApi],
+      });
+    },
+  });
+  return updateOrganizationLogoMutation;
+}
+
+export { useUpdateOrganization, useUpdateOrganizationLogo };

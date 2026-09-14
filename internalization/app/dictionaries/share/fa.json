@@ -38,7 +38,9 @@
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
       "name": "نام سازمان",
       "description": "توضیحات",
-      "saveChanges": "ذخیره تغییرات"
+      "saveChanges": "ذخیره تغییرات",
+      "changeAvatar": "ویرایش تصویر",
+      "removeAvatar": "حذف تصویر"
     },
     "workspaceInfo": {
       "workspaceName": "نام میزکار"
