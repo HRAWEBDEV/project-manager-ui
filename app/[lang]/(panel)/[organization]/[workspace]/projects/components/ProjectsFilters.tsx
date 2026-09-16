@@ -8,7 +8,13 @@ import {
 import { FaSearch, FaPlus } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 
-export default function ProjectsFilters({ dic }: { dic: ProjectsDictionary }) {
+export default function ProjectsFilters({
+  dic,
+  onCreate,
+}: {
+  dic: ProjectsDictionary;
+  onCreate: () => void;
+}) {
   return (
     <div className="mb-4">
       <div className="grid grid-cols-[minmax(15rem,20rem)_max-content] gap-2">
@@ -24,7 +30,7 @@ export default function ProjectsFilters({ dic }: { dic: ProjectsDictionary }) {
             </InputGroupAddon>
           </InputGroup>
         </Field>
-        <Button>
+        <Button onClick={onCreate}>
           <FaPlus className="size-3" />
           {dic.filters.createProject}
         </Button>

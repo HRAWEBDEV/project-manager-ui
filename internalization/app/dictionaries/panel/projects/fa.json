@@ -3,5 +3,18 @@
   "filters": {
     "search": "جستجو",
     "createProject": "ایجاد پروژه"
+  },
+  "editProject": {
+    "newProject": "پروژه جدید",
+    "name": "نام",
+    "description": "توضیحات",
+    "color": "رنگ",
+    "saveChanges": "ذخیره تغییرات",
+    "create": "ایجاد",
+    "delete": "حذف",
+    "cancel": "انصراف",
+    "confirm": "تایید",
+    "deleteProjectConfirmMessage": "آیا از حذف پروژه اطمینان دارید؟",
+    "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد"
   }
 }
