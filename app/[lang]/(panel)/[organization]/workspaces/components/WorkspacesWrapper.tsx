@@ -37,7 +37,7 @@ export default function WorkspacesWrapper() {
   return (
     <>
       <div>
-        <div className="mb-4 grid gap-2 grid-cols-[1fr_max-content]">
+        <div className="mb-2 grid gap-2 grid-cols-[1fr_max-content]">
           <Field>
             <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
               <InputGroupInput
@@ -63,7 +63,7 @@ export default function WorkspacesWrapper() {
           </Button>
         </div>
         {visibleWorkspaces.length > 0 ? (
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {visibleWorkspaces.map((workspace) => {
               return (
                 <WorkspaceItem
