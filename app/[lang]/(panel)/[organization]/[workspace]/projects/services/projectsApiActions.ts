@@ -14,11 +14,14 @@ interface Project {
   workspaceId: string;
 }
 
+type UpdateProject = Pick<Project, "name" | "description" | "color">;
+type CreateProject = Pick<Project, "name" | "description" | "color">;
+
 function getProjects({ signal }: { signal: AbortSignal }) {
   return axios.get<{ projects: Project[] }>(projectsBaseApi, {
     signal,
   });
 }
 
-export type { Project };
+export type { Project, UpdateProject, CreateProject };
 export { projectsBaseApi, getProjects };
