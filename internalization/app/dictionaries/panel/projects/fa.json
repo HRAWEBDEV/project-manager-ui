@@ -15,6 +15,8 @@
     "cancel": "انصراف",
     "confirm": "تایید",
     "deleteProjectConfirmMessage": "آیا از حذف پروژه اطمینان دارید؟",
-    "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد"
+    "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
+    "changeImage": "ویرایش تصویر",
+    "removeImage": "حذف تصویر"
   }
 }

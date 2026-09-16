@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -34,6 +34,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { IoIosWarning } from "react-icons/io";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const DEFAULT_PROJECT_COLOR = "#3b82f6";
 
@@ -46,6 +47,7 @@ export default function EditProject({
   dic: ProjectsDictionary;
   onSuccess?: () => void;
 }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const updateProjectMutation = useUpdateProject();
   const createProjectMutation = useCreateProject();
   const deleteProjectMutation = useDeleteProject();
@@ -72,6 +74,33 @@ export default function EditProject({
 
   return (
     <form>
+      {!!project && (
+        <div className="flex items-center flex-col">
+          <Avatar className="size-28">
+            <AvatarFallback>{project.name[0]}</AvatarFallback>
+          </Avatar>
+          <div className="flex gap-2 items-center flex-wrap mt-4">
+            <Button variant="destructive" className="min-w-28">
+              {dic.editProject.removeImage}
+            </Button>
+            <Button className="min-w-28" disabled={pendAction}>
+              <input
+                disabled={pendAction}
+                ref={fileInputRef}
+                type="file"
+                onChange={(e) => {
+                  const formData = new FormData();
+                  if (!e.target.files) return;
+                  formData.append("image", e.target.files[0]);
+                }}
+                accept="image/*"
+                hidden
+              />
+              {dic.editProject.changeImage}
+            </Button>
+          </div>
+        </div>
+      )}
       <FieldGroup className="gap-4">
         <Field data-invalid={!!errors.name}>
           <FieldLabel htmlFor="name">{dic.editProject.name} *</FieldLabel>
