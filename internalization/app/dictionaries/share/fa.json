@@ -43,7 +43,10 @@
       "phoneNumber": "شماره همراه",
       "saveChanges": "ذخیره تغییرات",
       "changeAvatar": "ویرایش تصویر",
-      "removeAvatar": "حذف تصویر"
+      "removeAvatar": "حذف تصویر",
+      "verified": "تایید شده",
+      "notVerified": "تایید نشده",
+      "verify": "تایید"
     },
     "organizationInfo": {
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",

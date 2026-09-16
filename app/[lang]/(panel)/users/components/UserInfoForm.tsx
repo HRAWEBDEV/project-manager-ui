@@ -11,10 +11,15 @@ import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryC
 import { NumericFormat } from "react-number-format";
 import { Button } from "@/components/ui/button";
 import { Field, FieldLabel, FieldGroup } from "@/components/ui/field";
-import { InputGroup, InputGroupInput } from "@/components/ui/input-group";
+import {
+  InputGroup,
+  InputGroupInput,
+  InputGroupAddon,
+} from "@/components/ui/input-group";
 import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { useProfile } from "../../services/profile/profileContext";
+import { Badge } from "@/components/ui/badge";
 
 export default function UserInfoForm() {
   const {
@@ -83,9 +88,26 @@ export default function UserInfoForm() {
 
           data-invalid={!!errors.email}
         >
-          <FieldLabel htmlFor="email">{dic.email} *</FieldLabel>
+          <FieldLabel htmlFor="email">
+            {dic.email} *{" "}
+            {usersInfoQuery.data?.user.emailVerified ? (
+              <Badge>{dic.verified}</Badge>
+            ) : (
+              <Badge variant="destructive">{dic.notVerified}</Badge>
+            )}
+          </FieldLabel>
           <InputGroup data-invalid={!!errors.email}>
             <InputGroupInput id="email" {...register("email")} />
+            <InputGroupAddon align="inline-end" className="-me-2">
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-primary border-primary"
+                disabled
+              >
+                {dic.verify} {dic.email}
+              </Button>
+            </InputGroupAddon>
           </InputGroup>
         </Field>
         <Controller
@@ -97,7 +119,14 @@ export default function UserInfoForm() {
 
               data-invalid={!!errors.phoneNumber}
             >
-              <FieldLabel htmlFor="phoneNumber">{dic.phoneNumber} </FieldLabel>
+              <FieldLabel htmlFor="phoneNumber">
+                {dic.phoneNumber}{" "}
+                {usersInfoQuery.data?.user.phoneNumberVerified ? (
+                  <Badge>{dic.verified}</Badge>
+                ) : (
+                  <Badge variant="destructive">{dic.notVerified}</Badge>
+                )}
+              </FieldLabel>
               <InputGroup data-invalid={!!errors.phoneNumber}>
                 <NumericFormat
                   {...other}
@@ -110,6 +139,16 @@ export default function UserInfoForm() {
                     onChange(value);
                   }}
                 />
+                <InputGroupAddon align="inline-end" className="-me-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="text-primary border-primary"
+                    disabled
+                  >
+                    {dic.verify} {dic.phoneNumber}
+                  </Button>
+                </InputGroupAddon>
               </InputGroup>
             </Field>
           )}
