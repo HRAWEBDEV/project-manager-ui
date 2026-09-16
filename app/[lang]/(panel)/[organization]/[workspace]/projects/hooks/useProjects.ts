@@ -1,5 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { projectsBaseApi, getProjects } from "../services/projectsApiActions";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  type UpdateProject,
+  type CreateProject,
+  projectsBaseApi,
+  getProjects,
+  createProject,
+  updateProject,
+  deleteProject,
+} from "../services/projectsApiActions";
 
 function useProjects() {
   const projectsQuery = useQuery({
@@ -12,4 +20,49 @@ function useProjects() {
   return projectsQuery;
 }
 
-export { useProjects };
+function useUpdateProject() {
+  const queryClient = useQueryClient();
+  const updateProjectMutation = useMutation({
+    mutationFn({ id, ...props }: { id: string } & UpdateProject) {
+      return updateProject(id, props);
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: [projectsBaseApi],
+      });
+    },
+  });
+  return updateProjectMutation;
+}
+
+function useCreateProject() {
+  const queryClient = useQueryClient();
+  const createProjectMutation = useMutation({
+    mutationFn(props: CreateProject) {
+      return createProject(props);
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: [projectsBaseApi],
+      });
+    },
+  });
+  return createProjectMutation;
+}
+
+function useDeleteProject() {
+  const queryClient = useQueryClient();
+  const deleteProjectMutation = useMutation({
+    mutationFn(id: string) {
+      return deleteProject(id);
+    },
+    onSuccess() {
+      queryClient.refetchQueries({
+        queryKey: [projectsBaseApi],
+      });
+    },
+  });
+  return deleteProjectMutation;
+}
+
+export { useProjects, useUpdateProject, useCreateProject, useDeleteProject };
