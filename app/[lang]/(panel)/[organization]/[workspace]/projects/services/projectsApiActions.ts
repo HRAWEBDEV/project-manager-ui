@@ -23,5 +23,23 @@ function getProjects({ signal }: { signal: AbortSignal }) {
   });
 }
 
+function createProject(props: CreateProject) {
+  return axios.post<{ id: string }>(projectsBaseApi, props);
+}
+
+function updateProject(id: string, props: UpdateProject) {
+  return axios.patch<{ id: string }>(`${projectsBaseApi}/${id}`, props);
+}
+
+function deleteProject(id: string) {
+  return axios.delete(`${projectsBaseApi}/${id}`);
+}
+
 export type { Project, UpdateProject, CreateProject };
-export { projectsBaseApi, getProjects };
+export {
+  projectsBaseApi,
+  getProjects,
+  createProject,
+  updateProject,
+  deleteProject,
+};
