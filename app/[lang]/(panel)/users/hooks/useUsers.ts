@@ -57,7 +57,7 @@ function useUpdateUser() {
       return updateUser(props);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [userInfoApi],
       });
     },
@@ -72,7 +72,7 @@ function useDeleteUserAvatar() {
       return deleteUserAvatar();
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [userInfoApi],
       });
     },
@@ -87,7 +87,7 @@ function useUpdateUserAvatar() {
       return updateUserAvatar(data);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [userInfoApi],
       });
     },

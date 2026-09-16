@@ -27,7 +27,7 @@ function useUpdateProject() {
       return updateProject(id, props);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [projectsBaseApi],
       });
     },
@@ -42,7 +42,7 @@ function useCreateProject() {
       return createProject(props);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [projectsBaseApi],
       });
     },
@@ -57,7 +57,7 @@ function useDeleteProject() {
       return deleteProject(id);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [projectsBaseApi],
       });
     },

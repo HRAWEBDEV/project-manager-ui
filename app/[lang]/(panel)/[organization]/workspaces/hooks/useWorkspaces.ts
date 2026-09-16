@@ -33,7 +33,7 @@ function useUpdateWorkspace() {
       return updateWorkspace(id, props);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [workspacesBaseApi],
       });
     },
@@ -48,7 +48,7 @@ function useCreateWorkspace() {
       return createWorkspace(props);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [workspacesBaseApi],
       });
     },
@@ -63,7 +63,7 @@ function useDeleteWorkspace() {
       return deleteWorkspace(id);
     },
     onSuccess() {
-      queryClient.refetchQueries({
+      queryClient.invalidateQueries({
         queryKey: [workspacesBaseApi],
       });
     },
