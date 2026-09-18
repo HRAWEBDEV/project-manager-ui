@@ -36,12 +36,10 @@ export default function EditWorkspaceDialog({
             {workspace ? workspace.name : dic.newWorkspace}
           </DialogDescription>
         </DialogHeader>
-        <div className="p-4 overflow-auto">
-          <EditWorkspace
-            workspace={workspace}
-            onSuccess={() => onOpenChange(false)}
-          />
-        </div>
+        <EditWorkspace
+          workspace={workspace}
+          onSuccess={() => onOpenChange(false)}
+        />
       </DialogContent>
     </Dialog>
   );

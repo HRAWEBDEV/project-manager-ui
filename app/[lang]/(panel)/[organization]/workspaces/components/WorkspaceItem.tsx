@@ -40,7 +40,7 @@ export default function WorkspaceItem({
       </Button>
       <Button
         variant="outline"
-        className="w-full flex-col h-auto p-2 gpa-2 items-stretch text-start border-0 pt-6"
+        className="w-full flex-col h-auto p-2 gpa-2 items-stretch text-start border-0 pt-6 group-data-[active='true']:bg-teal-500/10"
         onClick={onEdit}
       >
         <div className="flex flex-col gap-2 items-center mb-2 pb-2 border-b border-border">
