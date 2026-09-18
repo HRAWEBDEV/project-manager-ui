@@ -5,6 +5,8 @@ import { useProjectsContext } from "../services/control/projectsContext";
 import ProjectsItem from "./ProjectsItem";
 import { Skeleton } from "@/components/ui/skeleton";
 import NoItemFound from "@/app/[lang]/(panel)/components/NoItemFound";
+import { useFormContext } from "react-hook-form";
+import { FilterProjectsSchemas } from "../schemas/projectsSchemas";
 
 const wrapperClassName =
   "grid gap-4 grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(12rem,14rem))]";
@@ -16,6 +18,7 @@ export default function ProjectsList({
   dic: ProjectsDictionary;
   onEdit: (project: Project) => void;
 }) {
+  const { getValues } = useFormContext<FilterProjectsSchemas>();
   const { projectsInfo, visibleProjects } = useProjectsContext();
   if (projectsInfo.isLoading) {
     return (
@@ -29,7 +32,7 @@ export default function ProjectsList({
   if (projectsInfo.isSuccess && visibleProjects.length === 0) {
     return (
       <div>
-        <NoItemFound />
+        <NoItemFound searchedText={getValues("search")} />
       </div>
     );
   }

@@ -2,7 +2,8 @@
   "title": "پروژه‌ها",
   "filters": {
     "search": "جستجو",
-    "createProject": "ایجاد پروژه"
+    "createProject": "ایجاد پروژه",
+    "results": "نتایج"
   },
   "editProject": {
     "newProject": "پروژه جدید",
