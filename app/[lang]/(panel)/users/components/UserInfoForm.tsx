@@ -80,7 +80,7 @@ export default function UserInfoForm() {
         <Field className="gap-2" data-invalid={!!errors.username}>
           <FieldLabel htmlFor="username">{dic.username} *</FieldLabel>
           <InputGroup data-invalid={!!errors.username}>
-            <InputGroupInput id="username" {...register("username")} />
+            <InputGroupInput id="username" disabled {...register("username")} />
           </InputGroup>
         </Field>
         <Field
@@ -97,7 +97,7 @@ export default function UserInfoForm() {
             )}
           </FieldLabel>
           <InputGroup data-invalid={!!errors.email}>
-            <InputGroupInput id="email" {...register("email")} />
+            <InputGroupInput disabled id="email" {...register("email")} />
             <InputGroupAddon align="inline-end" className="-me-2">
               <Button
                 variant="outline"
@@ -130,6 +130,7 @@ export default function UserInfoForm() {
               <InputGroup data-invalid={!!errors.phoneNumber}>
                 <NumericFormat
                   {...other}
+                  disabled
                   value={value}
                   id="phoneNumber"
                   allowLeadingZeros

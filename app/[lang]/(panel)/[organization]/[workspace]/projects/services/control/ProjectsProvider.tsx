@@ -11,11 +11,9 @@ export default function ProjectsProvider({
   children: ReactNode;
 }) {
   const projectsQuery = useProjects();
-
   const ctx: ProjectsContextProps = {
     projectsInfo: projectsQuery,
   };
-
   return (
     <ProjectsContext.Provider value={ctx}>{children}</ProjectsContext.Provider>
   );

@@ -101,7 +101,7 @@ export default function EditWorkspace({
               id="description"
               {...register("description")}
               className="field-sizing-fixed"
-              rows={6}
+              rows={3}
             />
           </InputGroup>
         </Field>

@@ -80,7 +80,7 @@ export default function EditProject({
             <AvatarFallback>{project.name[0]}</AvatarFallback>
           </Avatar>
           <div className="flex gap-2 items-center flex-wrap mt-4">
-            <Button variant="destructive" className="min-w-28">
+            <Button variant="destructive" className="min-w-28" disabled>
               {dic.editProject.removeImage}
             </Button>
             <Button className="min-w-28" disabled={pendAction}>
@@ -117,7 +117,7 @@ export default function EditProject({
               id="description"
               {...register("description")}
               className="field-sizing-fixed"
-              rows={6}
+              rows={3}
             />
           </InputGroup>
         </Field>
