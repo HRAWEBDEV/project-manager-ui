@@ -57,6 +57,7 @@
       "removeAvatar": "حذف تصویر"
     },
     "workspaceInfo": {
+      "results": "نتایج",
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
       "workspaceName": "نام میزکار",
       "organizationName": "نام سازمان",

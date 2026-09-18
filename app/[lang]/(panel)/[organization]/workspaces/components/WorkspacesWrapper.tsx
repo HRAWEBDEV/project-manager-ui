@@ -37,31 +37,42 @@ export default function WorkspacesWrapper() {
   return (
     <>
       <div>
-        <div className="mb-2 grid gap-2 grid-cols-[1fr_max-content]">
-          <Field>
-            <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
-              <InputGroupInput
-                id="search"
-                type="search"
-                placeholder={dic.search + " ..."}
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <InputGroupAddon align="inline-end">
-                <FaSearch className="size-4" />
-              </InputGroupAddon>
-            </InputGroup>
-          </Field>
-          <Button
-            onClick={() => {
-              setEditingWorkspace(null);
-              setDialogOpen(true);
-            }}
-          >
-            <FaPlus className="size-3" />
-            {dic.newWorkspace}
-          </Button>
+        <div className="mb-2">
+          <div className="grid gap-2 grid-cols-[1fr_max-content]">
+            <Field>
+              <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
+                <InputGroupInput
+                  id="search"
+                  type="search"
+                  placeholder={dic.search + " ..."}
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                <InputGroupAddon align="inline-end">
+                  <FaSearch className="size-4" />
+                </InputGroupAddon>
+              </InputGroup>
+            </Field>
+            <Button
+              onClick={() => {
+                setEditingWorkspace(null);
+                setDialogOpen(true);
+              }}
+            >
+              <FaPlus className="size-3" />
+              {dic.newWorkspace}
+            </Button>
+          </div>
+          <div className="mt-0.5">
+            <div className="text-xs">
+              <span className="text-neutral-500">{dic.results}: </span>
+              <span className="text-neutral-700 dark:text-neutral-400">
+                {visibleWorkspaces.length}
+              </span>
+            </div>
+          </div>
         </div>
+
         {visibleWorkspaces.length > 0 ? (
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {visibleWorkspaces.map((workspace) => {
