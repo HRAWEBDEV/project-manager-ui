@@ -6,12 +6,14 @@ import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
 import { useOrganizationContext } from "@/app/[lang]/(panel)/services/organization/organizationContext";
 import { useWorkspaces } from "../../../workspaces/hooks/useWorkspaces";
+import { useClearQueries } from "@/app/[lang]/hooks/useClearQueries";
 
 export default function WorkspacesProvider({
   children,
 }: {
   children: ReactNode;
 }) {
+  const { clearQueries } = useClearQueries();
   const { locale } = useBaseConfig();
   const router = useRouter();
   const { workspace: workspaceParam } = useParams();
@@ -41,8 +43,9 @@ export default function WorkspacesProvider({
   const handleChangeWorkspace = useCallback(
     (organzationSlug: string, workspaceSlug: string) => {
       router.replace(`/${locale}/${organzationSlug}/${workspaceSlug}`);
+      clearQueries();
     },
-    [locale, router],
+    [locale, router, clearQueries],
   );
 
   const ctx = {

@@ -11,7 +11,7 @@ import { AxiosError } from "axios";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
-import { useQueryClient } from "@tanstack/react-query";
+import { useClearQueries } from "@/app/[lang]/hooks/useClearQueries";
 
 function useSignIn({ dic }: { dic: AuthDictionary }) {
   const mut = useMutation({
@@ -38,7 +38,7 @@ function useSignup({}: { dic: AuthDictionary }) {
 }
 
 function useLogout() {
-  const queryClient = useQueryClient();
+  const { clearQueries } = useClearQueries();
   const router = useRouter();
   const { locale } = useBaseConfig();
   const mut = useMutation({
@@ -47,9 +47,7 @@ function useLogout() {
     },
     onSuccess() {
       router.push(`/${locale}/sign-in`);
-      setTimeout(() => {
-        queryClient.clear();
-      }, 500);
+      clearQueries();
     },
     onError() {},
   });
