@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import NoItemFound from "@/app/[lang]/(panel)/components/NoItemFound";
 
 const wrapperClassName =
-  "grid gap-4 grid-cols-[repeat(auto-fill,minmax(12rem,14rem))]";
+  "grid gap-4 grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(12rem,14rem))]";
 
 export default function ProjectsList({
   dic,
@@ -16,7 +16,7 @@ export default function ProjectsList({
   dic: ProjectsDictionary;
   onEdit: (project: Project) => void;
 }) {
-  const { projectsInfo } = useProjectsContext();
+  const { projectsInfo, visibleProjects } = useProjectsContext();
   if (projectsInfo.isLoading) {
     return (
       <div className={wrapperClassName}>
@@ -26,7 +26,7 @@ export default function ProjectsList({
       </div>
     );
   }
-  if (projectsInfo.isSuccess && projectsInfo.data.projects.length === 0) {
+  if (projectsInfo.isSuccess && visibleProjects.length === 0) {
     return (
       <div>
         <NoItemFound />
@@ -35,7 +35,7 @@ export default function ProjectsList({
   }
   return (
     <div className={wrapperClassName}>
-      {projectsInfo.data?.projects.map((project) => (
+      {visibleProjects.map((project) => (
         <ProjectsItem
           key={project.id}
           dic={dic}

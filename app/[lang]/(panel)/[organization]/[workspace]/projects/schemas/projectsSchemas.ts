@@ -10,5 +10,12 @@ function updateProjectSchema() {
 
 type UpdateProjectSchema = z.infer<ReturnType<typeof updateProjectSchema>>;
 
-export type { UpdateProjectSchema };
-export { updateProjectSchema };
+function filterProjectsSchemas() {
+  return z.object({
+    search: z.string(),
+  });
+}
+type FilterProjectsSchemas = z.infer<ReturnType<typeof filterProjectsSchemas>>;
+
+export type { UpdateProjectSchema, FilterProjectsSchemas };
+export { updateProjectSchema, filterProjectsSchemas };

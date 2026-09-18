@@ -1,9 +1,11 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
 import { useProjects } from "../../hooks/useProjects";
+import { type Project } from "../projectsApiActions";
 
 interface ProjectsContextProps {
   projectsInfo: ReturnType<typeof useProjects>;
+  visibleProjects: Project[];
 }
 
 const ProjectsContext = createContext<ProjectsContextProps | null>(null);

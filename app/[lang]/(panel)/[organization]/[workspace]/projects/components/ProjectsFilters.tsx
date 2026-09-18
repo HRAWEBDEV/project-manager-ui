@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/input-group";
 import { FaSearch, FaPlus } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
+import { useFormContext } from "react-hook-form";
+import { type FilterProjectsSchemas } from "../schemas/projectsSchemas";
 
 export default function ProjectsFilters({
   dic,
@@ -15,15 +17,18 @@ export default function ProjectsFilters({
   dic: ProjectsDictionary;
   onCreate: () => void;
 }) {
+  const { register } = useFormContext<FilterProjectsSchemas>();
+
   return (
     <div className="mb-4">
-      <div className="grid grid-cols-[minmax(15rem,20rem)_max-content] gap-2">
+      <div className="grid grid-cols-[minmax(10rem,20rem)_max-content] gap-2">
         <Field>
           <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
             <InputGroupInput
               id="search"
               type="search"
               placeholder={dic.filters.search + " ..."}
+              {...register("search")}
             />
             <InputGroupAddon align="inline-end">
               <FaSearch className="size-4" />
