@@ -35,6 +35,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { IoIosWarning } from "react-icons/io";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { DialogFooter } from "@/components/ui/dialog";
 
 const DEFAULT_PROJECT_COLOR = "#3b82f6";
 
@@ -73,133 +74,135 @@ export default function EditProject({
   }, [project, reset]);
 
   return (
-    <form>
-      {!!project && (
-        <div className="flex items-center flex-col">
-          <Avatar className="size-28">
-            <AvatarFallback>{project.name[0]}</AvatarFallback>
-          </Avatar>
-          <div className="flex gap-2 items-center flex-wrap mt-4">
-            <Button variant="destructive" className="min-w-28" disabled>
-              {dic.editProject.removeImage}
-            </Button>
-            <Button className="min-w-28" disabled={pendAction}>
-              <input
-                disabled={pendAction}
-                ref={fileInputRef}
-                type="file"
-                onChange={(e) => {
-                  const formData = new FormData();
-                  if (!e.target.files) return;
-                  formData.append("image", e.target.files[0]);
-                }}
-                accept="image/*"
-                hidden
-              />
-              {dic.editProject.changeImage}
-            </Button>
-          </div>
-        </div>
-      )}
-      <FieldGroup className="gap-4">
-        <Field data-invalid={!!errors.name}>
-          <FieldLabel htmlFor="name">{dic.editProject.name} *</FieldLabel>
-          <InputGroup data-invalid={!!errors.name}>
-            <InputGroupInput id="name" {...register("name")} />
-          </InputGroup>
-        </Field>
-        <Field data-invalid={!!errors.description}>
-          <FieldLabel htmlFor="description">
-            {dic.editProject.description}
-          </FieldLabel>
-          <InputGroup data-invalid={!!errors.description}>
-            <InputGroupTextarea
-              id="description"
-              {...register("description")}
-              className="field-sizing-fixed"
-              rows={3}
-            />
-          </InputGroup>
-        </Field>
-        <Field data-invalid={!!errors.color}>
-          <FieldLabel htmlFor="color">{dic.editProject.color}</FieldLabel>
-          <InputGroup data-invalid={!!errors.color}>
-            <InputGroupInput
-              id="color"
-              type="color"
-              className="h-8 cursor-pointer p-1"
-              {...register("color")}
-            />
-          </InputGroup>
-        </Field>
-        <div className="flex justify-between gap-2">
-          <AlertDialog>
-            <AlertDialogTrigger
-              render={
-                <Button variant="destructive" disabled={pendAction}>
-                  {pendAction && <Spinner />}
-                  {dic.editProject.delete}
-                </Button>
-              }
-            />
-            <AlertDialogContent size="sm">
-              <AlertDialogHeader>
-                <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-                  <IoIosWarning />
-                </AlertDialogMedia>
-                <AlertDialogTitle>
-                  {dic.editProject.deleteProjectConfirmMessage}
-                </AlertDialogTitle>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel disabled={pendAction} variant="outline">
-                  {dic.editProject.cancel}
-                </AlertDialogCancel>
-                <AlertDialogAction
+    <form className="flex flex-col grow overflow-hidden">
+      <div className="p-4 overflow-auto">
+        {!!project && (
+          <div className="flex items-center flex-col">
+            <Avatar className="size-28">
+              <AvatarFallback>{project.name[0]}</AvatarFallback>
+            </Avatar>
+            <div className="flex gap-2 items-center flex-wrap mt-4">
+              <Button variant="destructive" className="min-w-28" disabled>
+                {dic.editProject.removeImage}
+              </Button>
+              <Button className="min-w-28" disabled={pendAction}>
+                <input
                   disabled={pendAction}
-                  variant="destructive"
-                  onClick={() => {
-                    if (!project) return;
-                    deleteProjectMutation.mutateAsync(project.id).then(() => {
-                      onSuccess?.();
-                    });
+                  ref={fileInputRef}
+                  type="file"
+                  onChange={(e) => {
+                    const formData = new FormData();
+                    if (!e.target.files) return;
+                    formData.append("image", e.target.files[0]);
                   }}
-                >
-                  {dic.editProject.confirm}
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-          <Button
-            className="w-32"
-            type="submit"
-            disabled={(project ? !isDirty : false) || pendAction}
-            onClick={(e) => {
-              e.preventDefault();
-              handleSubmit((data) => {
-                const props = {
-                  name: data.name,
-                  description: data.description || null,
-                  color: data.color || null,
-                };
-                const mutation = project
-                  ? updateProjectMutation.mutateAsync({
-                      id: project.id,
-                      ...props,
-                    })
-                  : createProjectMutation.mutateAsync(props);
-                mutation.then(() => {
-                  toast.success(dic.editProject.changesSavedSuccessfully);
-                  onSuccess?.();
-                });
-              })();
-            }}
-          >
-            {pendAction && <Spinner />}
-            {project ? dic.editProject.saveChanges : dic.editProject.create}
-          </Button>
-        </div>
-      </FieldGroup>
+                  accept="image/*"
+                  hidden
+                />
+                {dic.editProject.changeImage}
+              </Button>
+            </div>
+          </div>
+        )}
+        <FieldGroup className="gap-4">
+          <Field data-invalid={!!errors.name}>
+            <FieldLabel htmlFor="name">{dic.editProject.name} *</FieldLabel>
+            <InputGroup data-invalid={!!errors.name}>
+              <InputGroupInput id="name" {...register("name")} />
+            </InputGroup>
+          </Field>
+          <Field data-invalid={!!errors.description}>
+            <FieldLabel htmlFor="description">
+              {dic.editProject.description}
+            </FieldLabel>
+            <InputGroup data-invalid={!!errors.description}>
+              <InputGroupTextarea
+                id="description"
+                {...register("description")}
+                className="field-sizing-fixed"
+                rows={3}
+              />
+            </InputGroup>
+          </Field>
+          <Field data-invalid={!!errors.color}>
+            <FieldLabel htmlFor="color">{dic.editProject.color}</FieldLabel>
+            <InputGroup data-invalid={!!errors.color}>
+              <InputGroupInput
+                id="color"
+                type="color"
+                className="h-8 cursor-pointer p-1"
+                {...register("color")}
+              />
+            </InputGroup>
+          </Field>
+        </FieldGroup>
+      </div>
+      <DialogFooter className="p-2 px-4 sm:justify-between">
+        <AlertDialog>
+          <AlertDialogTrigger
+            render={
+              <Button variant="destructive" disabled={pendAction}>
+                {pendAction && <Spinner />}
+                {dic.editProject.delete}
+              </Button>
+            }
+          />
+          <AlertDialogContent size="sm">
+            <AlertDialogHeader>
+              <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                <IoIosWarning />
+              </AlertDialogMedia>
+              <AlertDialogTitle>
+                {dic.editProject.deleteProjectConfirmMessage}
+              </AlertDialogTitle>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={pendAction} variant="outline">
+                {dic.editProject.cancel}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                disabled={pendAction}
+                variant="destructive"
+                onClick={() => {
+                  if (!project) return;
+                  deleteProjectMutation.mutateAsync(project.id).then(() => {
+                    onSuccess?.();
+                  });
+                }}
+              >
+                {dic.editProject.confirm}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+        <Button
+          className="sm:w-32"
+          type="submit"
+          disabled={(project ? !isDirty : false) || pendAction}
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit((data) => {
+              const props = {
+                name: data.name,
+                description: data.description || null,
+                color: data.color || null,
+              };
+              const mutation = project
+                ? updateProjectMutation.mutateAsync({
+                    id: project.id,
+                    ...props,
+                  })
+                : createProjectMutation.mutateAsync(props);
+              mutation.then(() => {
+                toast.success(dic.editProject.changesSavedSuccessfully);
+                onSuccess?.();
+              });
+            })();
+          }}
+        >
+          {pendAction && <Spinner />}
+          {project ? dic.editProject.saveChanges : dic.editProject.create}
+        </Button>
+      </DialogFooter>
     </form>
   );
 }

@@ -32,13 +32,11 @@ export default function EditProjectDialog({
             {project ? project.name : dic.editProject.newProject}
           </DialogDescription>
         </DialogHeader>
-        <div className="p-4 overflow-auto">
-          <EditProject
-            project={project}
-            dic={dic}
-            onSuccess={() => onOpenChange(false)}
-          />
-        </div>
+        <EditProject
+          project={project}
+          dic={dic}
+          onSuccess={() => onOpenChange(false)}
+        />
       </DialogContent>
     </Dialog>
   );
