@@ -20,8 +20,6 @@ export function getSettingsIcon(
       return <BsPersonWorkspace {...props} />;
     case "myWorkspaces":
       return <MdWorkspaces {...props} />;
-    case "projects":
-      return <IoApps {...props} />;
     case "general":
       return <IoSettingsSharp {...props} />;
     case "logout":
