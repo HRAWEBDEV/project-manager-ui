@@ -44,9 +44,12 @@
       "saveChanges": "ذخیره تغییرات",
       "changeAvatar": "ویرایش تصویر",
       "removeAvatar": "حذف تصویر",
+      "removeAvatarConfirmMessage": "آیا از حذف تصویر اطمینان دارید؟",
       "verified": "تایید شده",
       "notVerified": "تایید نشده",
-      "verify": "تایید"
+      "verify": "تایید",
+      "confirm": "تایید",
+      "cancel": "انصراف"
     },
     "organizationInfo": {
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",

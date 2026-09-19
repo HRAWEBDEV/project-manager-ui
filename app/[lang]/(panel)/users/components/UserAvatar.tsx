@@ -6,6 +6,18 @@ import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryC
 import { useDeleteUserAvatar, useUpdateUserAvatar } from "../hooks/useUsers";
 import { Spinner } from "@/components/ui/spinner";
 import { useProfile } from "../../services/profile/profileContext";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { IoIosWarning } from "react-icons/io";
 
 export default function UserAvatar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -34,15 +46,40 @@ export default function UserAvatar() {
         </AvatarFallback>
       </Avatar>
       <div className="flex gap-2 items-center flex-wrap mt-4">
-        <Button
-          variant="destructive"
-          className="min-w-28"
-          disabled={pendAction || !usersInfoQuery.data?.user.avatar}
-          onClick={() => confirmDeleteUserAvatar.mutate()}
-        >
-          {pendAction && <Spinner />}
-          {dic.removeAvatar}
-        </Button>
+        <AlertDialog>
+          <AlertDialogTrigger
+            render={
+              <Button
+                variant="destructive"
+                className="min-w-28"
+                disabled={pendAction || !usersInfoQuery.data?.user.avatar}
+              >
+                {pendAction && <Spinner />}
+                {dic.removeAvatar}
+              </Button>
+            }
+          />
+          <AlertDialogContent size="sm">
+            <AlertDialogHeader>
+              <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                <IoIosWarning />
+              </AlertDialogMedia>
+              <AlertDialogTitle>{dic.removeAvatarConfirmMessage}</AlertDialogTitle>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel disabled={pendAction} variant="outline">
+                {dic.cancel}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                disabled={pendAction}
+                variant="destructive"
+                onClick={() => confirmDeleteUserAvatar.mutate()}
+              >
+                {dic.confirm}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
         <Button
           className="min-w-28"
           disabled={pendAction}
