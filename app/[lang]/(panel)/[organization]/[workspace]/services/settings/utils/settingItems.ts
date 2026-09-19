@@ -13,6 +13,9 @@ export const settingItems = [
     key: "myWorkspaces",
   },
   {
+    key: "shortcuts",
+  },
+  {
     key: "general",
   },
   {

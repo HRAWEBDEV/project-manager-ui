@@ -1,10 +1,11 @@
 import { SVGProps } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { RiLogoutBoxRFill } from "react-icons/ri";
-import { IoSettingsSharp, IoApps } from "react-icons/io5";
+import { IoSettingsSharp } from "react-icons/io5";
 import { BsPersonWorkspace } from "react-icons/bs";
 import { GoOrganization } from "react-icons/go";
 import { MdWorkspaces } from "react-icons/md";
+import { FaRegKeyboard } from "react-icons/fa";
 import { settingItems } from "./settingItems";
 
 export function getSettingsIcon(
@@ -20,6 +21,8 @@ export function getSettingsIcon(
       return <BsPersonWorkspace {...props} />;
     case "myWorkspaces":
       return <MdWorkspaces {...props} />;
+    case "shortcuts":
+      return <FaRegKeyboard {...props} />;
     case "general":
       return <IoSettingsSharp {...props} />;
     case "logout":

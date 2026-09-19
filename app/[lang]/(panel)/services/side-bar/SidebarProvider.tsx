@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from "react";
 import { SidebarContext, SidebarContextProps } from "./sidebarContext";
 import { cn } from "cn";
 import { useHotkey } from "@tanstack/react-hotkeys";
+import { useShortcutsContext } from "../shortcuts/shortcutsContext";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -24,6 +25,7 @@ export default function SidebarProvider({
 }) {
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = useState(false);
+  const { onGetShortcutKeys } = useShortcutsContext();
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
@@ -50,7 +52,8 @@ export default function SidebarProvider({
   }, [isMobile, setOpen, setOpenMobile]);
 
   // Adds a keyboard shortcut to toggle the sidebar.
-  useHotkey("Control+B", () => {
+
+  useHotkey(onGetShortcutKeys("general", "toggleNavigation"), () => {
     toggleSidebar();
   });
   // This makes it easier to style the sidebar with Tailwind classes.

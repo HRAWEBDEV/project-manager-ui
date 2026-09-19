@@ -7,7 +7,6 @@ export default function HistoryProvider({ children }: { children: ReactNode }) {
   const [redirectCount, setRedirectCount] = useState(0);
   const firstMount = useRef(true);
   const pathname = usePathname();
-
   const ctx: HistoryContextProps = {
     title: "history",
     redirectCount,
