@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -10,6 +10,8 @@ import {
   useUpdateProject,
   useCreateProject,
   useDeleteProject,
+  useUploadProjectIcon,
+  useDeleteProjectIcon,
 } from "../hooks/useProjects";
 import { type Project } from "../services/projectsApiActions";
 import { type ProjectsDictionary } from "@/internalization/app/dictionaries/panel/projects/dictionary";
@@ -49,9 +51,12 @@ export default function EditProject({
   onSuccess?: () => void;
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isRemoveIconDialogOpen, setIsRemoveIconDialogOpen] = useState(false);
   const updateProjectMutation = useUpdateProject();
   const createProjectMutation = useCreateProject();
   const deleteProjectMutation = useDeleteProject();
+  const uploadProjectIconMutation = useUploadProjectIcon();
+  const deleteProjectIconMutation = useDeleteProjectIcon();
   const {
     reset,
     register,
@@ -63,7 +68,9 @@ export default function EditProject({
   const pendAction =
     updateProjectMutation.isPending ||
     createProjectMutation.isPending ||
-    deleteProjectMutation.isPending;
+    deleteProjectMutation.isPending ||
+    uploadProjectIconMutation.isPending ||
+    deleteProjectIconMutation.isPending;
 
   useEffect(() => {
     reset({
@@ -79,13 +86,65 @@ export default function EditProject({
         {!!project && (
           <div className="flex items-center flex-col">
             <Avatar className="size-28">
+              <AvatarImage
+                src={`${process.env.NEXT_PUBLIC_SERVER_URI}${project.icon}`}
+                alt="project icon"
+              />
               <AvatarFallback>{project.name[0]}</AvatarFallback>
             </Avatar>
             <div className="flex gap-2 items-center flex-wrap mt-4">
-              <Button variant="destructive" className="min-w-28" disabled>
-                {dic.editProject.removeImage}
-              </Button>
-              <Button className="min-w-28" disabled={pendAction}>
+              <AlertDialog
+                open={isRemoveIconDialogOpen}
+                onOpenChange={setIsRemoveIconDialogOpen}
+              >
+                <AlertDialogTrigger
+                  render={
+                    <Button
+                      variant="destructive"
+                      className="min-w-28"
+                      disabled={pendAction}
+                    >
+                      {pendAction && <Spinner />}
+                      {dic.editProject.removeImage}
+                    </Button>
+                  }
+                />
+                <AlertDialogContent size="sm">
+                  <AlertDialogHeader>
+                    <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                      <IoIosWarning />
+                    </AlertDialogMedia>
+                    <AlertDialogTitle>
+                      {dic.editProject.removeImageConfirmMessage}
+                    </AlertDialogTitle>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel disabled={pendAction} variant="outline">
+                      {dic.editProject.cancel}
+                    </AlertDialogCancel>
+                    <AlertDialogAction
+                      disabled={pendAction}
+                      variant="destructive"
+                      onClick={() => {
+                        deleteProjectIconMutation
+                          .mutateAsync(project.id)
+                          .then(() => {
+                            setIsRemoveIconDialogOpen(false);
+                          });
+                      }}
+                    >
+                      {dic.editProject.confirm}
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <Button
+                className="min-w-28"
+                onClick={() => {
+                  fileInputRef.current?.click();
+                }}
+                disabled={pendAction}
+              >
                 <input
                   disabled={pendAction}
                   ref={fileInputRef}
@@ -94,10 +153,15 @@ export default function EditProject({
                     const formData = new FormData();
                     if (!e.target.files) return;
                     formData.append("image", e.target.files[0]);
+                    uploadProjectIconMutation.mutate({
+                      id: project.id,
+                      data: formData,
+                    });
                   }}
                   accept="image/*"
                   hidden
                 />
+                {pendAction && <Spinner />}
                 {dic.editProject.changeImage}
               </Button>
             </div>

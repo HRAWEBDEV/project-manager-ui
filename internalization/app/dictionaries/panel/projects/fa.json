@@ -18,6 +18,7 @@
     "deleteProjectConfirmMessage": "آیا از حذف پروژه اطمینان دارید؟",
     "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",
     "changeImage": "ویرایش تصویر",
-    "removeImage": "حذف تصویر"
+    "removeImage": "حذف تصویر",
+    "removeImageConfirmMessage": "آیا از حذف تصویر اطمینان دارید؟"
   }
 }

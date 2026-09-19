@@ -39,6 +39,10 @@ function uploadProjectIcon(id: string, data: FormData) {
   return axios.post(`${projectsBaseApi}/${id}/icon`, data);
 }
 
+function deleteProjectIcon(id: string) {
+  return axios.delete(`${projectsBaseApi}/${id}/icon`);
+}
+
 export type { Project, UpdateProject, CreateProject };
 export {
   projectsBaseApi,
@@ -47,4 +51,5 @@ export {
   updateProject,
   deleteProject,
   uploadProjectIcon,
+  deleteProjectIcon,
 };

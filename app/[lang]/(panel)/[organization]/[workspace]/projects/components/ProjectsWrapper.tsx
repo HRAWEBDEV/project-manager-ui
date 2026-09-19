@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import { type ProjectsDictionary } from "@/internalization/app/dictionaries/panel/projects/dictionary";
-import { type Project } from "../services/projectsApiActions";
 import ProjectsFilters from "./ProjectsFilters";
 import ProjectsList from "./ProjectsList";
 import EditProjectDialog from "./EditProjectDialog";
@@ -9,9 +8,11 @@ import { useProjectsContext } from "../services/control/projectsContext";
 import LinearLoading from "@/components/LinearLoading";
 
 export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
-  const { projectsInfo } = useProjectsContext();
-  const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const { projectsInfo, visibleProjects } = useProjectsContext();
+  const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const editingProject =
+    visibleProjects.find((project) => project.id === editingProjectId) ?? null;
 
   return (
     <div className="p-4 relative">
@@ -23,14 +24,14 @@ export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
       <ProjectsFilters
         dic={dic}
         onCreate={() => {
-          setEditingProject(null);
+          setEditingProjectId(null);
           setDialogOpen(true);
         }}
       />
       <ProjectsList
         dic={dic}
         onEdit={(project) => {
-          setEditingProject(project);
+          setEditingProjectId(project.id);
           setDialogOpen(true);
         }}
       />

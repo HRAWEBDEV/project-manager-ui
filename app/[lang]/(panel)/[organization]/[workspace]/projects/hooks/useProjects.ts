@@ -7,6 +7,8 @@ import {
   createProject,
   updateProject,
   deleteProject,
+  uploadProjectIcon,
+  deleteProjectIcon,
 } from "../services/projectsApiActions";
 
 function useProjects() {
@@ -65,4 +67,41 @@ function useDeleteProject() {
   return deleteProjectMutation;
 }
 
-export { useProjects, useUpdateProject, useCreateProject, useDeleteProject };
+function useUploadProjectIcon() {
+  const queryClient = useQueryClient();
+  const uploadProjectIconMutation = useMutation({
+    mutationFn({ id, data }: { id: string; data: FormData }) {
+      return uploadProjectIcon(id, data);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [projectsBaseApi],
+      });
+    },
+  });
+  return uploadProjectIconMutation;
+}
+
+function useDeleteProjectIcon() {
+  const queryClient = useQueryClient();
+  const deleteProjectIconMutation = useMutation({
+    mutationFn(id: string) {
+      return deleteProjectIcon(id);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [projectsBaseApi],
+      });
+    },
+  });
+  return deleteProjectIconMutation;
+}
+
+export {
+  useProjects,
+  useUpdateProject,
+  useCreateProject,
+  useDeleteProject,
+  useUploadProjectIcon,
+  useDeleteProjectIcon,
+};
