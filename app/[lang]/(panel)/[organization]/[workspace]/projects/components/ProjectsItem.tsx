@@ -24,7 +24,7 @@ export default function ProjectsItem({
         }}
         className="absolute inset-0"
       ></div>
-      <div className="flex flex-col items-center gap-2 pb-2 mb-2 border-b border-border">
+      <div className="flex flex-col items-center gap-2">
         <div>
           <Avatar className="size-18">
             <AvatarFallback>{project.name[0]}</AvatarFallback>

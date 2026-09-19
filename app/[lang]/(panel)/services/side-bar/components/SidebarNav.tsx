@@ -26,7 +26,7 @@ export default function SidebarNav() {
               data-active={i === 1}
               variant="ghost"
               key={item.type}
-              className="h-auto text-start justify-stretch min-h-14 gap-3 hover:bg-neutral-200 dark:hover:border-b-neutral-700 data-[active='true']:bg-primary data-[active='true']:text-primary-foreground"
+              className="h-auto text-start text-neutral-600 dark:text-neutral-300 justify-stretch min-h-14 gap-3 hover:bg-neutral-200 dark:hover:border-b-neutral-700 data-[active='true']:bg-primary data-[active='true']:text-primary-foreground"
               render={
                 <Link href={`${basePath}/${item.path}`}>
                   {getNavigationIcon(item.type, { className: "size-6" })}
