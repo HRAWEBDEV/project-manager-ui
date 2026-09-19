@@ -166,6 +166,7 @@ export default async function RootLayout({
             position="top-center"
             richColors
             className="font-[inherit]!"
+            closeButton
           />
         </TooltipProvider>
       </body>
