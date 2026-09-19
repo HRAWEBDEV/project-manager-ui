@@ -66,6 +66,14 @@ Each domain feature (`organizations/`, `users/`, `[organization]/workspaces/`, `
 
 **Page-scoped context** (seen in `[workspace]/projects/`): a feature whose sibling client components (filters, list, item) need to share one fetched query result puts a *second* subfolder, `services/control/`, next to the plain `services/<feature>ApiActions.ts` — `services/control/<feature>Context.ts` (the `createContext`/`useXContext`/`OutOfContext` shape from the Context/Provider pattern below) and `services/control/<Feature>Provider.tsx` (calls the feature's `use<Feature>` query hook once and exposes it through the context). Unlike the organization/workspace "active entity" providers, this provider is mounted directly in the feature's own `page.tsx` (wrapping just that page's tree), not in a shared layout, since the state is only needed within that one page.
 
+### Entity image upload/delete pattern
+
+Entities with an image field (`Project.icon`, `Organization.logo`, `User.avatar`) follow the same upload/delete shape, added to the feature's *existing* `*ApiActions.ts`/`use<Feature>.ts` files rather than a new module:
+
+- **Service**: a dedicated sub-path off the entity's base API (`${projectsBaseApi}/${id}/icon`, `${organizationsBaseApi}/logo`, `${userBaseApi}/avatar`) with `axios.post(path, data: FormData)` to upload and `axios.delete(path)` to remove — no PATCH/body-based update for the image itself.
+- **Hooks**: `useUpload<Thing>Icon`/`useUpdate<Thing>Logo`/`useUpdate<Thing>Avatar` (mutation takes the `FormData`, plus an `id` for non-scoped entities like projects) and `useDelete<Thing>Icon`/`Logo`/`Avatar` (no args for singleton-per-user/org entities), each invalidating the same query key the entity's other mutations invalidate.
+- **UI**: the image renders via shadcn `Avatar`/`AvatarImage`/`AvatarFallback`, `src` built as `` `${process.env.NEXT_PUBLIC_SERVER_URI}${entity.icon}` `` (a *different* env var from the axios `baseURL`, since images are served from the API host directly rather than through the versioned API path — see Networking below). A hidden `<input type="file" accept="image/*" />` is clicked via a `ref` from a visible "change image" `Button`, appends the picked file to a `FormData` under the key `"image"`, and calls the upload mutation directly `onChange` (no local preview/crop step). Deletion is gated behind a shadcn `AlertDialog` (destructive variant, `IoIosWarning` icon in `AlertDialogMedia`) confirming before calling the delete mutation — mirror `EditProject.tsx`, `UserAvatar.tsx`, or `OrganizationWrapper.tsx` for a new instance of this pattern rather than writing it from scratch.
+
 ### i18n dictionaries
 
 `internalization/app/dictionaries/<domain>/` (`auth`, `meta`, `share`) each hold `en.json`/`fa.json` plus a `dictionary.ts` that is `"server-only"` and exposes `get<Domain>Dictionary({ locale })`, dynamically importing the right JSON. Dictionaries are fetched once in the root layout and pushed into client components via `ShareDictionaryProvider` (`services/share-dictionary/`) rather than re-fetched per component. When adding user-facing text, add keys to the relevant `en.json`/`fa.json` pair and route them through the existing dictionary getter — don't hardcode strings in components.
@@ -83,6 +91,8 @@ Provider nesting is explicit in each layout rather than collected in one root pr
 ### Networking
 
 `app/utils/defaultAxios.ts` exports a shared axios instance (`baseURL` = `NEXT_PUBLIC_API_URI`). `app/[lang]/services/axios-interceptors/AxiosBaseConfig.tsx` is a client component (mounted once in the root layout) that registers a request interceptor adding `languageID` and `apptype` headers, kept in sync with the active locale via `useBaseConfig()`. Deeper layers layer their own scoped interceptors on the *same* shared instance (see `OrganzationAxiosInterceptor`/`WorkspaceAxiosInterceptor` above) rather than creating a new axios instance per feature — all API calls (e.g. `authApiActions.ts`, `*ApiActions.ts`) import the one shared `axios` instance from `app/utils/defaultAxios.ts`.
+
+Stored images (`Project.icon`, `Organization.logo`, `User.avatar`) are relative paths served from the API host directly, not through axios — rendered as `` `${process.env.NEXT_PUBLIC_SERVER_URI}${path}` ``, a separate env var from `NEXT_PUBLIC_API_URI`. See the entity image upload/delete pattern above.
 
 ### Data fetching / forms
 
