@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,6 +10,7 @@ import {
 import {
   useUpdateOrganization,
   useUpdateOrganizationLogo,
+  useDeleteOrganizationLogo,
 } from "../hooks/useOrganizations";
 import { FieldGroup, FieldLabel, Field } from "@/components/ui/field";
 import {
@@ -22,11 +23,25 @@ import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useProfile } from "../../services/profile/profileContext";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { IoIosWarning } from "react-icons/io";
 
 export default function OrganizationWrapper() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isRemoveLogoDialogOpen, setIsRemoveLogoDialogOpen] = useState(false);
   const updateOrganizationQuery = useUpdateOrganization();
   const updateOrganizationLogoQuery = useUpdateOrganizationLogo();
+  const deleteOrganizationLogoQuery = useDeleteOrganizationLogo();
   const {
     shareDictionary: {
       components: { organizationInfo: dic },
@@ -42,7 +57,9 @@ export default function OrganizationWrapper() {
     resolver: zodResolver(createOrganizationSchema()),
   });
   const pendAction =
-    updateOrganizationQuery.isPending || updateOrganizationLogoQuery.isPending;
+    updateOrganizationQuery.isPending ||
+    updateOrganizationLogoQuery.isPending ||
+    deleteOrganizationLogoQuery.isPending;
 
   useEffect(() => {
     if (!usersInfoQuery.data?.organization) return;
@@ -66,14 +83,49 @@ export default function OrganizationWrapper() {
           </AvatarFallback>
         </Avatar>
         <div className="flex gap-2 items-center flex-wrap mt-4">
-          <Button
-            disabled={pendAction}
-            variant="destructive"
-            className="min-w-28"
+          <AlertDialog
+            open={isRemoveLogoDialogOpen}
+            onOpenChange={setIsRemoveLogoDialogOpen}
           >
-            {pendAction && <Spinner />}
-            {dic.removeAvatar}
-          </Button>
+            <AlertDialogTrigger
+              render={
+                <Button
+                  disabled={pendAction}
+                  variant="destructive"
+                  className="min-w-28"
+                >
+                  {pendAction && <Spinner />}
+                  {dic.removeAvatar}
+                </Button>
+              }
+            />
+            <AlertDialogContent size="sm">
+              <AlertDialogHeader>
+                <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                  <IoIosWarning />
+                </AlertDialogMedia>
+                <AlertDialogTitle>
+                  {dic.removeAvatarConfirmMessage}
+                </AlertDialogTitle>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel disabled={pendAction} variant="outline">
+                  {dic.cancel}
+                </AlertDialogCancel>
+                <AlertDialogAction
+                  disabled={pendAction}
+                  variant="destructive"
+                  onClick={() => {
+                    deleteOrganizationLogoQuery.mutateAsync().then(() => {
+                      setIsRemoveLogoDialogOpen(false);
+                    });
+                  }}
+                >
+                  {dic.confirm}
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
           <Button
             className="min-w-28"
             onClick={() => {

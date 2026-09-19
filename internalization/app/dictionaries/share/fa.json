@@ -57,7 +57,10 @@
       "description": "توضیحات",
       "saveChanges": "ذخیره تغییرات",
       "changeAvatar": "ویرایش تصویر",
-      "removeAvatar": "حذف تصویر"
+      "removeAvatar": "حذف تصویر",
+      "removeAvatarConfirmMessage": "آیا از حذف تصویر اطمینان دارید؟",
+      "confirm": "تایید",
+      "cancel": "انصراف"
     },
     "workspaceInfo": {
       "results": "نتایج",

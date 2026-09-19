@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
@@ -21,6 +21,8 @@ import { IoIosWarning } from "react-icons/io";
 
 export default function UserAvatar() {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isRemoveAvatarDialogOpen, setIsRemoveAvatarDialogOpen] =
+    useState(false);
   const confirmDeleteUserAvatar = useDeleteUserAvatar();
   const confirmUpdateUserAvatar = useUpdateUserAvatar();
   const {
@@ -46,7 +48,10 @@ export default function UserAvatar() {
         </AvatarFallback>
       </Avatar>
       <div className="flex gap-2 items-center flex-wrap mt-4">
-        <AlertDialog>
+        <AlertDialog
+          open={isRemoveAvatarDialogOpen}
+          onOpenChange={setIsRemoveAvatarDialogOpen}
+        >
           <AlertDialogTrigger
             render={
               <Button
@@ -73,7 +78,11 @@ export default function UserAvatar() {
               <AlertDialogAction
                 disabled={pendAction}
                 variant="destructive"
-                onClick={() => confirmDeleteUserAvatar.mutate()}
+                onClick={() => {
+                  confirmDeleteUserAvatar.mutateAsync().then(() => {
+                    setIsRemoveAvatarDialogOpen(false);
+                  });
+                }}
               >
                 {dic.confirm}
               </AlertDialogAction>
