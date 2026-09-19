@@ -83,7 +83,9 @@
       "title": "میانبرها",
       "search": "جستجو",
       "general": "عمومی",
-      "toggleNavigation": "باز و بستن منو"
+      "toggleNavigation": "باز و بستن منو",
+      "toggleSettings": "باز و بستن تنظیمات",
+      "toggleShortcuts": "باز و بستن میانبرها"
     },
     "history": {
       "back": "بازگشت"

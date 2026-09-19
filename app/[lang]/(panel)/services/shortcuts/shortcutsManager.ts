@@ -14,6 +14,12 @@ const defaultShortcuts = {
     toggleNavigation: {
       keys: "Control+B" as RegisterableHotkey,
     },
+    toggleSettings: {
+      keys: "Control+," as RegisterableHotkey,
+    },
+    toggleShortcuts: {
+      keys: "Shift+\/" as RegisterableHotkey,
+    },
   },
 } as const;
 

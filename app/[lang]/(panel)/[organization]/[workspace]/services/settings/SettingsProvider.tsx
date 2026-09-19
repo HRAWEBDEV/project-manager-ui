@@ -15,12 +15,15 @@ import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryC
 import { IoIosWarning } from "react-icons/io";
 import { type SettingTab } from "./utils/settingItems";
 import { useLogout } from "@/app/[lang]/(panel)/hooks/useLogout";
+import { useHotkey } from "@tanstack/react-hotkeys";
+import { useShortcutsContext } from "@/app/[lang]/(panel)/services/shortcuts/shortcutsContext";
 
 export default function SettingsProvider({
   children,
 }: {
   children: ReactNode;
 }) {
+  const { onGetShortcutKeys } = useShortcutsContext();
   const { logout, isPending: isPendingLogout } = useLogout();
   const {
     shareDictionary: {
@@ -38,6 +41,14 @@ export default function SettingsProvider({
     }
     setOpen(newState);
   }
+  // hotkeys
+  useHotkey(onGetShortcutKeys("general", "toggleSettings"), () => {
+    onToggle();
+  });
+
+  useHotkey(onGetShortcutKeys("general", "toggleShortcuts"), () => {
+    onToggle(undefined, "shortcuts");
+  });
 
   const ctx: SettingsContextProps = {
     open,

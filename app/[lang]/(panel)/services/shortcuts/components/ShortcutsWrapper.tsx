@@ -55,13 +55,13 @@ export default function ShortcutsWrapper() {
                       typeof typedCategory
                     >;
                     return (
-                      <li key={typedItem}>
+                      <li key={typedItem} className="mb-2">
                         <Button
                           variant="outline"
                           className="w-full text-start justify-stretch h-10 bg-neutral-100 dark:bg-neutral-900 text-neutral-700 dark:text-neutral-400 gap-6"
                         >
                           <span>{dic[typedItem]}</span>
-                          <Kbd className="bg-background">
+                          <Kbd dir="ltr" className="bg-background">
                             {info.keys as string}
                           </Kbd>
                         </Button>
