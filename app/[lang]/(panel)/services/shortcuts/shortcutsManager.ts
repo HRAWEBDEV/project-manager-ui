@@ -5,13 +5,13 @@ type ShortcutsCategory = keyof ShortcutsSetup;
 type ShortcutsItem<T extends ShortcutsCategory> = keyof ShortcutsSetup[T];
 
 const defaultShortcuts = {
-  general: {
-    toggleNavigation: {
-      keys: "Control+B" as RegisterableHotkey,
+  static: {
+    static: {
+      keys: "" as RegisterableHotkey,
     },
   },
-  test: {
-    test: {
+  general: {
+    toggleNavigation: {
       keys: "Control+B" as RegisterableHotkey,
     },
   },

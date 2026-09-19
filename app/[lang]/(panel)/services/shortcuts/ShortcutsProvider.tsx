@@ -6,7 +6,6 @@ import {
   type ShortcutsItem,
   defaultShortcuts,
 } from "./shortcutsManager";
-import { type RegisterableHotkey } from "@tanstack/react-hotkeys";
 
 export default function ShortcutsProvider({
   children,
@@ -17,11 +16,7 @@ export default function ShortcutsProvider({
 
   const handleGetShortcutKeys = useCallback(
     <T extends ShortcutsCategory>(category: T, item: ShortcutsItem<T>) => {
-      const categoryShortcuts = shortcuts[category] as Record<
-        ShortcutsItem<T>,
-        { keys: RegisterableHotkey }
-      >;
-      return categoryShortcuts[item].keys;
+      return shortcuts[category as "static"][item as "static"].keys;
     },
     [shortcuts],
   );
