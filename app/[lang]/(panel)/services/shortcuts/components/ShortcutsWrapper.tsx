@@ -15,6 +15,7 @@ import {
 } from "../shortcutsManager";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/ui/kbd";
+import NoItemFound from "../../../components/NoItemFound";
 
 export default function ShortcutsWrapper() {
   const [searchText, setSearchText] = useState("");
@@ -85,6 +86,9 @@ export default function ShortcutsWrapper() {
               </div>
             );
           })}
+          <div className="last:hidden first:block!">
+            <NoItemFound searchedText={searchText} />
+          </div>
         </div>
       </div>
     </div>
