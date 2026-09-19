@@ -22,5 +22,14 @@ function updateOrganizationLogo(data: FormData) {
   return axios.post(organizationsLogoApi, data);
 }
 
+function deleteOrganizationLogo() {
+  return axios.delete(organizationsLogoApi);
+}
+
 export type { Organization, UpdateOrganization };
-export { organizationsBaseApi, updateOrganization, updateOrganizationLogo };
+export {
+  organizationsBaseApi,
+  updateOrganization,
+  updateOrganizationLogo,
+  deleteOrganizationLogo,
+};

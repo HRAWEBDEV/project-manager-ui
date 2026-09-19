@@ -7,6 +7,7 @@ import {
   type UpdateOrganization,
   updateOrganization,
   updateOrganizationLogo,
+  deleteOrganizationLogo,
 } from "../services/organizationsApiActions";
 
 function useUpdateOrganization() {
@@ -45,4 +46,26 @@ function useUpdateOrganizationLogo() {
   return updateOrganizationLogoMutation;
 }
 
-export { useUpdateOrganization, useUpdateOrganizationLogo };
+function useDeleteOrganizationLogo() {
+  const queryClient = useQueryClient();
+  const deleteOrganizationLogoMutation = useMutation({
+    mutationFn() {
+      return deleteOrganizationLogo();
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [userOrganizationsApi],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [userInfoApi],
+      });
+    },
+  });
+  return deleteOrganizationLogoMutation;
+}
+
+export {
+  useUpdateOrganization,
+  useUpdateOrganizationLogo,
+  useDeleteOrganizationLogo,
+};

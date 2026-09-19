@@ -1,7 +1,6 @@
 import { axios } from "@/app/utils/defaultAxios";
 
 const projectsBaseApi = "/projects";
-const projectImageApi = "/projects/icon";
 
 interface Project {
   id: string;
@@ -36,12 +35,16 @@ function deleteProject(id: string) {
   return axios.delete(`${projectsBaseApi}/${id}`);
 }
 
+function uploadProjectIcon(id: string, data: FormData) {
+  return axios.post(`${projectsBaseApi}/${id}/icon`, data);
+}
+
 export type { Project, UpdateProject, CreateProject };
 export {
   projectsBaseApi,
-  projectImageApi,
   getProjects,
   createProject,
   updateProject,
   deleteProject,
+  uploadProjectIcon,
 };
