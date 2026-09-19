@@ -15,6 +15,7 @@ import UserWrapper from "@/app/[lang]/(panel)/users/components/UserWrapper";
 import OrganizationWrapper from "@/app/[lang]/(panel)/organizations/components/OrganizationWrapper";
 import WorkspacesWrapper from "@/app/[lang]/(panel)/[organization]/workspaces/components/WorkspacesWrapper";
 import EditWorkspace from "@/app/[lang]/(panel)/[organization]/workspaces/components/EditWorkspace";
+import ShortcutsWrapper from "@/app/[lang]/(panel)/services/shortcuts/components/ShortcutsWrapper";
 import { useWorkspacesContext } from "../../workspaces/workspacesContext";
 
 export default function SettingsModal() {
@@ -37,6 +38,8 @@ export default function SettingsModal() {
         return <EditWorkspace workspace={activeWorksapce} />;
       case "myWorkspaces":
         return <WorkspacesWrapper />;
+      case "shortcuts":
+        return <ShortcutsWrapper />;
       default:
         return null;
     }

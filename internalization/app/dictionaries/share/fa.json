@@ -79,6 +79,12 @@
       "confirm": "تایید",
       "cancel": "انصراف"
     },
+    "shortcuts": {
+      "title": "میانبرها",
+      "search": "جستجو",
+      "general": "عمومی",
+      "toggleNavigation": "باز و بستن منو"
+    },
     "history": {
       "back": "بازگشت"
     }
