@@ -7,6 +7,8 @@ import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
 import { useOrganizationContext } from "@/app/[lang]/(panel)/services/organization/organizationContext";
 import { useWorkspaces } from "../../../workspaces/hooks/useWorkspaces";
 import { useClearQueries } from "@/app/[lang]/hooks/useClearQueries";
+import { getActiveWorkspace, saveActiveWorkspace } from "./workspaceManager";
+import { saveActiveOrganization } from "@/app/[lang]/(panel)/services/organization/organizationManager";
 
 export default function WorkspacesProvider({
   children,
@@ -25,14 +27,30 @@ export default function WorkspacesProvider({
     const defaultWorkspace = workspacesQuery.data.workspaces.find(
       (item) => item.organizationId === activeOrganization.id,
     );
-    if (!workspaceParam) return defaultWorkspace;
-    const activeParamWorkspace = workspacesQuery.data.workspaces.find(
-      (item) => item.slug === workspaceParam,
-    );
-    if (!activeParamWorkspace) return defaultWorkspace;
-    if (activeParamWorkspace.organizationId !== activeOrganization.id)
-      return defaultWorkspace;
-    return activeParamWorkspace;
+    if (workspaceParam) {
+      const activeParamWorkspace = workspacesQuery.data.workspaces.find(
+        (item) => item.slug === workspaceParam,
+      );
+      if (
+        activeParamWorkspace &&
+        activeParamWorkspace.organizationId === activeOrganization.id
+      ) {
+        return activeParamWorkspace;
+      }
+    }
+    const activeLocalWorkspace = getActiveWorkspace();
+    if (activeLocalWorkspace) {
+      const foundedActiveLocalWorkspace = workspacesQuery.data.workspaces.find(
+        (item) => item.slug === activeLocalWorkspace,
+      );
+      if (
+        foundedActiveLocalWorkspace &&
+        foundedActiveLocalWorkspace.organizationId === activeOrganization.id
+      ) {
+        return foundedActiveLocalWorkspace;
+      }
+    }
+    return defaultWorkspace;
   }, [
     activeOrganization,
     workspaceParam,
@@ -43,6 +61,8 @@ export default function WorkspacesProvider({
   const handleChangeWorkspace = useCallback(
     (organzationSlug: string, workspaceSlug: string) => {
       router.replace(`/${locale}/${organzationSlug}/${workspaceSlug}`);
+      saveActiveWorkspace(workspaceSlug);
+      saveActiveOrganization(organzationSlug);
       clearQueries();
     },
     [locale, router, clearQueries],
