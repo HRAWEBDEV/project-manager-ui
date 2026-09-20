@@ -7,6 +7,9 @@ export const settingItems = [
     key: "organization",
   },
   {
+    key: "organizationMembers",
+  },
+  {
     key: "workspace",
   },
   {
