@@ -35,7 +35,7 @@ Locale metadata (supported locales, direction, calendar system, date-fns locale)
 Below the locale, panel routes carry two more dynamic segments: `app/[lang]/(panel)/[organization]/[workspace]/...`. Both levels follow the identical **"active entity" provider pattern**, each layered in its own layout:
 
 1. `(panel)/layout.tsx` mounts `ShortcutsProvider` → `HistoryProvider` → `SidebarProvider` → `ProfileProvider` → `OrganizationProvider` (`(panel)/services/organization/`).
-2. `(panel)/[organization]/layout.tsx` mounts `WorkspacesProvider` inside that. Despite being wired up at the organization level, its folder actually lives a level deeper, at `[organization]/[workspace]/services/workspaces/` — `[organization]/layout.tsx` reaches into it with a relative import (`./[workspace]/services/workspaces/WorkspacesProvider`). Check that folder, not `[organization]/services/`, when touching this provider.
+2. `(panel)/[organization]/layout.tsx` mounts `WorkspacesProvider` (`[organization]/services/workspaces/`) inside that.
 
 Each provider (`OrganizationProvider.tsx`, `WorkspacesProvider.tsx`):
 - Fetches the full list via its feature's `useX` query hook (`useUserOrganizations`, `useWorkspaces`).

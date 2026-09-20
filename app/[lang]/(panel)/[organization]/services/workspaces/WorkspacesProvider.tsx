@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
 import { useOrganizationContext } from "@/app/[lang]/(panel)/services/organization/organizationContext";
-import { useWorkspaces } from "../../../workspaces/hooks/useWorkspaces";
+import { useWorkspaces } from "../../workspaces/hooks/useWorkspaces";
 import { useClearQueries } from "@/app/[lang]/hooks/useClearQueries";
 import { getActiveWorkspace, saveActiveWorkspace } from "./workspaceManager";
 import { saveActiveOrganization } from "@/app/[lang]/(panel)/services/organization/organizationManager";

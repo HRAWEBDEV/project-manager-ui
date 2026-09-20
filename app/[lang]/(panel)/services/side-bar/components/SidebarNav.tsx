@@ -3,7 +3,7 @@ import { navigationItems } from "../../../utils/navigationItems";
 import { getNavigationIcon } from "../../../utils/getNavigationIcon";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { useOrganizationContext } from "../../organization/organizationContext";
-import { useWorkspacesContext } from "../../../[organization]/[workspace]/services/workspaces/workspacesContext";
+import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/services/workspaces/workspacesContext";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import Link from "next/link";
 

@@ -1,4 +1,4 @@
-import WorkspacesProvider from "./[workspace]/services/workspaces/WorkspacesProvider";
+import WorkspacesProvider from "./services/workspaces/WorkspacesProvider";
 
 export default function OrganizationLayout(
   props: LayoutProps<"/[lang]/[organization]">,

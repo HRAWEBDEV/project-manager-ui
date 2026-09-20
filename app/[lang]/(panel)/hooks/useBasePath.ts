@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import { useOrganizationContext } from "../services/organization/organizationContext";
-import { useWorkspacesContext } from "../[organization]/[workspace]/services/workspaces/workspacesContext";
+import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/services/workspaces/workspacesContext";
 
 export function useBasePath() {
   const { locale } = useBaseConfig();

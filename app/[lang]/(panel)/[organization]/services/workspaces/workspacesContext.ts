@@ -1,7 +1,7 @@
 import { use, createContext } from "react";
 import { OutOfContext } from "@/utils/OutOfContext";
-import { type Workspace } from "../../../workspaces/services/workspacesApiActions";
-import { useWorkspaces } from "../../../workspaces/hooks/useWorkspaces";
+import { type Workspace } from "../../workspaces/services/workspacesApiActions";
+import { useWorkspaces } from "../../workspaces/hooks/useWorkspaces";
 
 interface WorkspacesContextProps {
   workspacesQuery: ReturnType<typeof useWorkspaces>;

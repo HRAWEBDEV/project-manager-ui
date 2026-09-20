@@ -5,7 +5,7 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import { useOrganizationContext } from "../../../services/organization/organizationContext";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import ConnectivityInfo from "../../../[organization]/[workspace]/components/ConnectivityInfo";
-import { useWorkspacesContext } from "../../../[organization]/[workspace]/services/workspaces/workspacesContext";
+import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/services/workspaces/workspacesContext";
 import { useSettingsContext } from "../../../[organization]/[workspace]/services/settings/settingsContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
