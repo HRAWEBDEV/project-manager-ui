@@ -44,11 +44,11 @@ function deleteOrganizationLogo() {
   return axios.delete(organizationsLogoApi);
 }
 
-function getOrganizationMembers() {
-  return axios.get<OrganizationMember[]>(organizationMembersApi);
+function getOrganizationMembers({ signal }: { signal: AbortSignal }) {
+  return axios.get<OrganizationMember[]>(organizationMembersApi, { signal });
 }
 
-export type { Organization, UpdateOrganization };
+export type { Organization, OrganizationMember, UpdateOrganization };
 export {
   organizationsBaseApi,
   organizationsLogoApi,

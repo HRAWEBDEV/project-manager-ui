@@ -1,13 +1,15 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   userInfoApi,
   userOrganizationsApi,
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import {
   type UpdateOrganization,
+  organizationMembersApi,
   updateOrganization,
   updateOrganizationLogo,
   deleteOrganizationLogo,
+  getOrganizationMembers,
 } from "../services/organizationsApiActions";
 
 function useUpdateOrganization() {
@@ -64,8 +66,20 @@ function useDeleteOrganizationLogo() {
   return deleteOrganizationLogoMutation;
 }
 
+function useOrganizationMembers() {
+  const organizationMembersQuery = useQuery({
+    queryKey: [organizationMembersApi],
+    async queryFn({ signal }) {
+      const res = await getOrganizationMembers({ signal });
+      return res.data;
+    },
+  });
+  return organizationMembersQuery;
+}
+
 export {
   useUpdateOrganization,
   useUpdateOrganizationLogo,
   useDeleteOrganizationLogo,
+  useOrganizationMembers,
 };
