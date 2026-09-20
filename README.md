@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Project Manager UI
 
-## Getting Started
+A multi-tenant project management web application built with Next.js 16. Users belong to organizations, each organization has one or more workspaces, and each workspace contains projects — with locale-aware (Persian/English), RTL-first UI on top.
 
-First, run the development server:
+## Features
+
+- **Authentication** — sign-in and a multi-step signup wizard.
+- **Organizations & Workspaces** — a two-level multi-tenant hierarchy (`organization → workspace`), with an "active entity" resolved from the URL, falling back to the last-used selection saved locally, and kept in sync via automatic URL redirects.
+- **Projects** — create, update, delete, and manage projects within a workspace, including project icon upload/removal.
+- **User & organization profile management** — edit user info and avatar, edit organization info and logo.
+- **Settings modal** — a workspace-scoped modal for account, organization, workspace, and shortcuts settings.
+- **Global keyboard shortcuts** — a single source of truth for hotkey bindings across the app (toggle navigation, toggle settings, toggle shortcuts help, etc.).
+- **Navigation history** — in-app back navigation across visited routes.
+- **Internationalization** — Persian (`fa`, RTL, Jalali calendar, default) and English (`en`, LTR, Gregorian calendar, currently inactive) locales, with locale-prefixed routing (`/[lang]/...`) enforced by a proxy.
+- **Theming** — light/dark/system theme support.
+
+## Requirements
+
+- **Node.js** 20 or later (developed/tested with Node 26)
+- **npm** 10+ (or an npm-compatible package manager)
+- A running instance of the backend API this UI talks to (see [Environments](#environments))
+
+## How to Install and Clone the Project
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone the repository
+git clone git@github.com:HRAWEBDEV/project-manager-ui.git
+cd project-manager-ui
+
+# Install dependencies
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then set up your environment variables (see [Environments](#environments) below) before running the dev server.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environments
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Environment variables are loaded from `.env.development` (used by `npm run dev`) and `.env.production` (used by `npm run build` / `npm run start`). Create your own `.env` (or edit the existing per-mode files) with the following variables:
 
-## Learn More
+| Variable | Description |
+| --- | --- |
+| `NEXT_PUBLIC_MODE` | Application mode, either `DEVELOPMENT` or `PRODUCTION`. Controls behaviors such as disabling query retries in development. |
+| `NEXT_PUBLIC_API_URI` | Base URL for the versioned backend API (used by the shared Axios instance), e.g. `http://localhost:8080/api/v1`. |
+| `NEXT_PUBLIC_SERVER_URI` | Base URL of the API host used to resolve stored image paths (project icons, organization logos, user avatars), e.g. `http://localhost:8080`. |
 
-To learn more about Next.js, take a look at the following resources:
+Example (`.env.development`):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+NEXT_PUBLIC_MODE=DEVELOPMENT
+NEXT_PUBLIC_SERVER_URI=http://localhost:8080
+NEXT_PUBLIC_API_URI=http://localhost:8080/api/v1
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Development
 
-## Deploy on Vercel
+```bash
+# Start the dev server (Turbopack, via `next dev`)
+npm run dev
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Lint the project (ESLint flat config, core-web-vitals + typescript)
+npm run lint
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Build for production
+npm run build
+
+# Run the production build
+npm run start
+```
+
+The dev server starts on `http://localhost:3000` by default. Visiting `/` redirects to the default locale (`/fa`) based on the `userLocale` cookie.
+
+There is no test suite configured in this repo (no Jest/Vitest/Playwright).
+
+### Notes for contributors
+
+- This project runs **Next.js 16**, which introduced breaking changes relative to older Next.js conventions (e.g. `proxy.ts`/`proxy` instead of `middleware.ts`/`middleware`, typed route helpers like `LayoutProps`/`PageProps`). See `AGENTS.md` and `CLAUDE.md` for details before making routing or data-fetching changes.
+- To add shadcn/ui components, use the `shadcn` CLI — see `components.json` for aliases and style configuration.
