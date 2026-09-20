@@ -9,10 +9,28 @@ interface Organization {
   updatedAt: string;
   createdAt: string;
 }
+
+type OrganizationRole = "owner" | "admin" | "member";
+interface OrganizationMember {
+  id: string;
+  organizationId: string;
+  role: OrganizationRole;
+  joinedAt: string;
+  addedBy: string | null;
+  organizationName: string;
+  username: string;
+  userAvatar: string | null;
+  userFirstName: string;
+  userLastName: string;
+  userEmail: string;
+  userPhoneNumber: string | null;
+}
+
 type UpdateOrganization = Pick<Organization, "name" | "description">;
 
 const organizationsBaseApi = "/organizations";
 const organizationsLogoApi = `${organizationsBaseApi}/logo`;
+const organizationMembersApi = `${organizationsBaseApi}/members`;
 
 function updateOrganization(props: UpdateOrganization) {
   return axios.patch<{ id: string }>(organizationsBaseApi, props);
@@ -26,10 +44,17 @@ function deleteOrganizationLogo() {
   return axios.delete(organizationsLogoApi);
 }
 
+function getOrganizationMembers() {
+  return axios.get<OrganizationMember[]>(organizationMembersApi);
+}
+
 export type { Organization, UpdateOrganization };
 export {
   organizationsBaseApi,
+  organizationsLogoApi,
+  organizationMembersApi,
   updateOrganization,
   updateOrganizationLogo,
   deleteOrganizationLogo,
+  getOrganizationMembers,
 };
