@@ -1,6 +1,9 @@
 {
   "title": "share dictionary",
   "components": {
+    "logger": {
+      "unavailableApi": "خطا در اتصال به سرویس"
+    },
     "navigation": {
       "chats": "گفتگوها",
       "projects": "پروژه‌ها",

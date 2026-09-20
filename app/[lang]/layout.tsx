@@ -15,6 +15,7 @@ import { getAuthDictionary } from "@/internalization/app/dictionaries/auth/dicti
 import { getShareDictionary } from "@/internalization/app/dictionaries/share/dictionary";
 import ShareDictionaryProvider from "@/services/share-dictionary/ShareDictionaryProvider";
 import AxiosBaseConfig from "./services/axios-interceptors/AxiosBaseConfig";
+import AxiosLoggerInterceptor from "./services/axios-interceptors/AxiosLoggerInterceptor";
 import { Toaster } from "sonner";
 
 export function generateStaticParams(): { lang: Locale }[] {
@@ -158,16 +159,17 @@ export default async function RootLayout({
             shareDictionary={shareDic}
           >
             <BaseConfigProvider activeLocale={lang as Locale}>
+              <Toaster
+                position="top-center"
+                richColors
+                className="font-[inherit]!"
+                closeButton
+              />
               <AxiosBaseConfig />
+              <AxiosLoggerInterceptor />
               <QueryClientProvider>{children}</QueryClientProvider>
             </BaseConfigProvider>
           </ShareDictionaryProvider>
-          <Toaster
-            position="top-center"
-            richColors
-            className="font-[inherit]!"
-            closeButton
-          />
         </TooltipProvider>
       </body>
     </html>

@@ -8,7 +8,7 @@ export default function AxiosBaseConfig() {
   useEffect(() => {
     const reqID = axios.interceptors.request.use((config) => {
       config.headers.set("languageID", locale);
-      config.headers.set("apptype", "alin-cloud");
+      config.headers.set("apptype", "project management app");
       return config;
     });
     return () => {
