@@ -110,43 +110,49 @@ export default function EditWorkspace({
         </FieldGroup>
       </div>
       <DialogFooter className="p-2 px-4 sm:justify-between">
-        <AlertDialog>
-          <AlertDialogTrigger
-            render={
-              <Button variant="destructive" disabled={pendAction}>
-                {pendAction && <Spinner />}
-                {dic.delete}
-              </Button>
-            }
-          />
-          <AlertDialogContent size="sm">
-            <AlertDialogHeader>
-              <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-                <IoIosWarning />
-              </AlertDialogMedia>
-              <AlertDialogTitle>
-                {dic.deleteWorkspaceConfirmMessage}
-              </AlertDialogTitle>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={pendAction} variant="outline">
-                {dic.cancel}
-              </AlertDialogCancel>
-              <AlertDialogAction
-                disabled={pendAction}
-                variant="destructive"
-                onClick={() => {
-                  if (!workspace) return;
-                  deleteWorkspaceMutation.mutateAsync(workspace.id).then(() => {
-                    onSuccess?.();
-                  });
-                }}
-              >
-                {dic.confirm}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div>
+          {workspace && (
+            <AlertDialog>
+              <AlertDialogTrigger
+                render={
+                  <Button variant="destructive" disabled={pendAction}>
+                    {pendAction && <Spinner />}
+                    {dic.delete}
+                  </Button>
+                }
+              />
+              <AlertDialogContent size="sm">
+                <AlertDialogHeader>
+                  <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                    <IoIosWarning />
+                  </AlertDialogMedia>
+                  <AlertDialogTitle>
+                    {dic.deleteWorkspaceConfirmMessage}
+                  </AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel disabled={pendAction} variant="outline">
+                    {dic.cancel}
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    disabled={pendAction}
+                    variant="destructive"
+                    onClick={() => {
+                      if (!workspace) return;
+                      deleteWorkspaceMutation
+                        .mutateAsync(workspace.id)
+                        .then(() => {
+                          onSuccess?.();
+                        });
+                    }}
+                  >
+                    {dic.confirm}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </div>
         <Button
           className="sm:w-32"
           type="submit"

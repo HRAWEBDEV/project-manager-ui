@@ -201,43 +201,47 @@ export default function EditProject({
         </FieldGroup>
       </div>
       <DialogFooter className="p-2 px-4 sm:justify-between">
-        <AlertDialog>
-          <AlertDialogTrigger
-            render={
-              <Button variant="destructive" disabled={pendAction}>
-                {pendAction && <Spinner />}
-                {dic.editProject.delete}
-              </Button>
-            }
-          />
-          <AlertDialogContent size="sm">
-            <AlertDialogHeader>
-              <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
-                <IoIosWarning />
-              </AlertDialogMedia>
-              <AlertDialogTitle>
-                {dic.editProject.deleteProjectConfirmMessage}
-              </AlertDialogTitle>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel disabled={pendAction} variant="outline">
-                {dic.editProject.cancel}
-              </AlertDialogCancel>
-              <AlertDialogAction
-                disabled={pendAction}
-                variant="destructive"
-                onClick={() => {
-                  if (!project) return;
-                  deleteProjectMutation.mutateAsync(project.id).then(() => {
-                    onSuccess?.();
-                  });
-                }}
-              >
-                {dic.editProject.confirm}
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <div>
+          {project && (
+            <AlertDialog>
+              <AlertDialogTrigger
+                render={
+                  <Button variant="destructive" disabled={pendAction}>
+                    {pendAction && <Spinner />}
+                    {dic.editProject.delete}
+                  </Button>
+                }
+              />
+              <AlertDialogContent size="sm">
+                <AlertDialogHeader>
+                  <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                    <IoIosWarning />
+                  </AlertDialogMedia>
+                  <AlertDialogTitle>
+                    {dic.editProject.deleteProjectConfirmMessage}
+                  </AlertDialogTitle>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel disabled={pendAction} variant="outline">
+                    {dic.editProject.cancel}
+                  </AlertDialogCancel>
+                  <AlertDialogAction
+                    disabled={pendAction}
+                    variant="destructive"
+                    onClick={() => {
+                      if (!project) return;
+                      deleteProjectMutation.mutateAsync(project.id).then(() => {
+                        onSuccess?.();
+                      });
+                    }}
+                  >
+                    {dic.editProject.confirm}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
+        </div>
         <Button
           className="sm:w-32"
           type="submit"
