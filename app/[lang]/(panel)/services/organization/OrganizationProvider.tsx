@@ -7,6 +7,7 @@ import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import LinearLoading from "@/components/LinearLoading";
 import { type Organization } from "../../organizations/services/organizationsApiActions";
 import OrganzationAxiosInterceptor from "./OrganzationAxiosInterceptor";
+import { getActiveOrganization } from "./organizationManager";
 
 export default function OrganizationProvider({
   children,
@@ -20,11 +21,20 @@ export default function OrganizationProvider({
   const activeOrganization = useMemo(() => {
     if (!userOrganizationsQuery.isSuccess) return;
     const defaultOrganization = userOrganizationsQuery.data.organizations[0];
-    if (!organizationParam) return defaultOrganization;
-    const activeOrganization = userOrganizationsQuery.data.organizations.find(
-      (item) => item.slug === organizationParam,
-    );
-    if (activeOrganization) return activeOrganization;
+    if (organizationParam) {
+      const activeOrganization = userOrganizationsQuery.data.organizations.find(
+        (item) => item.slug === organizationParam,
+      );
+      if (activeOrganization) return activeOrganization;
+    }
+    const localActiveOrganization = getActiveOrganization();
+    if (localActiveOrganization) {
+      const foundedActiveOrganization =
+        userOrganizationsQuery.data.organizations.find(
+          (item) => item.slug === localActiveOrganization,
+        );
+      if (foundedActiveOrganization) return foundedActiveOrganization;
+    }
     return defaultOrganization;
   }, [
     organizationParam,
