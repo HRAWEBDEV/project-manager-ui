@@ -68,6 +68,12 @@
       "confirm": "تایید",
       "cancel": "انصراف"
     },
+    "organizationMembers": {
+      "owner": "مالک",
+      "admin": "ادمین",
+      "member": "عضو",
+      "search": "جستجو"
+    },
     "workspaceInfo": {
       "results": "نتایج",
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",

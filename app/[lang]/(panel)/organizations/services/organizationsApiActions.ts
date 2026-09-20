@@ -45,7 +45,9 @@ function deleteOrganizationLogo() {
 }
 
 function getOrganizationMembers({ signal }: { signal: AbortSignal }) {
-  return axios.get<OrganizationMember[]>(organizationMembersApi, { signal });
+  return axios.get<{
+    members: OrganizationMember[];
+  }>(organizationMembersApi, { signal });
 }
 
 export type { Organization, OrganizationMember, UpdateOrganization };

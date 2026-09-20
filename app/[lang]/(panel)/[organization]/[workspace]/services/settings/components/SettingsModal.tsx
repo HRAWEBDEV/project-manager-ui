@@ -13,6 +13,7 @@ import { settingItems } from "../utils/settingItems";
 import { getSettingsIcon } from "../utils/getSettingsIcon";
 import UserWrapper from "@/app/[lang]/(panel)/users/components/UserWrapper";
 import OrganizationWrapper from "@/app/[lang]/(panel)/organizations/components/OrganizationWrapper";
+import OrganizationMembersWrapper from "@/app/[lang]/(panel)/organizations/components/OrganizationMembersWrapper";
 import WorkspacesWrapper from "@/app/[lang]/(panel)/[organization]/workspaces/components/WorkspacesWrapper";
 import EditWorkspace from "@/app/[lang]/(panel)/[organization]/workspaces/components/EditWorkspace";
 import ShortcutsWrapper from "@/app/[lang]/(panel)/services/shortcuts/components/ShortcutsWrapper";
@@ -34,6 +35,8 @@ export default function SettingsModal() {
         return <UserWrapper />;
       case "organization":
         return <OrganizationWrapper />;
+      case "organizationMembers":
+        return <OrganizationMembersWrapper />;
       case "workspace":
         return <EditWorkspace workspace={activeWorkspace} />;
       case "myWorkspaces":
@@ -74,7 +77,9 @@ export default function SettingsModal() {
               </Button>
             ))}
           </div>
-          <div className="overflow-auto grow p-3">{renderSettingContent()}</div>
+          <div className="overflow-auto grow p-3 relative">
+            {renderSettingContent()}
+          </div>
         </div>
       </DialogContent>
     </Dialog>
