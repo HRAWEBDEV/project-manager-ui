@@ -34,7 +34,9 @@
       "lastName": "نام خانوادگی",
       "password": "رمز عبور",
       "confirmPassword": "تکرار رمز عبور",
-      "wrongConfirmPassword": "تکرار رمز عبور اشتباه است"
+      "wrongConfirmPassword": "تکرار رمز عبور اشتباه است",
+      "duplicateUsername": "نام کاربری تکراری است",
+      "duplicateEmail": "ایمیل تکراری است"
     },
     "organizationInfo": {
       "name": "نام سازمان",

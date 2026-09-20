@@ -15,9 +15,22 @@ import { useFormContext, Controller } from "react-hook-form";
 import { UserInfoSchema } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 import { NumericFormat } from "react-number-format";
 import { Button } from "@/components/ui/button";
-import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa6";
+import {
+  useEmailAvailability,
+  useUsernameAvailability,
+} from "@/app/[lang]/(auth)/hooks/useAuth";
+import { Spinner } from "@/components/ui/spinner";
 
-export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
+export default function SignupUserInfo({
+  dic,
+  availableEmailQuery,
+  availableUsernameQuery,
+}: {
+  dic: AuthDictionary;
+  availableEmailQuery: ReturnType<typeof useEmailAvailability>;
+  availableUsernameQuery: ReturnType<typeof useUsernameAvailability>;
+}) {
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -50,14 +63,42 @@ export default function SignupUserInfo({ dic }: { dic: AuthDictionary }) {
         </FieldLabel>
         <InputGroup data-invalid={!!errors.username}>
           <InputGroupInput id="username" {...register("username")} />
+          <InputGroupAddon align="inline-end">
+            {availableUsernameQuery.isFetching ? (
+              <Spinner />
+            ) : availableUsernameQuery.isSuccess &&
+              availableUsernameQuery.data.isAvailable ? (
+              <FaCheck className="text-teal-700 dark:text-teal-400" />
+            ) : null}
+          </InputGroupAddon>
         </InputGroup>
+        {availableUsernameQuery.isSuccess &&
+          !availableUsernameQuery.data.isAvailable && (
+            <FieldContent>
+              <FieldError>{dic.signup.userInfo.duplicateUsername}</FieldError>
+            </FieldContent>
+          )}
       </Field>
       <div className="grid gap-3 md:grid-cols-2">
         <Field data-invalid={!!errors.email}>
           <FieldLabel htmlFor="email">{dic.signup.userInfo.email} *</FieldLabel>
           <InputGroup data-invalid={!!errors.email}>
             <InputGroupInput id="email" {...register("email")} />
+            <InputGroupAddon align="inline-end">
+              {availableEmailQuery.isFetching ? (
+                <Spinner />
+              ) : availableEmailQuery.isSuccess &&
+                availableEmailQuery.data.isAvailable ? (
+                <FaCheck className="text-teal-700 dark:text-teal-400" />
+              ) : null}
+            </InputGroupAddon>
           </InputGroup>
+          {availableEmailQuery.isSuccess &&
+            !availableEmailQuery.data.isAvailable && (
+              <FieldContent>
+                <FieldError>{dic.signup.userInfo.duplicateEmail}</FieldError>
+              </FieldContent>
+            )}
         </Field>
         <Controller
           control={control}

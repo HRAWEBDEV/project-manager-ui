@@ -18,9 +18,15 @@ import {
 } from "@/app/[lang]/(auth)/signup/schemas/signupSchemas";
 import Link from "next/link";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
-import { useSignup } from "@/app/[lang]/(auth)/hooks/useAuth";
+import {
+  useSignup,
+  useEmailAvailability,
+  useUsernameAvailability,
+} from "@/app/[lang]/(auth)/hooks/useAuth";
 import { Spinner } from "@/components/ui/spinner";
 import { useRouter } from "next/navigation";
+import { useDebouncedValue } from "@tanstack/react-pacer";
+import { toast } from "sonner";
 
 export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
   const [userInfo, setUserInfo] = useState<UserInfoSchema | null>(null);
@@ -29,8 +35,9 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
   const confirmSignup = useSignup({ dic });
   const router = useRouter();
   const { locale } = useBaseConfig();
+  const userInfoSchema = createUserInfoSchema({ dic });
   const userInfoUseForm = useForm<UserInfoSchema>({
-    resolver: zodResolver(createUserInfoSchema({ dic })),
+    resolver: zodResolver(userInfoSchema),
     defaultValues: {
       username: "",
       firstName: "",
@@ -41,6 +48,15 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
       confirmPassword: "",
     },
   });
+  const [usernameValue, emailValue] = userInfoUseForm.watch([
+    "username",
+    "email",
+  ]);
+  const [dbUsername] = useDebouncedValue(usernameValue, {
+    wait: 500,
+  });
+  const [dbEmail] = useDebouncedValue(emailValue, { wait: 500 });
+
   const organizationUseForm = useForm<OrganizationInfoSchema>({
     resolver: zodResolver(createOrganizationInfo({ dic })),
     defaultValues: {
@@ -48,7 +64,7 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
       description: "",
     },
   });
-
+  // steps
   const [activeStep, setActiveStep] =
     useState<(typeof signupSteps)[number]>("userInfo");
   const activeSignupStepIndex = signupSteps.findIndex(
@@ -56,6 +72,15 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
   );
   const isLastStep = activeSignupStepIndex === 2;
   const isFirstStep = activeSignupStepIndex === 0;
+
+  // check availability
+  const availableEmailQuery = useEmailAvailability(dbEmail, {
+    enabled: userInfoSchema.shape.email.safeParse(dbEmail).success,
+  });
+  const availableUsernameQuery = useUsernameAvailability(dbUsername, {
+    enabled: userInfoSchema.shape.username.safeParse(dbUsername).success,
+  });
+
   return (
     <form className="md:min-h-112.5 flex flex-col">
       <SignupSteps
@@ -65,7 +90,13 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
       />
       <FieldGroup className="gap-3 p-4 pt-2 grow">
         <FormProvider {...userInfoUseForm}>
-          {activeStep === "userInfo" && <SignupUserInfo dic={dic} />}
+          {activeStep === "userInfo" && (
+            <SignupUserInfo
+              dic={dic}
+              availableEmailQuery={availableEmailQuery}
+              availableUsernameQuery={availableUsernameQuery}
+            />
+          )}
         </FormProvider>
         <FormProvider {...organizationUseForm}>
           {activeStep === "organizationInfo" && (
@@ -123,6 +154,21 @@ export default function SignupWrapper({ dic }: { dic: AuthDictionary }) {
                 e.preventDefault();
                 if (activeStep === "userInfo") {
                   userInfoUseForm.handleSubmit((data) => {
+                    if (
+                      !availableUsernameQuery.isSuccess ||
+                      !availableEmailQuery.isSuccess
+                    )
+                      return;
+                    if (!availableEmailQuery.data.isAvailable) {
+                      userInfoUseForm.setFocus("email");
+                      toast.error(dic.signup.userInfo.duplicateEmail);
+                      return;
+                    }
+                    if (!availableUsernameQuery.data.isAvailable) {
+                      userInfoUseForm.setFocus("username");
+                      toast.error(dic.signup.userInfo.duplicateUsername);
+                      return;
+                    }
                     setActiveStep("organizationInfo");
                     setUserInfo(data);
                   })();
