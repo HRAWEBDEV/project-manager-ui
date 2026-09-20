@@ -16,7 +16,7 @@ export const settingItems = [
     key: "shortcuts",
   },
   {
-    key: "general",
+    key: "userInterface",
   },
   {
     key: "logout",

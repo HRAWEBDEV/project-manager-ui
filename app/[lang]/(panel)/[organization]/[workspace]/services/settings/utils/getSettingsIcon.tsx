@@ -6,6 +6,7 @@ import { BsPersonWorkspace } from "react-icons/bs";
 import { GoOrganization } from "react-icons/go";
 import { MdWorkspaces } from "react-icons/md";
 import { FaRegKeyboard } from "react-icons/fa";
+import { MdOutlineWeb } from "react-icons/md";
 import { settingItems } from "./settingItems";
 
 export function getSettingsIcon(
@@ -23,6 +24,8 @@ export function getSettingsIcon(
       return <MdWorkspaces {...props} />;
     case "shortcuts":
       return <FaRegKeyboard {...props} />;
+    case "userInterface":
+      return <MdOutlineWeb {...props} />;
     case "general":
       return <IoSettingsSharp {...props} />;
     case "logout":
