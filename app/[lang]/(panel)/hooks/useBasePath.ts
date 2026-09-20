@@ -6,10 +6,10 @@ import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/servic
 export function useBasePath() {
   const { locale } = useBaseConfig();
   const { activeOrganization } = useOrganizationContext();
-  const { activeWorksapce } = useWorkspacesContext();
+  const { activeWorkspace } = useWorkspacesContext();
 
   const basePath = useMemo(() => {
-    return `/${locale}/${activeOrganization.slug}/${activeWorksapce.slug}`;
-  }, [locale, activeOrganization, activeWorksapce]);
+    return `/${locale}/${activeOrganization.slug}/${activeWorkspace.slug}`;
+  }, [locale, activeOrganization, activeWorkspace]);
   return basePath;
 }

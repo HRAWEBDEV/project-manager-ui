@@ -4,15 +4,15 @@ import { axios } from "@/app/utils/defaultAxios";
 import { useWorkspacesContext } from "./workspacesContext";
 
 export default function WorkspaceAxiosInterceptor() {
-  const { activeWorksapce } = useWorkspacesContext();
+  const { activeWorkspace } = useWorkspacesContext();
   useEffect(() => {
     const reqID = axios.interceptors.request.use((config) => {
-      config.headers.set("workspace-id", activeWorksapce.id);
+      config.headers.set("workspace-id", activeWorkspace.id);
       return config;
     });
     return () => {
       axios.interceptors.request.eject(reqID);
     };
-  }, [activeWorksapce]);
+  }, [activeWorkspace]);
   return <></>;
 }

@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   type UpdateOrganizationSchema,
   createOrganizationSchema,
-} from "@/app/[lang]/(panel)/organizations/schemas/organizatinosSchemas";
+} from "@/app/[lang]/(panel)/organizations/schemas/organizationsSchemas";
 import {
   useUpdateOrganization,
   useUpdateOrganizationLogo,

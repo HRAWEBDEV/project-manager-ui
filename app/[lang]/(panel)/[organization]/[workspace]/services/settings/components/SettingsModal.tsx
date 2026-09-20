@@ -26,7 +26,7 @@ export default function SettingsModal() {
       components: { settings: dic },
     },
   } = useShareDictionary();
-  const { activeWorksapce } = useWorkspacesContext();
+  const { activeWorkspace } = useWorkspacesContext();
 
   function renderSettingContent() {
     switch (activeTab) {
@@ -35,7 +35,7 @@ export default function SettingsModal() {
       case "organization":
         return <OrganizationWrapper />;
       case "workspace":
-        return <EditWorkspace workspace={activeWorksapce} />;
+        return <EditWorkspace workspace={activeWorkspace} />;
       case "myWorkspaces":
         return <WorkspacesWrapper />;
       case "shortcuts":

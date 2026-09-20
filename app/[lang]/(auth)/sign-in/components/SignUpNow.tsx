@@ -4,7 +4,7 @@ import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dic
 import Link from "next/link";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 
-export default function SingUpNow({ dic }: { dic: AuthDictionary }) {
+export default function SignUpNow({ dic }: { dic: AuthDictionary }) {
   const { locale } = useBaseConfig();
   return (
     <FieldDescription className="text-center">

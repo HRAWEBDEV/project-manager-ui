@@ -9,14 +9,14 @@ import Link from "next/link";
 
 export default function SidebarNav() {
   const { activeOrganization } = useOrganizationContext();
-  const { activeWorksapce } = useWorkspacesContext();
+  const { activeWorkspace } = useWorkspacesContext();
   const { locale } = useBaseConfig();
   const {
     shareDictionary: {
       components: { navigation: dic },
     },
   } = useShareDictionary();
-  const basePath = `/${locale}/${activeOrganization.slug}/${activeWorksapce.slug}`;
+  const basePath = `/${locale}/${activeOrganization.slug}/${activeWorkspace.slug}`;
   return (
     <div className="w-full grow overflow-auto">
       <div className="flex flex-col">

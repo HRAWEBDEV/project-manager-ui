@@ -5,7 +5,7 @@ import { useWorkspaces } from "../../workspaces/hooks/useWorkspaces";
 
 interface WorkspacesContextProps {
   workspacesQuery: ReturnType<typeof useWorkspaces>;
-  activeWorksapce: Workspace;
+  activeWorkspace: Workspace;
   onChangeWorkspace: (
     organizationSlug: string,
     workspaceSlug: string,

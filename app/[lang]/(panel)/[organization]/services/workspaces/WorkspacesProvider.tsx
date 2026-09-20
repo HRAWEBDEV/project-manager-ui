@@ -22,7 +22,7 @@ export default function WorkspacesProvider({
   const { activeOrganization } = useOrganizationContext();
   const workspacesQuery = useWorkspaces();
 
-  const activeWorksapce = useMemo(() => {
+  const activeWorkspace = useMemo(() => {
     if (!workspacesQuery.isSuccess) return;
     const defaultWorkspace = workspacesQuery.data.workspaces.find(
       (item) => item.organizationId === activeOrganization.id,
@@ -70,23 +70,23 @@ export default function WorkspacesProvider({
 
   const ctx = {
     workspacesQuery,
-    activeWorksapce: activeWorksapce!,
+    activeWorkspace: activeWorkspace!,
     onChangeWorkspace: handleChangeWorkspace,
   };
 
   useEffect(() => {
-    if (!activeWorksapce) return;
-    if (!workspaceParam || workspaceParam !== activeWorksapce?.slug) {
+    if (!activeWorkspace) return;
+    if (!workspaceParam || workspaceParam !== activeWorkspace?.slug) {
       handleChangeWorkspace(
-        activeWorksapce.organizationSlug,
-        activeWorksapce.slug,
+        activeWorkspace.organizationSlug,
+        activeWorkspace.slug,
       );
     }
-  }, [activeWorksapce, workspaceParam, handleChangeWorkspace]);
+  }, [activeWorkspace, workspaceParam, handleChangeWorkspace]);
 
   return (
     <WorkspacesContext.Provider value={ctx}>
-      {activeWorksapce && (
+      {activeWorkspace && (
         <>
           <WorkspaceAxiosInterceptor />
           {children}

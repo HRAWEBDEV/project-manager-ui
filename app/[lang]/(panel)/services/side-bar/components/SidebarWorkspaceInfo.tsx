@@ -16,7 +16,7 @@ export default function SidebarWorkspaceInfo() {
     },
   } = useShareDictionary();
   const { activeOrganization } = useOrganizationContext();
-  const { activeWorksapce } = useWorkspacesContext();
+  const { activeWorkspace } = useWorkspacesContext();
   const { toggleOpen } = useSettingsContext();
   return (
     <div>
@@ -42,7 +42,7 @@ export default function SidebarWorkspaceInfo() {
             <h3 className="mb-1 truncate">{activeOrganization.name}</h3>
             <p className="text-xs text-primary truncate">
               <span>{dic.workspaceName}: </span>
-              <span>{activeWorksapce.name}</span>
+              <span>{activeWorkspace.name}</span>
             </p>
           </div>
           <IoMdArrowDropup />

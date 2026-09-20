@@ -1,6 +1,6 @@
 "use client";
 import { ReactNode, useEffect, useRef, useState } from "react";
-import { type HistoryContextProps, HistoryContext } from "./historyCotnext";
+import { type HistoryContextProps, HistoryContext } from "./historyContext";
 import { usePathname } from "next/navigation";
 
 export default function HistoryProvider({ children }: { children: ReactNode }) {

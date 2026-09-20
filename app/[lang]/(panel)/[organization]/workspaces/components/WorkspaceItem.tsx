@@ -12,7 +12,7 @@ export default function WorkspaceItem({
   workspace: Workspace;
   onEdit: () => void;
 }) {
-  const { activeWorksapce, onChangeWorkspace } = useWorkspacesContext();
+  const { activeWorkspace, onChangeWorkspace } = useWorkspacesContext();
   const workspaceIcon = getSettingsIcon("workspace", {
     className: "size-10",
   });
@@ -21,7 +21,7 @@ export default function WorkspaceItem({
       components: { workspaceInfo: dic },
     },
   } = useShareDictionary();
-  const isActive = workspace.id === activeWorksapce.id;
+  const isActive = workspace.id === activeWorkspace.id;
 
   return (
     <li
