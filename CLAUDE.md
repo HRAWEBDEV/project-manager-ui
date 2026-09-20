@@ -28,23 +28,31 @@ Locale metadata (supported locales, direction, calendar system, date-fns locale)
 ### Route groups
 
 - `app/[lang]/(auth)/` — sign-in/signup flow. `hooks/useAuth.ts` wraps TanStack Query mutations, `services/authApiActions.ts` calls the API, `schemas/authSchemas.ts` builds Zod schemas. `sign-in/` and `signup/` each have their own `components/` folder for step/route-specific UI (e.g. `signup/utils/signupSteps.ts` drives a multi-step wizard).
-- `app/[lang]/(panel)/` — the authenticated app shell, nested `[organization]/[workspace]/...` (see below). Cross-cutting panel state (sidebar, settings, profile, organization) is each implemented as its own `services/<feature>/` folder colocated with that feature's `components/`, mounted once in `(panel)/layout.tsx`.
+- `app/[lang]/(panel)/` — the authenticated app shell, nested `[organization]/[workspace]/...` (see below). Cross-cutting panel state (sidebar, profile, organization, global keyboard shortcuts, navigation history) is each implemented as its own `services/<feature>/` folder colocated with that feature's `components/`, mounted once in `(panel)/layout.tsx`. The settings modal is the one exception — it's workspace-scoped, mounted in `[workspace]/layout.tsx` instead (see below).
 
 ### Multi-tenant hierarchy: organization → workspace
 
 Below the locale, panel routes carry two more dynamic segments: `app/[lang]/(panel)/[organization]/[workspace]/...`. Both levels follow the identical **"active entity" provider pattern**, each layered in its own layout:
 
-1. `(panel)/layout.tsx` mounts `SidebarProvider` → `ProfileProvider` → `OrganizationProvider` (`(panel)/services/organization/`).
-2. `(panel)/[organization]/layout.tsx` mounts `WorkspacesProvider` (`[organization]/services/workspaces/`) inside that.
+1. `(panel)/layout.tsx` mounts `ShortcutsProvider` → `HistoryProvider` → `SidebarProvider` → `ProfileProvider` → `OrganizationProvider` (`(panel)/services/organization/`).
+2. `(panel)/[organization]/layout.tsx` mounts `WorkspacesProvider` inside that. Despite being wired up at the organization level, its folder actually lives a level deeper, at `[organization]/[workspace]/services/workspaces/` — `[organization]/layout.tsx` reaches into it with a relative import (`./[workspace]/services/workspaces/WorkspacesProvider`). Check that folder, not `[organization]/services/`, when touching this provider.
 
 Each provider (`OrganizationProvider.tsx`, `WorkspacesProvider.tsx`):
 - Fetches the full list via its feature's `useX` query hook (`useUserOrganizations`, `useWorkspaces`).
-- Derives the "active" entity with `useMemo`: match the `[organization]`/`[workspace]` route param against the fetched list by `slug`; fall back to the first item (or, for workspaces, the first item belonging to the active organization) if the param is missing or doesn't match.
-- In a `useEffect`, if the URL param doesn't match the resolved active entity, calls `router.replace(...)` to correct the URL — so the URL is always kept in sync with the resolved active entity rather than trusted directly.
-- Exposes `{ xQuery, activeX }` through a context (`useOrganizationContext`, `useWorkspacesContext`), gating `children` on the query/entity being ready and showing `LinearLoading` (org level) in the meantime.
+- Derives the "active" entity with `useMemo`, checked in priority order: (1) match the `[organization]`/`[workspace]` route param against the fetched list by `slug`; (2) fall back to the slug persisted in `localStorage` by `organizationManager.ts`/`workspaceManager.ts` (`getActiveOrganization`/`getActiveWorkspace`, keys `active-organization-slug`/`active-workspace-slug`) if it still matches an item in the list; (3) otherwise fall back to the first item (or, for workspaces, the first item belonging to the active organization).
+- In a `useEffect`, if the URL param doesn't match the resolved active entity, calls `router.replace(...)` to correct the URL — so the URL is always kept in sync with the resolved active entity rather than trusted directly. `WorkspacesProvider`'s `onChangeWorkspace` (exposed through context for other components to switch workspace explicitly) additionally calls `saveActiveWorkspace`/`saveActiveOrganization` to persist both slugs and `useClearQueries()` to drop stale TanStack Query cache from the previous workspace.
+- Exposes `{ xQuery, activeX }` (plus `onChangeWorkspace` for workspaces) through a context (`useOrganizationContext`, `useWorkspacesContext`), gating `children` on the query/entity being ready and showing `LinearLoading` (org level) in the meantime.
 - Renders a dedicated scoped Axios interceptor component (`OrganzationAxiosInterceptor`, `WorkspaceAxiosInterceptor` — note the existing typos, keep them when extending this code so grep/imports still match) that, in a `useEffect` keyed on the active entity, registers a request interceptor adding an `organization-id`/`workspace-id` header and ejects it on cleanup/change.
 
 Follow this same three-part shape (provider resolves + redirects, context exposes the active entity, a scoped axios interceptor component injects the id header) for any new URL-scoped entity added below `[workspace]`.
+
+### Global shortcuts, settings modal, and navigation history
+
+Three more `services/*` folders round out the panel shell's cross-cutting state, mounted at `(panel)/layout.tsx` alongside the entities above (`ShortcutsProvider` and `HistoryProvider` are the outermost providers, wrapping `SidebarProvider`):
+
+- **`(panel)/services/shortcuts/`** — `shortcutsManager.ts` declares a single `defaultShortcuts` object (categories like `general` → items like `toggleNavigation`/`toggleSettings`/`toggleShortcuts`, each a `RegisterableHotkey` string from `@tanstack/react-hotkeys`); `ShortcutsProvider` holds it in state and exposes `onGetShortcutKeys(category, item)` through context. Any component that needs to bind a hotkey imports `useShortcutsContext()` and passes the returned keys into `@tanstack/react-hotkeys`'s `useHotkey(...)`, rather than hardcoding key combos — that's what makes `shortcutsManager.ts` the single source of truth for rebinding later.
+- **`[workspace]/services/settings/`** — the settings modal, mounted in `[workspace]/layout.tsx` (not `(panel)/layout.tsx`, since it renders workspace-scoped tabs like the active workspace's edit form). `SettingsProvider` owns `{ open, activeTab, showConfirmLogout }` and registers the `toggleSettings`/`toggleShortcuts` hotkeys itself (via `useShortcutsContext()`) to open the modal on a given tab. `utils/settingItems.ts` is the ordered tab list (`SettingTab` union) and `utils/getSettingsIcon.tsx` maps each tab key to an icon; `components/SettingsModal.tsx` renders the tab list from `settingItems` and switches on `activeTab` to delegate content to each domain's *existing* component (`UserWrapper`, `OrganizationWrapper`, `EditWorkspace`, `WorkspacesWrapper`, `ShortcutsWrapper`) rather than duplicating that UI — add a settings tab by adding a `settingItems` entry, an icon case, and a `renderSettingContent` case pointing at the feature's own component.
+- **`[workspace]/services/history/`** — `HistoryProvider` tracks a `redirectCount` (bumped on every `usePathname()` change) exposed via `useHistoryContext()`; `components/HistoryControllers.tsx` is the back-navigation button that reads it. Despite living under `[workspace]/`, it's mounted at `(panel)/layout.tsx` via a relative import, so it's available panel-wide, not just within a workspace.
 
 ### Feature module structure
 
@@ -86,7 +94,7 @@ Global and feature-scoped state (`services/base-config`, `services/react-query`,
 
 `services/base-config/BaseConfigProvider.tsx` owns locale switching (`setLocale` rewrites the URL's locale segment and does a full navigation) and wraps `next-themes`' `ThemeProvider` (see `utils/appModes.ts` for the `light`/`dark`/`system` union).
 
-Provider nesting is explicit in each layout rather than collected in one root provider tree — check the closest ancestor `layout.tsx` to see what context is guaranteed to be available at a given route depth (root → base-config/share-dictionary/react-query → panel → sidebar/profile/organization → per-organization → workspaces → per-workspace).
+Provider nesting is explicit in each layout rather than collected in one root provider tree — check the closest ancestor `layout.tsx` to see what context is guaranteed to be available at a given route depth (root → base-config/share-dictionary/react-query → panel (shortcuts → history → sidebar → profile → organization) → per-organization (workspaces) → per-workspace (settings)).
 
 ### Networking
 
@@ -113,3 +121,4 @@ Stored images (`Project.icon`, `Organization.logo`, `User.avatar`) are relative 
 - Persian is the primary/default locale and default calendar is Jalali (`date-fns-jalali`) — keep RTL and Jalali-date handling in mind when touching date or direction-sensitive UI (see `hooks/useLocaleDateFns.ts`, `utils/getLocaleDateFns.ts`).
 - `components/ui/` is shadcn-generated (style `base-vega`) — don't hand-edit these beyond what the `shadcn` CLI produces; put app-specific composites in `components/` (top-level, cross-feature, e.g. `LinearLoading.tsx`) or in the owning feature's `components/` folder (feature-specific).
 - Two icon sets are in play: `lucide-react` (the shadcn/`components.json` default) and `react-icons` (e.g. `react-icons/fa`'s `FaSearch`/`FaPlus`, used in `projects/components/ProjectsFilters.tsx`) — check what an existing feature already imports before picking one for new UI.
+- `(panel)/components/NoItemFound.tsx` is the shared empty-state for search/filter UIs (icon + localized message, optionally echoing the searched text) — used across unrelated features (`ShortcutsWrapper`, `WorkspacesWrapper`, `ProjectsList`); reuse it for a new searchable list instead of writing a bespoke empty state.

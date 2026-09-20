@@ -26,8 +26,6 @@ export function getSettingsIcon(
       return <FaRegKeyboard {...props} />;
     case "userInterface":
       return <MdOutlineWeb {...props} />;
-    case "general":
-      return <IoSettingsSharp {...props} />;
     case "logout":
       return <RiLogoutBoxRFill {...props} />;
   }
