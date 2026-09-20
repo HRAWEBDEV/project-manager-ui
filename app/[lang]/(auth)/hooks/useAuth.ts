@@ -1,10 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   type SignInProps,
   type SignUpProps,
+  emailAvailablityApi,
+  usernameAvailablityApi,
   singIn,
   signup,
   logout,
+  emailAvailability,
+  usernameAvailability,
 } from "@/app/[lang]/(auth)/services/authApiActions";
 import { type AuthDictionary } from "@/internalization/app/dictionaries/auth/dictionary";
 import { AxiosError } from "axios";
@@ -54,4 +58,37 @@ function useLogout() {
   return mut;
 }
 
-export { useSignIn, useSignup, useLogout };
+function useEmailAvailability(email: string, { enabled }: { enabled: boolean }) {
+  const query = useQuery({
+    queryKey: [emailAvailablityApi, email],
+    enabled,
+    async queryFn({ signal }) {
+      const res = await emailAvailability(email, signal);
+      return res.data;
+    },
+  });
+  return query;
+}
+
+function useUsernameAvailability(
+  username: string,
+  { enabled }: { enabled: boolean },
+) {
+  const query = useQuery({
+    queryKey: [usernameAvailablityApi, username],
+    enabled,
+    async queryFn({ signal }) {
+      const res = await usernameAvailability(username, signal);
+      return res.data;
+    },
+  });
+  return query;
+}
+
+export {
+  useSignIn,
+  useSignup,
+  useLogout,
+  useEmailAvailability,
+  useUsernameAvailability,
+};

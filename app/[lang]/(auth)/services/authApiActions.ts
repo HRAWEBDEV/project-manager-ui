@@ -1,8 +1,11 @@
 import { axios } from "@/app/utils/defaultAxios";
 
-const signInApi = "/auth/sign-in";
-const signupApi = "/auth/sign-up";
-const logoutApi = "/auth/logout";
+const authBaseApi = "/auth";
+const signInApi = `${authBaseApi}/sign-in`;
+const signupApi = `${authBaseApi}/sign-up`;
+const logoutApi = `${authBaseApi}/logout`;
+const emailAvailablityApi = `${authBaseApi}/email-availability`;
+const usernameAvailablityApi = `${authBaseApi}/username-availability`;
 
 interface SignInProps {
   username: string;
@@ -36,5 +39,34 @@ function logout() {
   return axios.post(logoutApi);
 }
 
+function emailAvailability(email: string, signal: AbortSignal) {
+  const searchParams = new URLSearchParams([["email", email]]);
+  return axios.get<{ isAvailable: boolean }>(
+    `${emailAvailablityApi}?${searchParams}`,
+    {
+      signal,
+    },
+  );
+}
+function usernameAvailability(username: string, signal: AbortSignal) {
+  const searchParams = new URLSearchParams([["username", username]]);
+  return axios.get<{ isAvailable: boolean }>(
+    `${usernameAvailablityApi}?${searchParams}`,
+    {
+      signal,
+    },
+  );
+}
+
 export type { SignInProps, SignUpProps };
-export { signInApi, signupApi, singIn, signup, logout };
+export {
+  signInApi,
+  signupApi,
+  emailAvailablityApi,
+  usernameAvailablityApi,
+  singIn,
+  signup,
+  logout,
+  emailAvailability,
+  usernameAvailability,
+};
