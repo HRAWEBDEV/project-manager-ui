@@ -7,7 +7,7 @@ function createUserInfoSchema({ dic }: { dic: AuthDictionary }) {
       username: z.string().min(3),
       firstName: z.string().min(1),
       lastName: z.string().min(1),
-      email: z.email().min(1),
+      email: z.email().min(1, dic.signup.userInfo.invalidEmail),
       phoneNumber: z.string(),
       password: z.string().min(1),
       confirmPassword: z.string(),

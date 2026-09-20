@@ -5,6 +5,7 @@ import {
   FieldLabel,
   FieldContent,
   FieldError,
+  FieldDescription,
 } from "@/components/ui/field";
 import {
   InputGroup,
@@ -72,12 +73,15 @@ export default function SignupUserInfo({
             ) : null}
           </InputGroupAddon>
         </InputGroup>
-        {availableUsernameQuery.isSuccess &&
-          !availableUsernameQuery.data.isAvailable && (
-            <FieldContent>
+        <FieldContent>
+          <FieldDescription>
+            {dic.signup.userInfo.atLeast} 3 {dic.signup.userInfo.characters}
+          </FieldDescription>
+          {availableUsernameQuery.isSuccess &&
+            !availableUsernameQuery.data.isAvailable && (
               <FieldError>{dic.signup.userInfo.duplicateUsername}</FieldError>
-            </FieldContent>
-          )}
+            )}
+        </FieldContent>
       </Field>
       <div className="grid gap-3 md:grid-cols-2">
         <Field data-invalid={!!errors.email}>
@@ -99,6 +103,11 @@ export default function SignupUserInfo({
                 <FieldError>{dic.signup.userInfo.duplicateEmail}</FieldError>
               </FieldContent>
             )}
+          {!!errors.email && (
+            <FieldContent>
+              <FieldError>{dic.signup.userInfo.invalidEmail}</FieldError>
+            </FieldContent>
+          )}
         </Field>
         <Controller
           control={control}

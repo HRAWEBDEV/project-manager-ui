@@ -36,7 +36,10 @@
       "confirmPassword": "تکرار رمز عبور",
       "wrongConfirmPassword": "تکرار رمز عبور اشتباه است",
       "duplicateUsername": "نام کاربری تکراری است",
-      "duplicateEmail": "ایمیل تکراری است"
+      "duplicateEmail": "ایمیل تکراری است",
+      "invalidEmail": "ایمیل نامعتبر است",
+      "atLeast": "حداقل",
+      "characters": "حرف"
     },
     "organizationInfo": {
       "name": "نام سازمان",
