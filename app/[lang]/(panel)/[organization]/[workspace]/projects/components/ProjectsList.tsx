@@ -9,7 +9,7 @@ import { useFormContext } from "react-hook-form";
 import { FilterProjectsSchemas } from "../schemas/projectsSchemas";
 
 const wrapperClassName =
-  "grid gap-4 grid-cols-2 sm:grid-cols-[repeat(auto-fill,minmax(12rem,14rem))]";
+  "grid gap-4 grid-cols-1 sm:grid-cols-[repeat(auto-fill,minmax(12rem,14rem))]";
 
 export default function ProjectsList({
   dic,
