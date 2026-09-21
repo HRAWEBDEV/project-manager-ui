@@ -7,6 +7,7 @@ import { GoOrganization } from "react-icons/go";
 import { MdWorkspaces } from "react-icons/md";
 import { FaRegKeyboard } from "react-icons/fa";
 import { MdOutlineWeb } from "react-icons/md";
+import { IoMdNotifications } from "react-icons/io";
 import { settingItems } from "./settingItems";
 
 export function getSettingsIcon(
@@ -16,6 +17,8 @@ export function getSettingsIcon(
   switch (mode) {
     case "userInfo":
       return <FaUserCircle {...props} />;
+    case "notifications":
+      return <IoMdNotifications {...props} />;
     case "organization":
       return <GoOrganization {...props} />;
     case "organizationMembers":

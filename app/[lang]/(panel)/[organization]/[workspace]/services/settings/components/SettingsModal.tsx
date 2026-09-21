@@ -19,6 +19,7 @@ import EditWorkspace from "@/app/[lang]/(panel)/[organization]/workspaces/compon
 import ShortcutsWrapper from "@/app/[lang]/(panel)/services/shortcuts/components/ShortcutsWrapper";
 import UserInterfaceWrapper from "@/app/[lang]/(panel)/services/userInterface/components/UserInterfaceWrapper";
 import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/services/workspaces/workspacesContext";
+import { Badge } from "@/components/ui/badge";
 
 export default function SettingsModal() {
   const { open, activeTab, toggleOpen, setShowConfirmlogout } =
@@ -66,7 +67,8 @@ export default function SettingsModal() {
                 variant="ghost"
                 key={item.key}
                 data-logout={item.key === "logout"}
-                className="text-start justify-stretch rounded-none font-normal text-neutral-700 dark:text-neutral-400 data-[logout='true']:text-destructive data-[active='true']:bg-primary data-[active='true']:text-primary-foreground h-12 gap-3"
+                data-notifications={item.key === "notifications"}
+                className="text-start justify-stretch rounded-none font-normal text-neutral-700 dark:text-neutral-400 data-[logout='true']:text-destructive data-[notifications='true']:text-destructive data-[active='true']:bg-primary data-[active='true']:text-primary-foreground! h-12 gap-3"
                 onClick={() => {
                   if (item.key === "logout") {
                     setShowConfirmlogout(true);
@@ -76,7 +78,12 @@ export default function SettingsModal() {
                 }}
               >
                 {getSettingsIcon(item.key, { className: "size-5" })}
-                <span>{dic[item.key]}</span>
+                <span className="grow">{dic[item.key]}</span>
+                {item.key === "notifications" && (
+                  <div>
+                    <Badge className="size-6">99+</Badge>
+                  </div>
+                )}
               </Button>
             ))}
           </div>

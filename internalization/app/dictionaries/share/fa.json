@@ -31,6 +31,7 @@
     "settings": {
       "title": "تنظیمات",
       "logoutConfirmMessage": "از برنامه خارج می‌شوید؟",
+      "notifications": "اعلان‌ها",
       "userInfo": "اطلاعات کاربری",
       "organization": "سازمان",
       "organizationMembers": "اعضای سازمان",
