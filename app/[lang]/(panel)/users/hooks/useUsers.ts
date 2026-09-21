@@ -7,8 +7,11 @@ import {
 } from "@tanstack/react-query";
 import {
   type UpdateUser,
+  type UserSearchParams,
+  userBaseApi,
   userInfoApi,
   userOrganizationsApi,
+  getUsers,
   getUserInfo,
   getUserOrganizations,
   updateUser,
@@ -16,6 +19,18 @@ import {
   updateUserAvatar,
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import { useLogout } from "../../hooks/useLogout";
+
+function useUsers(props: UserSearchParams) {
+  const usersQuery = useQuery({
+    queryKey: [userBaseApi, props],
+    placeholderData: keepPreviousData,
+    async queryFn({ signal }) {
+      const res = await getUsers({ signal, ...props });
+      return res.data;
+    },
+  });
+  return usersQuery;
+}
 
 function useUsersInfo() {
   const { logout } = useLogout();
@@ -96,6 +111,7 @@ function useUpdateUserAvatar() {
 }
 
 export {
+  useUsers,
   useUsersInfo,
   useUserOrganizations,
   useUpdateUser,

@@ -31,6 +31,39 @@ const userInfoApi = `${userBaseApi}/info`;
 const userOrganizationsApi = `${userBaseApi}/organizations`;
 const userAvatarApi = `${userBaseApi}/avatar`;
 
+interface UserSearchParams {
+  email?: string;
+  username?: string;
+  paging?: {
+    pageSize: number;
+    page: number;
+  };
+}
+
+function getUsers({
+  signal,
+  email,
+  username,
+  paging,
+}: {
+  signal: AbortSignal;
+} & UserSearchParams) {
+  const searchParams = new URLSearchParams([]);
+  if (email) searchParams.append("email", email);
+  if (username) searchParams.append("username", username);
+  if (paging) {
+    searchParams.append("pageSize", paging.pageSize.toString());
+    searchParams.append("page", paging.page.toString());
+  }
+  return axios.get<{
+    users: Omit<
+      User,
+      "phoneNumber" | "phoneNumberVerified" | "emailVerified"
+    >[];
+    total: number;
+  }>(`${userBaseApi}?${searchParams.toString()}`, { signal });
+}
+
 function getUserInfo({ signal }: { signal: AbortSignal }) {
   return axios.get<UserInfo>(userInfoApi, { signal });
 }
@@ -53,11 +86,13 @@ function deleteUserAvatar() {
   return axios.delete(userAvatarApi);
 }
 
-export type { User, UserInfo, UpdateUser };
+export type { User, UserInfo, UpdateUser, UserSearchParams };
 export {
+  userBaseApi,
   userInfoApi,
   userOrganizationsApi,
   userAvatarApi,
+  getUsers,
   getUserInfo,
   getUserOrganizations,
   updateUser,
