@@ -6,10 +6,12 @@ import {
 import {
   type UpdateOrganization,
   organizationMembersApi,
+  organizationInvitationsApi,
   updateOrganization,
   updateOrganizationLogo,
   deleteOrganizationLogo,
   getOrganizationMembers,
+  getOrganizationInvitations,
 } from "../services/organizationsApiActions";
 
 function useUpdateOrganization() {
@@ -77,9 +79,21 @@ function useOrganizationMembers() {
   return organizationMembersQuery;
 }
 
+function useOrganizationInvitations() {
+  const organizationInvitationsQuery = useQuery({
+    queryKey: [organizationInvitationsApi],
+    async queryFn({ signal }) {
+      const res = await getOrganizationInvitations({ signal });
+      return res.data;
+    },
+  });
+  return organizationInvitationsQuery;
+}
+
 export {
   useUpdateOrganization,
   useUpdateOrganizationLogo,
   useDeleteOrganizationLogo,
   useOrganizationMembers,
+  useOrganizationInvitations,
 };
