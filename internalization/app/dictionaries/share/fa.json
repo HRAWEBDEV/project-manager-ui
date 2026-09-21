@@ -81,7 +81,8 @@
       "username": "نام کاربری",
       "fullName": "نام خانوادگی",
       "role": "نقش",
-      "pendingInvitation": "در انتظار تایید"
+      "pendingInvitation": "در انتظار تایید",
+      "results": "نتایج"
     },
     "workspaceInfo": {
       "results": "نتایج",

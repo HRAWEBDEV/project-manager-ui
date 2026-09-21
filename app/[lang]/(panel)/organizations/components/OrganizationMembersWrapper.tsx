@@ -123,8 +123,8 @@ export default function OrganizationMembersWrapper() {
         </div>
       )}
       <div>
-        <div className="mb-4">
-          <div className="grid gap-2 grid-cols-[1fr_max-content]">
+        <div className="mb-3">
+          <div className="grid gap-2 grid-cols-[1fr_max-content] mb-0.5">
             <Field>
               <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
                 <InputGroupInput
@@ -143,6 +143,15 @@ export default function OrganizationMembersWrapper() {
               <FaPlus className="size-3" />
               {dic.newMember}
             </Button>
+          </div>
+
+          <div className="mt-0.5">
+            <div className="text-xs">
+              <span className="text-neutral-500">{dic.results}: </span>
+              <span className="text-neutral-700 dark:text-neutral-400">
+                {visibilityMembers.length}
+              </span>
+            </div>
           </div>
         </div>
         {renderContent()}
