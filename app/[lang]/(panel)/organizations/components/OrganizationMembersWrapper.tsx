@@ -119,13 +119,13 @@ export default function OrganizationMembersWrapper() {
 
   return (
     <>
-      {organizationMembersQuery.isFetching && (
-        <div className="absolute top-0 inset-x-0">
-          <LinearLoading />
-        </div>
-      )}
-      <div>
-        <div className="mb-3">
+      <div className="p-4 pt-0">
+        <div className="py-4 sticky top-0 z-1 bg-background">
+          {organizationMembersQuery.isFetching && (
+            <div className="absolute top-0 inset-x-0">
+              <LinearLoading />
+            </div>
+          )}
           <div className="grid gap-2 grid-cols-[1fr_max-content] mb-0.5">
             <Field>
               <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
@@ -150,7 +150,6 @@ export default function OrganizationMembersWrapper() {
               {dic.newMember}
             </Button>
           </div>
-
           <div className="mt-0.5">
             <div className="text-xs">
               <span className="text-neutral-500">{dic.results}: </span>

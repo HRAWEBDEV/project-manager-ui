@@ -14,6 +14,7 @@ import WorkspaceItem from "./WorkspaceItem";
 import EditWorkspaceDialog from "./EditWorkspaceDialog";
 import NoItemFound from "../../../components/NoItemFound";
 import { type Workspace } from "../services/workspacesApiActions";
+import LinearLoading from "@/components/LinearLoading";
 
 export default function WorkspacesWrapper() {
   const [search, setSearch] = useState("");
@@ -36,8 +37,13 @@ export default function WorkspacesWrapper() {
 
   return (
     <>
-      <div>
-        <div className="mb-2">
+      <div className="p-4 pt-0">
+        <div className="py-4 sticky top-0">
+          {workspacesQuery.isFetching && (
+            <div className="absolute top-0 inset-x-0">
+              <LinearLoading />
+            </div>
+          )}
           <div className="grid gap-2 grid-cols-[1fr_max-content]">
             <Field>
               <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
@@ -72,7 +78,6 @@ export default function WorkspacesWrapper() {
             </div>
           </div>
         </div>
-
         {visibleWorkspaces.length > 0 ? (
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {visibleWorkspaces.map((workspace) => {

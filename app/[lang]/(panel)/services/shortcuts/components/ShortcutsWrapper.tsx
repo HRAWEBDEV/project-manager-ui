@@ -27,8 +27,8 @@ export default function ShortcutsWrapper() {
   const { shortcuts } = useShortcutsContext();
 
   return (
-    <div>
-      <div className="mb-4">
+    <div className="pt-0 p-4">
+      <div className="py-4 sticky top-0">
         <div className="grid gap-2 grid-cols-1">
           <Field>
             <InputGroup className="bg-neutral-100 dark:bg-neutral-900">

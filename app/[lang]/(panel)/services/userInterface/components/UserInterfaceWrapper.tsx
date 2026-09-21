@@ -11,7 +11,7 @@ export default function UserInterfaceWrapper() {
   } = useShareDictionary();
   const { theme, setTheme } = useTheme();
   return (
-    <div>
+    <div className="p-4">
       <div className="mb-4 flex flex-wrap gap-4 items-center">
         <div>
           <h3 className="font-medium">{modeDic.title}</h3>

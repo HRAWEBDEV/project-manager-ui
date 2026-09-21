@@ -71,7 +71,7 @@ export default function OrganizationWrapper() {
   }, [usersInfoQuery.data?.organization, reset]);
 
   return (
-    <form>
+    <form className="p-4">
       <div className="flex flex-col items-center mb-6">
         <Avatar className="size-36">
           <AvatarImage
@@ -165,7 +165,7 @@ export default function OrganizationWrapper() {
               id="description"
               {...register("description")}
               className="field-sizing-fixed"
-              rows={6}
+              rows={3}
             />
           </InputGroup>
         </Field>

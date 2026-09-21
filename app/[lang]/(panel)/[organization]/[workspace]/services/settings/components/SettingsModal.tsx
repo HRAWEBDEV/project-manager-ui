@@ -87,7 +87,7 @@ export default function SettingsModal() {
               </Button>
             ))}
           </div>
-          <div className="overflow-auto grow p-3 relative">
+          <div className="overflow-auto grow relative">
             {renderSettingContent()}
           </div>
         </div>
