@@ -85,6 +85,11 @@
       "pendingInvitation": "در انتظار تایید",
       "results": "نتایج"
     },
+    "searchUsers": {
+      "title": "جستجو کاربر",
+      "email": "ایمیل",
+      "username": "نام کاربری"
+    },
     "workspaceInfo": {
       "results": "نتایج",
       "changesSavedSuccessfully": "تغییرات با موفقیت ذخیره شد",

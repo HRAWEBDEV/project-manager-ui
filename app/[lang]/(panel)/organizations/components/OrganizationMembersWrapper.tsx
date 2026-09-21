@@ -21,9 +21,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SearchUsersDialog from "../../users/components/SearchUsersDialog";
 
 export default function OrganizationMembersWrapper() {
   const [searchText, setSearchText] = useState("");
+  const [showSearchUsers, setShowSearchUsers] = useState(false);
   const organizationMembersQuery = useOrganizationMembers();
   const {
     shareDictionary: {
@@ -139,7 +141,11 @@ export default function OrganizationMembersWrapper() {
                 </InputGroupAddon>
               </InputGroup>
             </Field>
-            <Button onClick={() => {}}>
+            <Button
+              onClick={() => {
+                setShowSearchUsers(true);
+              }}
+            >
               <FaPlus className="size-3" />
               {dic.newMember}
             </Button>
@@ -156,6 +162,12 @@ export default function OrganizationMembersWrapper() {
         </div>
         {renderContent()}
       </div>
+      <SearchUsersDialog
+        open={showSearchUsers}
+        onOpenChange={() => {
+          setShowSearchUsers(false);
+        }}
+      />
     </>
   );
 }

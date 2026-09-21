@@ -20,8 +20,12 @@ import {
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import { useLogout } from "../../hooks/useLogout";
 
-function useUsers(props: UserSearchParams) {
+function useUsers({
+  enabled,
+  ...props
+}: { enabled: boolean } & UserSearchParams) {
   const usersQuery = useQuery({
+    enabled: enabled,
     queryKey: [userBaseApi, props],
     placeholderData: keepPreviousData,
     async queryFn({ signal }) {
