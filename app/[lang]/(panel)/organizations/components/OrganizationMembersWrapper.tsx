@@ -74,7 +74,7 @@ export default function OrganizationMembersWrapper() {
                   </div>
                   <Button
                     variant="outline"
-                    className="h-auto p-4 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900"
+                    className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900"
                   >
                     <div className="shrink-0">
                       <Avatar className="size-12">
