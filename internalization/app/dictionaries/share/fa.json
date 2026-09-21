@@ -14,6 +14,10 @@
       "title": "آیتمی یافت نشد",
       "searchedText": "جستجو شده"
     },
+    "somethingWentWrong": {
+      "title": "خطایی رخ داده است",
+      "description": "لطفا دوباره تلاش کنید"
+    },
     "modeController": {
       "title": "حالت روشنایی",
       "light": "روشن",
@@ -69,10 +73,15 @@
       "cancel": "انصراف"
     },
     "organizationMembers": {
+      "newMember": "افزودن",
       "owner": "مالک",
       "admin": "ادمین",
       "member": "عضو",
-      "search": "جستجو"
+      "search": "جستجو",
+      "username": "نام کاربری",
+      "fullName": "نام خانوادگی",
+      "role": "نقش",
+      "pendingInvitation": "در انتظار تایید"
     },
     "workspaceInfo": {
       "results": "نتایج",
