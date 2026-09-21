@@ -69,7 +69,9 @@ export default function UserAvatar() {
               <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
                 <IoIosWarning />
               </AlertDialogMedia>
-              <AlertDialogTitle>{dic.removeAvatarConfirmMessage}</AlertDialogTitle>
+              <AlertDialogTitle>
+                {dic.removeAvatarConfirmMessage}
+              </AlertDialogTitle>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel disabled={pendAction} variant="outline">
