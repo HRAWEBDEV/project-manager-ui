@@ -17,6 +17,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TbMailForward } from "react-icons/tb";
 import { IoEllipsisVerticalSharp } from "react-icons/io5";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export default function OrganizationMembersWrapper() {
   const [searchText, setSearchText] = useState("");
@@ -46,9 +52,18 @@ export default function OrganizationMembersWrapper() {
               return (
                 <div key={member.id} className="relative">
                   <div className="absolute top-1 -inset-e-1">
-                    <Button variant="ghost">
-                      <IoEllipsisVerticalSharp />
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        render={
+                          <Button variant="ghost">
+                            <IoEllipsisVerticalSharp />
+                          </Button>
+                        }
+                      />
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>item</DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
                   </div>
                   <Button
                     variant="outline"
