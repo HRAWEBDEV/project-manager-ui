@@ -28,7 +28,7 @@ export default function ShortcutsWrapper() {
 
   return (
     <div className="pt-0 p-4">
-      <div className="py-4 sticky top-0">
+      <div className="py-4 sticky top-0 bg-background">
         <div className="grid gap-2 grid-cols-1">
           <Field>
             <InputGroup className="bg-neutral-100 dark:bg-neutral-900">

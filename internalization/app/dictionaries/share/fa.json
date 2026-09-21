@@ -89,7 +89,8 @@
       "title": "جستجو کاربر",
       "email": "ایمیل",
       "username": "نام کاربری",
-      "fillUsernameOrEmailToSearchUser": "برای جستجوی کاربر، نام کاربری یا ایمیل کاربر را وارد کنید"
+      "fillUsernameOrEmailToSearchUser": "برای جستجوی کاربر، نام کاربری یا ایمیل کاربر را وارد کنید",
+      "thisUserIsAMember": "این کاربر عضو است"
     },
     "workspaceInfo": {
       "results": "نتایج",

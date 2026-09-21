@@ -21,8 +21,11 @@ import { useDebouncedValue } from "@tanstack/react-pacer";
 import { z } from "zod";
 import LinearLoading from "@/components/LinearLoading";
 import { Button } from "@/components/ui/button";
+import { BsPersonFillAdd } from "react-icons/bs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MdOutlineHelpOutline } from "react-icons/md";
+import { useCheckUserIsAMember } from "../../organizations/hooks/useCheckUserIsAMember";
+import { Badge } from "@/components/ui/badge";
 
 export default function SearchUsersDialog({
   open,
@@ -52,6 +55,10 @@ export default function SearchUsersDialog({
     email: dbEmail,
     username: dbUsername,
   });
+
+  const userIsMember = useCheckUserIsAMember(
+    usersQuery.data?.users[0]?.id || "",
+  );
 
   function renderContent() {
     if (!isUserNameValid && !isEmailValid) {
@@ -88,7 +95,14 @@ export default function SearchUsersDialog({
           <div>
             {usersQuery.data.users.map((user) => (
               <div key={user.id}>
-                <div className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900 flex flex-row border border-border rounded-md not-last:mb-4">
+                <div className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900 flex flex-row border border-border rounded-md not-last:mb-4 relative pe-11">
+                  {userIsMember === "notMember" && (
+                    <div className="absolute top-1/2 inset-e-2 -translate-y-1/2">
+                      <Button size="icon-sm">
+                        <BsPersonFillAdd className="size-5" />
+                      </Button>
+                    </div>
+                  )}
                   <div className="shrink-0">
                     <Avatar className="size-12">
                       {user.avatar && (
@@ -104,9 +118,14 @@ export default function SearchUsersDialog({
                     <h3 className="font-medium text-primary mb-0.5">
                       {user.username}
                     </h3>
-                    <p>
+                    <p className="mb-2">
                       {user.firstName} {user.lastName}
                     </p>
+                    {userIsMember === "member" && (
+                      <Badge variant="destructive">
+                        {dic.thisUserIsAMember}
+                      </Badge>
+                    )}
                   </div>
                 </div>
               </div>
