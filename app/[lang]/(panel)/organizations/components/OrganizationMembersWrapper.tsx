@@ -14,8 +14,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import NoItemFound from "../../components/NoItemFound";
 import SomethingWentWrong from "../../components/SomethingWentWrong";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { TbMailForward } from "react-icons/tb";
 import { IoEllipsisVerticalSharp } from "react-icons/io5";
 import {
   DropdownMenu,
@@ -33,13 +31,22 @@ export default function OrganizationMembersWrapper() {
     },
   } = useShareDictionary();
 
+  const visibilityMembers = searchText
+    ? organizationMembersQuery.data?.members.filter((item) => {
+        return (
+          item.username.includes(searchText) ||
+          item.userFirstName.includes(searchText)
+        );
+      }) || []
+    : organizationMembersQuery.data?.members || [];
+
   function renderContent() {
     if (organizationMembersQuery.isError)
       <div>
         <SomethingWentWrong tryAgain={organizationMembersQuery.refetch} />
       </div>;
     if (organizationMembersQuery.isSuccess) {
-      if (organizationMembersQuery.data.members.length === 0) {
+      if (visibilityMembers.length === 0) {
         return (
           <div>
             <NoItemFound />
@@ -48,7 +55,7 @@ export default function OrganizationMembersWrapper() {
       } else {
         return (
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
-            {organizationMembersQuery.data.members.map((member) => {
+            {visibilityMembers.map((member) => {
               return (
                 <div key={member.id} className="relative">
                   <div className="absolute top-1 -inset-e-1">
