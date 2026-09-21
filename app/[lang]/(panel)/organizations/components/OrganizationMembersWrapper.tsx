@@ -49,7 +49,7 @@ export default function OrganizationMembersWrapper() {
       if (visibilityMembers.length === 0) {
         return (
           <div>
-            <NoItemFound />
+            <NoItemFound searchedText={searchText} />
           </div>
         );
       } else {

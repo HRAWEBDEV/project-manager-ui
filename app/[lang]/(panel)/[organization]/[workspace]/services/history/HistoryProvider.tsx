@@ -1,17 +1,29 @@
 "use client";
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { type HistoryContextProps, HistoryContext } from "./historyContext";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { COMEBACK_QUERY_KEY } from "./utils/comebackQuery";
 
 export default function HistoryProvider({ children }: { children: ReactNode }) {
   const [redirectCount, setRedirectCount] = useState(0);
   const firstMount = useRef(true);
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  function handleComeback(orRedirect: () => unknown) {
+    const shouldComeback = searchParams.get(COMEBACK_QUERY_KEY);
+    if (redirectCount <= 2 || shouldComeback !== "true") {
+      orRedirect();
+      return;
+    }
+    history.back();
+  }
+
   const ctx: HistoryContextProps = {
     title: "history",
     redirectCount,
+    onComeback: handleComeback,
   };
-
   useEffect(() => {
     firstMount.current = false;
     if (firstMount.current) return;

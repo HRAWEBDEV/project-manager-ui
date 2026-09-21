@@ -4,6 +4,7 @@ import { OutOfContext } from "@/utils/OutOfContext";
 interface HistoryContextProps {
   title: "history";
   redirectCount: number;
+  onComeback: (orRedirect: () => unknown) => void;
 }
 
 const HistoryContext = createContext<HistoryContextProps | null>(null);

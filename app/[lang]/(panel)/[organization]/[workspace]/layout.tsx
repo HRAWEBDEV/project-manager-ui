@@ -5,19 +5,22 @@ import MainWrapper from "./components/main/MainWrapper";
 import TabsNav from "./components/tabs/TabsNav";
 import SettingsModal from "./services/settings/components/SettingsModal";
 import SettingsProvider from "./services/settings/SettingsProvider";
+import HistoryProvider from "./services/history/HistoryProvider";
 
 export default function OrganizationLayout(
   props: LayoutProps<"/[lang]/[organization]">,
 ) {
   return (
-    <SettingsProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <Header />
-        <MainWrapper>{props.children}</MainWrapper>
-        <TabsNav />
-        <SettingsModal />
-      </SidebarInset>
-    </SettingsProvider>
+    <HistoryProvider>
+      <SettingsProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <Header />
+          <MainWrapper>{props.children}</MainWrapper>
+          <TabsNav />
+          <SettingsModal />
+        </SidebarInset>
+      </SettingsProvider>
+    </HistoryProvider>
   );
 }
