@@ -61,12 +61,12 @@ export default function OrganizationMembersWrapper() {
             {visibilityMembers.map((member) => {
               return (
                 <div key={member.id} className="relative">
-                  <div className="absolute top-1 -inset-e-1">
+                  <div className="absolute top-2 -inset-e-1">
                     <DropdownMenu>
                       <DropdownMenuTrigger
                         render={
                           <Button variant="ghost">
-                            <IoEllipsisVerticalSharp />
+                            <IoEllipsisVerticalSharp className="size-5" />
                           </Button>
                         }
                       />
@@ -77,10 +77,10 @@ export default function OrganizationMembersWrapper() {
                   </div>
                   <Button
                     variant="outline"
-                    className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900 pe-6"
+                    className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900 pe-6 flex-col"
                   >
                     <div className="shrink-0">
-                      <Avatar className="size-12">
+                      <Avatar className="size-14">
                         {member.userAvatar && (
                           <AvatarImage
                             src={`${process.env.NEXT_PUBLIC_SERVER_URI}${member.userAvatar}`}
@@ -92,20 +92,29 @@ export default function OrganizationMembersWrapper() {
                         </AvatarFallback>
                       </Avatar>
                     </div>
-                    <div className="grow">
-                      <h3 className="font-medium text-primary mb-0.5">
-                        {member.username}
-                      </h3>
-                      <p>
-                        {member.userFirstName} {member.userLastName}
-                      </p>
-                      <p className="text-neutral-500 mb-1">
-                        {dic[member.role]}
-                      </p>
-                      {/* <Badge variant="destructive"> */}
-                      {/*   <TbMailForward /> */}
-                      {/*   {dic.pendingInvitation} */}
-                      {/* </Badge> */}
+                    <div className="grid gap-2">
+                      <div>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          {dic.username}:{" "}
+                        </span>
+                        <span className="font-medium text-primary">
+                          {member.username}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          {dic.fullName}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {member.userFirstName} {member.userLastName}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          {dic.role}:{" "}
+                        </span>
+                        <span className="font-medium">{dic[member.role]}</span>
+                      </div>
                     </div>
                   </Button>
                 </div>

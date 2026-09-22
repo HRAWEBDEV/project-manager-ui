@@ -80,8 +80,9 @@
       "member": "عضو",
       "search": "جستجو",
       "username": "نام کاربری",
-      "fullName": "نام خانوادگی",
-      "role": "نقش",
+      "fullName": "نام کامل",
+      "invitedBy": "دعوت کننده",
+      "role": "نقش کاربر",
       "pendingInvitation": "در انتظار تایید",
       "results": "نتایج"
     },

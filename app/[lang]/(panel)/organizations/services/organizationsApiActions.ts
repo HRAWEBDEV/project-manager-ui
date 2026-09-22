@@ -33,6 +33,9 @@ interface Invitation {
   organizationId: string;
   organizationName: string;
   userId: string;
+  username: string;
+  userFirstName: string;
+  userLastName: string;
   invitedUserId: string;
   invitedUserAvatar: string | null;
   invitedUsername: string;
