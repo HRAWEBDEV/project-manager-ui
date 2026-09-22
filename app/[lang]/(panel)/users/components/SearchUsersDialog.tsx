@@ -133,7 +133,6 @@ export default function SearchUsersDialog({
                       </Button>
                     </div>
                   )}
-
                   {pendingInvitation && (
                     <div className="absolute top-1/2 inset-e-2 -translate-y-1/2">
                       <Button

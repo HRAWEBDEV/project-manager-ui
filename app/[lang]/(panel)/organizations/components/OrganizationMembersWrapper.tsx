@@ -22,6 +22,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import SearchUsersDialog from "../../users/components/SearchUsersDialog";
+import OrganizationInvitationsList from "./OrganizationInvitationsList";
 
 export default function OrganizationMembersWrapper() {
   const [searchText, setSearchText] = useState("");
@@ -76,7 +77,7 @@ export default function OrganizationMembersWrapper() {
                   </div>
                   <Button
                     variant="outline"
-                    className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900"
+                    className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900 pe-6"
                   >
                     <div className="shrink-0">
                       <Avatar className="size-12">
@@ -160,6 +161,9 @@ export default function OrganizationMembersWrapper() {
           </div>
         </div>
         {renderContent()}
+        <div className="mt-6">
+          <OrganizationInvitationsList />
+        </div>
       </div>
       <SearchUsersDialog
         open={showSearchUsers}

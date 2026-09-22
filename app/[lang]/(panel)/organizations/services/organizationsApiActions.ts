@@ -33,8 +33,11 @@ interface Invitation {
   organizationId: string;
   organizationName: string;
   userId: string;
-  userName: string;
-  userLastName: string;
+  invitedUserId: string;
+  invitedUserAvatar: string | null;
+  invitedUsername: string;
+  invitedUserFirstName: string;
+  invitedUserLastName: string;
   email: string;
   status: InvitationStatus;
   expiresAt: string;
@@ -76,7 +79,7 @@ function getOrganizationInvitations({
 }: {
   signal: AbortSignal;
 } & GetOrganizationInvitationsProps) {
-  const searchParams = new URLSearchParams([]);
+  const searchParams = new URLSearchParams([["active", "true"]]);
   if (userId) searchParams.append("userId", userId);
   return axios.get<{ invitations: Invitation[] }>(
     `${organizationInvitationsApi}?${searchParams.toString()}`,
