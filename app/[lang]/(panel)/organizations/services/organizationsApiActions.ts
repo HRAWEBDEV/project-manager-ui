@@ -73,6 +73,10 @@ function getOrganizationInvitations({ signal }: { signal: AbortSignal }) {
   });
 }
 
+function inviteUserToOrganization({ email }: { email: string }) {
+  return axios.post<{ id: string }>(organizationInvitationsApi, { email });
+}
+
 export type {
   Organization,
   OrganizationMember,
@@ -90,4 +94,5 @@ export {
   deleteOrganizationLogo,
   getOrganizationMembers,
   getOrganizationInvitations,
+  inviteUserToOrganization,
 };
