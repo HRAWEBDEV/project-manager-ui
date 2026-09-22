@@ -8,6 +8,7 @@ interface Organization {
   slug: string;
   updatedAt: string;
   createdAt: string;
+  userRole: OrganizationRole;
 }
 
 type OrganizationRole = "owner" | "admin" | "member";

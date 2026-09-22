@@ -4,6 +4,9 @@ export const settingItems = [
     key: "userInfo",
   },
   {
+    key: "myInvitations",
+  },
+  {
     key: "notifications",
   },
   {

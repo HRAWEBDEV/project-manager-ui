@@ -18,6 +18,7 @@ import WorkspacesWrapper from "@/app/[lang]/(panel)/[organization]/workspaces/co
 import EditWorkspace from "@/app/[lang]/(panel)/[organization]/workspaces/components/EditWorkspace";
 import ShortcutsWrapper from "@/app/[lang]/(panel)/services/shortcuts/components/ShortcutsWrapper";
 import UserInterfaceWrapper from "@/app/[lang]/(panel)/services/userInterface/components/UserInterfaceWrapper";
+import MyInvitations from "@/app/[lang]/(panel)/users/components/UserInvitations";
 import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/services/workspaces/workspacesContext";
 import { Badge } from "@/components/ui/badge";
 
@@ -35,6 +36,8 @@ export default function SettingsModal() {
     switch (activeTab) {
       case "userInfo":
         return <UserWrapper />;
+      case "myInvitations":
+        return <MyInvitations />;
       case "organization":
         return <OrganizationWrapper />;
       case "organizationMembers":

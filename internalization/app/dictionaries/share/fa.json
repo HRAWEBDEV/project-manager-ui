@@ -31,11 +31,13 @@
     "settings": {
       "title": "تنظیمات",
       "logoutConfirmMessage": "از برنامه خارج می‌شوید؟",
+      "myInvitations": "دعوت‌نامه‌ها",
       "notifications": "اعلان‌ها",
       "userInfo": "اطلاعات کاربری",
       "organization": "سازمان",
       "organizationMembers": "اعضای سازمان",
       "myWorkspaces": "میزکار‌های من",
+
       "workspace": "میزکار",
       "general": "عمومی",
       "userInterface": "رابط کاربری",
@@ -122,6 +124,13 @@
       "toggleShortcuts": "باز و بستن میانبرها"
     },
     "userInterface": {},
+    "myInvitations": {
+      "username": "نام کاربری",
+      "fullName": "نام کامل",
+      "organization": "سازمان",
+      "reject": "رد",
+      "accept": "قبول"
+    },
     "history": {
       "back": "بازگشت"
     }

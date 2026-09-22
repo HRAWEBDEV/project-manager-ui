@@ -20,12 +20,15 @@ export default function OrganizationProvider({
   const userOrganizationsQuery = useUserOrganizations();
   const activeOrganization = useMemo(() => {
     if (!userOrganizationsQuery.isSuccess) return;
-    const defaultOrganization = userOrganizationsQuery.data.organizations[0];
+    const defaultOrganization = userOrganizationsQuery.data.organizations.find(
+      (item) => item.userRole === "owner",
+    );
     if (organizationParam) {
       const activeOrganization = userOrganizationsQuery.data.organizations.find(
         (item) => item.slug === organizationParam,
       );
-      if (activeOrganization) return activeOrganization;
+      if (activeOrganization && activeOrganization.userRole !== "member")
+        return activeOrganization;
     }
     const localActiveOrganization = getActiveOrganization();
     if (localActiveOrganization) {
@@ -33,7 +36,11 @@ export default function OrganizationProvider({
         userOrganizationsQuery.data.organizations.find(
           (item) => item.slug === localActiveOrganization,
         );
-      if (foundedActiveOrganization) return foundedActiveOrganization;
+      if (
+        foundedActiveOrganization &&
+        foundedActiveOrganization.userRole !== "member"
+      )
+        return foundedActiveOrganization;
     }
     return defaultOrganization;
   }, [

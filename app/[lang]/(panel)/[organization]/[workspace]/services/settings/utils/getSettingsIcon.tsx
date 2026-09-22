@@ -8,6 +8,7 @@ import { MdWorkspaces } from "react-icons/md";
 import { FaRegKeyboard } from "react-icons/fa";
 import { MdOutlineWeb } from "react-icons/md";
 import { IoMdNotifications } from "react-icons/io";
+import { IoIosMailUnread } from "react-icons/io";
 import { settingItems } from "./settingItems";
 
 export function getSettingsIcon(
@@ -17,6 +18,8 @@ export function getSettingsIcon(
   switch (mode) {
     case "userInfo":
       return <FaUserCircle {...props} />;
+    case "myInvitations":
+      return <IoIosMailUnread {...props} />;
     case "notifications":
       return <IoMdNotifications {...props} />;
     case "organization":
