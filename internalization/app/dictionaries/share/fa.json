@@ -90,7 +90,8 @@
       "email": "ایمیل",
       "username": "نام کاربری",
       "fillUsernameOrEmailToSearchUser": "برای جستجوی کاربر، نام کاربری یا ایمیل کاربر را وارد کنید",
-      "thisUserIsAMember": "این کاربر عضو است"
+      "thisUserIsAMember": "این کاربر عضو است",
+      "pendingInvitation": "در انتظار تایید"
     },
     "workspaceInfo": {
       "results": "نتایج",

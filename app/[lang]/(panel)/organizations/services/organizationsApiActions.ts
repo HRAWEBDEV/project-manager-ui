@@ -67,14 +67,31 @@ function getOrganizationMembers({ signal }: { signal: AbortSignal }) {
   }>(organizationMembersApi, { signal });
 }
 
-function getOrganizationInvitations({ signal }: { signal: AbortSignal }) {
-  return axios.get<{ invitations: Invitation[] }>(organizationInvitationsApi, {
-    signal,
-  });
+interface GetOrganizationInvitationsProps {
+  userId?: string;
+}
+function getOrganizationInvitations({
+  signal,
+  userId,
+}: {
+  signal: AbortSignal;
+} & GetOrganizationInvitationsProps) {
+  const searchParams = new URLSearchParams([]);
+  if (userId) searchParams.append("userId", userId);
+  return axios.get<{ invitations: Invitation[] }>(
+    `${organizationInvitationsApi}?${searchParams.toString()}`,
+    {
+      signal,
+    },
+  );
 }
 
 function inviteUserToOrganization({ email }: { email: string }) {
   return axios.post<{ id: string }>(organizationInvitationsApi, { email });
+}
+
+function deleteUserInvitation(id: string) {
+  return axios.delete<{ id: string }>(`${organizationInvitationsApi}/${id}`);
 }
 
 export type {
@@ -83,6 +100,7 @@ export type {
   UpdateOrganization,
   InvitationStatus,
   Invitation,
+  GetOrganizationInvitationsProps,
 };
 export {
   organizationsBaseApi,
@@ -95,4 +113,5 @@ export {
   getOrganizationMembers,
   getOrganizationInvitations,
   inviteUserToOrganization,
+  deleteUserInvitation,
 };

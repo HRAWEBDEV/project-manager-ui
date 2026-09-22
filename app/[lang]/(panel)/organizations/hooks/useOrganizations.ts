@@ -5,6 +5,7 @@ import {
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import {
   type UpdateOrganization,
+  type GetOrganizationInvitationsProps,
   organizationMembersApi,
   organizationInvitationsApi,
   updateOrganization,
@@ -12,6 +13,8 @@ import {
   deleteOrganizationLogo,
   getOrganizationMembers,
   getOrganizationInvitations,
+  inviteUserToOrganization,
+  deleteUserInvitation,
 } from "../services/organizationsApiActions";
 
 function useUpdateOrganization() {
@@ -79,15 +82,49 @@ function useOrganizationMembers() {
   return organizationMembersQuery;
 }
 
-function useOrganizationInvitations() {
+function useOrganizationInvitations({
+  enabled = true,
+  ...props
+}: { enabled?: boolean } & GetOrganizationInvitationsProps) {
   const organizationInvitationsQuery = useQuery({
+    enabled,
     queryKey: [organizationInvitationsApi],
     async queryFn({ signal }) {
-      const res = await getOrganizationInvitations({ signal });
+      const res = await getOrganizationInvitations({ signal, ...props });
       return res.data;
     },
   });
   return organizationInvitationsQuery;
+}
+
+function useInviteUserToOrganization() {
+  const queryClient = useQueryClient();
+  const inviteUserToOrganizationMutation = useMutation({
+    mutationFn({ email }: { email: string }) {
+      return inviteUserToOrganization({ email });
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [organizationInvitationsApi],
+      });
+    },
+  });
+  return inviteUserToOrganizationMutation;
+}
+
+function useDeleteUserInvitation() {
+  const queryClient = useQueryClient();
+  const deleteUserInvitationMutation = useMutation({
+    mutationFn(id: string) {
+      return deleteUserInvitation(id);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [organizationInvitationsApi],
+      });
+    },
+  });
+  return deleteUserInvitationMutation;
 }
 
 export {
@@ -96,4 +133,6 @@ export {
   useDeleteOrganizationLogo,
   useOrganizationMembers,
   useOrganizationInvitations,
+  useInviteUserToOrganization,
+  useDeleteUserInvitation,
 };

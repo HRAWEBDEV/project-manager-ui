@@ -25,7 +25,14 @@ import { BsPersonFillAdd } from "react-icons/bs";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MdOutlineHelpOutline } from "react-icons/md";
 import { useCheckUserIsAMember } from "../../organizations/hooks/useCheckUserIsAMember";
+import {
+  useInviteUserToOrganization,
+  useOrganizationInvitations,
+  useDeleteUserInvitation,
+} from "../../organizations/hooks/useOrganizations";
 import { Badge } from "@/components/ui/badge";
+import { Spinner } from "@/components/ui/spinner";
+import { LiaTimesSolid } from "react-icons/lia";
 
 export default function SearchUsersDialog({
   open,
@@ -34,6 +41,8 @@ export default function SearchUsersDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const confirmDeleteUserInvitation = useDeleteUserInvitation();
+  const confirmInviteUser = useInviteUserToOrganization();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [dbEmail] = useDebouncedValue(email, {
@@ -55,10 +64,24 @@ export default function SearchUsersDialog({
     email: dbEmail,
     username: dbUsername,
   });
+  const organizationInvitationsQuery = useOrganizationInvitations({
+    enabled: !!usersQuery.data?.users[0],
+    userId: usersQuery.data?.users[0]?.id,
+  });
 
   const userIsMember = useCheckUserIsAMember(
     usersQuery.data?.users[0]?.id || "",
   );
+
+  const canInviteUser =
+    userIsMember === "notMember" &&
+    !organizationInvitationsQuery.data?.invitations[0];
+
+  const pendingInvitation =
+    organizationInvitationsQuery.data?.invitations[0]?.status === "pending";
+
+  const pendAction =
+    confirmInviteUser.isPending || confirmDeleteUserInvitation.isPending;
 
   function renderContent() {
     if (!isUserNameValid && !isEmailValid) {
@@ -96,10 +119,36 @@ export default function SearchUsersDialog({
             {usersQuery.data.users.map((user) => (
               <div key={user.id}>
                 <div className="h-auto p-3 w-full text-start justify-items-stretch font-normal gap-3 items-start bg-neutral-100 dark:bg-neutral-900 flex flex-row border border-border rounded-md not-last:mb-4 relative pe-11">
-                  {userIsMember === "notMember" && (
+                  {canInviteUser && (
                     <div className="absolute top-1/2 inset-e-2 -translate-y-1/2">
-                      <Button size="icon-sm">
+                      <Button
+                        size="icon-lg"
+                        disabled={pendAction}
+                        onClick={() =>
+                          confirmInviteUser.mutate({ email: user.email })
+                        }
+                      >
+                        {pendAction && <Spinner />}
                         <BsPersonFillAdd className="size-5" />
+                      </Button>
+                    </div>
+                  )}
+
+                  {pendingInvitation && (
+                    <div className="absolute top-1/2 inset-e-2 -translate-y-1/2">
+                      <Button
+                        size="icon-lg"
+                        variant="destructive"
+                        disabled={pendAction}
+                        onClick={() =>
+                          confirmDeleteUserInvitation.mutate(
+                            organizationInvitationsQuery.data!.invitations[0]
+                              .id,
+                          )
+                        }
+                      >
+                        {pendAction && <Spinner />}
+                        <LiaTimesSolid className="size-5" />
                       </Button>
                     </div>
                   )}
@@ -125,6 +174,9 @@ export default function SearchUsersDialog({
                       <Badge variant="destructive">
                         {dic.thisUserIsAMember}
                       </Badge>
+                    )}
+                    {pendingInvitation && (
+                      <Badge variant="default">{dic.pendingInvitation}</Badge>
                     )}
                   </div>
                 </div>
