@@ -1,5 +1,9 @@
 import { axios } from "@/app/utils/defaultAxios";
-import { type Organization } from "@/app/[lang]/(panel)/organizations/services/organizationsApiActions";
+import {
+  type Organization,
+  type Invitation,
+  type InvitationStatus,
+} from "@/app/[lang]/(panel)/organizations/services/organizationsApiActions";
 
 interface User {
   id: string;
@@ -30,6 +34,7 @@ const userBaseApi = "/users";
 const userInfoApi = `${userBaseApi}/info`;
 const userOrganizationsApi = `${userBaseApi}/organizations`;
 const userAvatarApi = `${userBaseApi}/avatar`;
+const userInvitationsApi = `${userBaseApi}/me/invitations`;
 
 interface UserSearchParams {
   email?: string;
@@ -86,16 +91,37 @@ function deleteUserAvatar() {
   return axios.delete(userAvatarApi);
 }
 
+function getMyInvitations({ signal }: { signal: AbortSignal }) {
+  return axios.get<{ invitations: Invitation[] }>(userInvitationsApi, {
+    signal,
+  });
+}
+
+function answerMyInvitation({
+  id,
+  status,
+}: {
+  id: string;
+  status: Extract<InvitationStatus, "accepted" | "declined">;
+}) {
+  return axios.patch<{ id: string }>(`${userInvitationsApi}/${id}`, {
+    status,
+  });
+}
+
 export type { User, UserInfo, UpdateUser, UserSearchParams };
 export {
   userBaseApi,
   userInfoApi,
   userOrganizationsApi,
   userAvatarApi,
+  userInvitationsApi,
   getUsers,
   getUserInfo,
   getUserOrganizations,
   updateUser,
   deleteUserAvatar,
   updateUserAvatar,
+  getMyInvitations,
+  answerMyInvitation,
 };

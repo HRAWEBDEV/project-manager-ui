@@ -88,7 +88,7 @@ function useOrganizationInvitations({
 }: { enabled?: boolean } & GetOrganizationInvitationsProps) {
   const organizationInvitationsQuery = useQuery({
     enabled,
-    queryKey: [organizationInvitationsApi],
+    queryKey: [organizationInvitationsApi, props || "all"],
     async queryFn({ signal }) {
       const res = await getOrganizationInvitations({ signal, ...props });
       return res.data;

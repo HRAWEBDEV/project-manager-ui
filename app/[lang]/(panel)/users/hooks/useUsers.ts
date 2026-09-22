@@ -11,12 +11,15 @@ import {
   userBaseApi,
   userInfoApi,
   userOrganizationsApi,
+  userInvitationsApi,
   getUsers,
   getUserInfo,
   getUserOrganizations,
   updateUser,
   deleteUserAvatar,
   updateUserAvatar,
+  getMyInvitations,
+  answerMyInvitation,
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
 import { useLogout } from "../../hooks/useLogout";
 
@@ -114,6 +117,35 @@ function useUpdateUserAvatar() {
   return updateUserAvatarMutation;
 }
 
+function useMyInvitations() {
+  const myInvitationsQuery = useQuery({
+    queryKey: [userInvitationsApi],
+    async queryFn({ signal }) {
+      const res = await getMyInvitations({ signal });
+      return res.data;
+    },
+  });
+  return myInvitationsQuery;
+}
+
+function useAnswerMyInvitation() {
+  const queryClient = useQueryClient();
+  const answerMyInvitationMutation = useMutation({
+    mutationFn(props: Parameters<typeof answerMyInvitation>[0]) {
+      return answerMyInvitation(props);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [userInvitationsApi],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [userOrganizationsApi],
+      });
+    },
+  });
+  return answerMyInvitationMutation;
+}
+
 export {
   useUsers,
   useUsersInfo,
@@ -121,4 +153,6 @@ export {
   useUpdateUser,
   useUpdateUserAvatar,
   useDeleteUserAvatar,
+  useMyInvitations,
+  useAnswerMyInvitation,
 };
