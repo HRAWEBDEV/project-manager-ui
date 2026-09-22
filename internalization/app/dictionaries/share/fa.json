@@ -84,7 +84,10 @@
       "invitedBy": "دعوت کننده",
       "role": "نقش کاربر",
       "pendingInvitation": "در انتظار تایید",
-      "results": "نتایج"
+      "results": "نتایج",
+      "preview": "نمایش",
+      "accessibility": "دسترسی",
+      "remove": "حذف"
     },
     "searchUsers": {
       "title": "جستجو کاربر",

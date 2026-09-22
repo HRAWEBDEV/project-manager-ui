@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import SearchUsersDialog from "../../users/components/SearchUsersDialog";
 import OrganizationInvitationsList from "./OrganizationInvitationsList";
+import { IoKey } from "react-icons/io5";
+import { FaTrashCan } from "react-icons/fa6";
 
 export default function OrganizationMembersWrapper() {
   const [searchText, setSearchText] = useState("");
@@ -71,7 +73,19 @@ export default function OrganizationMembersWrapper() {
                         }
                       />
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem>item</DropdownMenuItem>
+                        <DropdownMenuItem className="h-11">
+                          <IoKey className="size-5" />
+                          {dic.accessibility}
+                        </DropdownMenuItem>
+                        {member.role !== "owner" && (
+                          <DropdownMenuItem
+                            variant="destructive"
+                            className="h-11"
+                          >
+                            <FaTrashCan className="size-5" />
+                            {dic.remove}
+                          </DropdownMenuItem>
+                        )}
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
