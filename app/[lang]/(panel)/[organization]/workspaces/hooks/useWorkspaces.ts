@@ -7,11 +7,18 @@ import {
 import {
   type UpdateWorkspace,
   type CreateWorkspace,
+  type CreateWorkspaceMember,
+  type UpdateWorkspaceMember,
   workspacesBaseApi,
+  workspaceMembersApi,
   getWorkspaces,
   updateWorkspace,
   createWorkspace,
   deleteWorkspace,
+  getWorkspaceMembers,
+  addWorkspaceMember,
+  updateWorkspaceMember,
+  deleteWrokspaceMember,
 } from "../services/workspacesApiActions";
 
 function useWorkspaces() {
@@ -71,9 +78,70 @@ function useDeleteWorkspace() {
   return deleteWorkspaceMutation;
 }
 
+function useWorkspaceMembers() {
+  const workspaceMembersQuery = useQuery({
+    queryKey: [workspaceMembersApi],
+    placeholderData: keepPreviousData,
+    async queryFn({ signal }) {
+      const res = await getWorkspaceMembers({ signal });
+      return res.data;
+    },
+  });
+  return workspaceMembersQuery;
+}
+
+function useAddWorkspaceMember() {
+  const queryClient = useQueryClient();
+  const addWorkspaceMemberMutation = useMutation({
+    mutationFn(props: CreateWorkspaceMember) {
+      return addWorkspaceMember(props);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [workspaceMembersApi],
+      });
+    },
+  });
+  return addWorkspaceMemberMutation;
+}
+
+function useUpdateWorkspaceMember() {
+  const queryClient = useQueryClient();
+  const updateWorkspaceMemberMutation = useMutation({
+    mutationFn({ id, ...props }: { id: string } & UpdateWorkspaceMember) {
+      return updateWorkspaceMember(id, props);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [workspaceMembersApi],
+      });
+    },
+  });
+  return updateWorkspaceMemberMutation;
+}
+
+function useDeleteWorkspaceMember() {
+  const queryClient = useQueryClient();
+  const deleteWorkspaceMemberMutation = useMutation({
+    mutationFn(id: string) {
+      return deleteWrokspaceMember(id);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [workspaceMembersApi],
+      });
+    },
+  });
+  return deleteWorkspaceMemberMutation;
+}
+
 export {
   useWorkspaces,
   useUpdateWorkspace,
   useCreateWorkspace,
   useDeleteWorkspace,
+  useWorkspaceMembers,
+  useAddWorkspaceMember,
+  useUpdateWorkspaceMember,
+  useDeleteWorkspaceMember,
 };

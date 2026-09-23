@@ -98,9 +98,12 @@ export type {
   WorkspaceMemberRole,
   UpdateWorkspace,
   CreateWorkspace,
+  CreateWorkspaceMember,
+  UpdateWorkspaceMember,
 };
 export {
   workspacesBaseApi,
+  workspaceMembersApi,
   getWorkspaces,
   updateWorkspace,
   createWorkspace,
