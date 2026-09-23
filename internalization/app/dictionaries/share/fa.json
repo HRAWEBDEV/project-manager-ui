@@ -140,7 +140,9 @@
       "toggleSettings": "باز و بستن تنظیمات",
       "toggleShortcuts": "باز و بستن میانبرها"
     },
-    "userInterface": {},
+    "userInterface": {
+      "colorTemplates": "رنگ‌بندی"
+    },
     "myInvitations": {
       "username": "نام کاربری",
       "fullName": "نام کامل",

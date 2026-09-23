@@ -4,6 +4,7 @@ import {
   type LocaleInfo,
 } from "@/internalization/app/localization";
 import { OutOfContext } from "@/utils/OutOfContext";
+import { appColorTemplates } from "@/app/utils/appTemplates";
 
 interface BaseConfig {
   locale: Locale;
@@ -11,6 +12,7 @@ interface BaseConfig {
   appVersion: string;
   appBirthDate: Date;
   setLocale: (newLocale: Locale) => unknown;
+  onChangeColorTemplate: (color: (typeof appColorTemplates)[number]) => unknown;
 }
 
 const appVersion = "0.1.0";
