@@ -1,5 +1,5 @@
 "use client";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   type BaseConfig,
   baseConfigContext,
@@ -10,6 +10,10 @@ import { type Locale, locales } from "@/internalization/app/localization";
 import { setUserLocale } from "@/utils/userLocaleManager";
 import { ThemeProvider } from "next-themes";
 import { appColorTemplates } from "@/app/utils/appTemplates";
+import {
+  getActiveColorPallete,
+  saveActiveColorPallete,
+} from "@/utils/colorPalleteManager";
 
 interface Props {
   activeLocale: Locale;
@@ -19,7 +23,7 @@ interface Props {
 export default function BaseConfigProvider({ children, activeLocale }: Props) {
   const [activeColor, setActiveColor] = useState<
     (typeof appColorTemplates)[number] | null
-  >(null);
+  >(() => (typeof window === "undefined" ? null : getActiveColorPallete()));
   // locale handler
   function onChangeLocale(newLocale: Locale) {
     if (newLocale === activeLocale) return;
@@ -37,7 +41,14 @@ export default function BaseConfigProvider({ children, activeLocale }: Props) {
     if (activeColor) {
       document.documentElement.classList.remove(activeColor);
     }
+    saveActiveColorPallete(newColorTemplate);
   }
+  //
+  useEffect(() => {
+    const savedColor = getActiveColorPallete();
+    if (!savedColor) return;
+    document.documentElement.classList.add(savedColor);
+  }, []);
   //
   const activeLocaleInfo = locales[activeLocale];
   // context value
