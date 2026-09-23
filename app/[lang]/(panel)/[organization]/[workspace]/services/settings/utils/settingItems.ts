@@ -19,6 +19,9 @@ export const settingItems = [
     key: "workspace",
   },
   {
+    key: "workspaceMembers",
+  },
+  {
     key: "myWorkspaces",
   },
   {

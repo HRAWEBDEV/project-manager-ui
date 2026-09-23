@@ -9,6 +9,7 @@ import { FaRegKeyboard } from "react-icons/fa";
 import { MdOutlineWeb } from "react-icons/md";
 import { IoMdNotifications } from "react-icons/io";
 import { IoIosMailUnread } from "react-icons/io";
+import { FaUsers } from "react-icons/fa6";
 import { settingItems } from "./settingItems";
 
 export function getSettingsIcon(
@@ -28,6 +29,8 @@ export function getSettingsIcon(
       return <FaPeopleGroup {...props} />;
     case "workspace":
       return <BsPersonWorkspace {...props} />;
+    case "workspaceMembers":
+      return <FaUsers {...props} />;
     case "myWorkspaces":
       return <MdWorkspaces {...props} />;
     case "shortcuts":
