@@ -84,7 +84,16 @@ export default function SettingsModal() {
                 <span className="grow">{dic[item.key]}</span>
                 {item.key === "notifications" && (
                   <div>
-                    <Badge className="size-6">99+</Badge>
+                    <Badge variant="destructive" className="size-6">
+                      1
+                    </Badge>
+                  </div>
+                )}
+                {item.key === "myInvitations" && (
+                  <div>
+                    <Badge variant="destructive" className="size-6">
+                      1
+                    </Badge>
                   </div>
                 )}
               </Button>

@@ -2,14 +2,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { IoMdNotifications } from "react-icons/io";
+import { useSettingsContext } from "../../services/settings/settingsContext";
 
 export default function NotificationControllerButton() {
+  const { toggleOpen } = useSettingsContext();
   return (
     <Button
       type="button"
       variant="ghost"
       size="icon-lg"
       className="relative rounded-full text-destructive"
+      onClick={() => toggleOpen(true, "notifications")}
     >
       <div className="absolute top-0 -inset-e-1">
         <Badge
