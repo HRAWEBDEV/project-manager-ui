@@ -18,8 +18,11 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { IoIosWarning } from "react-icons/io";
+import { RiLogoutBoxRFill } from "react-icons/ri";
+import { useSettingsContext } from "../../[organization]/[workspace]/services/settings/settingsContext";
 
 export default function UserAvatar() {
+  const { setShowConfirmlogout } = useSettingsContext();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isRemoveAvatarDialogOpen, setIsRemoveAvatarDialogOpen] =
     useState(false);
@@ -35,7 +38,16 @@ export default function UserAvatar() {
   const pendAction =
     confirmDeleteUserAvatar.isPending || confirmUpdateUserAvatar.isPending;
   return (
-    <div className="flex flex-col items-center mb-6">
+    <div className="flex flex-col items-center mb-6 relative">
+      <div className="absolute top-0 inset-e-0">
+        <Button
+          variant="destructive"
+
+          onClick={() => setShowConfirmlogout(true)}
+        >
+          <RiLogoutBoxRFill className="size-5" />
+        </Button>
+      </div>
       <Avatar className="size-36">
         {usersInfoQuery.data?.user.avatar && (
           <AvatarImage
