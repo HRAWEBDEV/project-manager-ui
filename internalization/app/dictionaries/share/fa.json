@@ -5,6 +5,7 @@
       "unavailableApi": "خطا در اتصال به سرویس"
     },
     "navigation": {
+      "home": "خانه",
       "chats": "گفتگوها",
       "projects": "پروژه‌ها",
       "notes": "یادداشت‌ها",

@@ -9,6 +9,7 @@ export default function HistoryProvider({ children }: { children: ReactNode }) {
   const firstMount = useRef(true);
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const activePath = pathname.split("/")[4] || "home";
 
   function handleComeback(orRedirect: () => unknown) {
     const shouldComeback = searchParams.get(COMEBACK_QUERY_KEY);
@@ -22,6 +23,7 @@ export default function HistoryProvider({ children }: { children: ReactNode }) {
   const ctx: HistoryContextProps = {
     title: "history",
     redirectCount,
+    activePath,
     onComeback: handleComeback,
   };
   useEffect(() => {
