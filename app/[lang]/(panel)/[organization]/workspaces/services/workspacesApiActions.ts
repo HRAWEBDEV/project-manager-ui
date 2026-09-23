@@ -23,6 +23,9 @@ interface WorkspaceMember {
   role: WorkspaceMemberRole;
   joinedAt: string;
   addedBy: string | null;
+  addedByUsername: string | null;
+  addedByFirstName: string | null;
+  addedByLastName: string | null;
   workspaceName: string;
   userId: string;
   userAvatar: string | null;

@@ -40,7 +40,7 @@ export default function OrganizationMembersWrapper() {
     ? organizationMembersQuery.data?.members.filter((item) => {
         return (
           item.username.includes(searchText) ||
-          item.userFirstName.includes(searchText)
+          item.userFirstName.concat(" ", item.userLastName).includes(searchText)
         );
       }) || []
     : organizationMembersQuery.data?.members || [];
@@ -128,6 +128,19 @@ export default function OrganizationMembersWrapper() {
                           {dic.role}:{" "}
                         </span>
                         <span className="font-medium">{dic[member.role]}</span>
+                      </div>
+                      <div>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          {dic.invitedBy}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {member.addedBy
+                            ? member.addedByFirstName?.concat(
+                                " ",
+                                member.addedByLastName || "",
+                              )
+                            : "---"}
+                        </span>
                       </div>
                     </div>
                   </Button>

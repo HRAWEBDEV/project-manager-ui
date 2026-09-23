@@ -98,7 +98,7 @@
       "search": "جستجو",
       "username": "نام کاربری",
       "fullName": "نام کامل",
-      "addedBy": "",
+      "invitedBy": "دعوت کننده",
       "role": "نقش کاربر",
       "pendingInvitation": "در انتظار تایید",
       "results": "نتایج",

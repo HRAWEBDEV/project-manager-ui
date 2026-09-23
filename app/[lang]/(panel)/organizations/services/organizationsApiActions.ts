@@ -18,6 +18,9 @@ interface OrganizationMember {
   role: OrganizationRole;
   joinedAt: string;
   addedBy: string | null;
+  addedByUsername: string | null;
+  addedByFirstName: string | null;
+  addedByLastName: string | null;
   organizationName: string;
   userId: string;
   username: string;

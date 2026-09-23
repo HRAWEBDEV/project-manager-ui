@@ -38,7 +38,7 @@ export default function WorkspaceMembersWrapper() {
     ? workspaceMembersQuery.data?.workspaceMembers.filter((item) => {
         return (
           item.username.includes(searchText) ||
-          item.userFirstName.includes(searchText)
+          item.userFirstName.concat(" ", item.userLastName).includes(searchText)
         );
       }) || []
     : workspaceMembersQuery.data?.workspaceMembers || [];
@@ -124,6 +124,19 @@ export default function WorkspaceMembersWrapper() {
                           {dic.role}:{" "}
                         </span>
                         <span className="font-medium">{dic[member.role]}</span>
+                      </div>
+                      <div>
+                        <span className="text-neutral-600 dark:text-neutral-400">
+                          {dic.invitedBy}:{" "}
+                        </span>
+                        <span className="font-medium">
+                          {member.addedBy
+                            ? member.addedByFirstName?.concat(
+                                " ",
+                                member.addedByLastName || "",
+                              )
+                            : "---"}
+                        </span>
                       </div>
                     </div>
                   </Button>
