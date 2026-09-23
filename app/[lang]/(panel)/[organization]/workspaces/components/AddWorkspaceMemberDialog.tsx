@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,6 +11,9 @@ import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryC
 import { useOrganizationMembers } from "../../../organizations/hooks/useOrganizations";
 import { useWorkspaceMembers } from "../hooks/useWorkspaces";
 import AddWorkspaceMemberItem from "./AddWorkspaceMemberItem";
+import { MdOutlineHelpOutline } from "react-icons/md";
+import { Button } from "@/components/ui/button";
+import SearchUsersDialog from "../../../users/components/SearchUsersDialog";
 
 export default function AddWorkspaceMemberDialog({
   open,
@@ -18,6 +22,7 @@ export default function AddWorkspaceMemberDialog({
   open: boolean;
   onOpenChange: () => unknown;
 }) {
+  const [showSerachUsers, setShowSerachUsers] = useState(false);
   const workspaceMembersQuery = useWorkspaceMembers();
   const organizationMembersQuery = useOrganizationMembers();
   const {
@@ -28,14 +33,39 @@ export default function AddWorkspaceMemberDialog({
 
   const availableMembers =
     organizationMembersQuery.data?.members.filter((member) => {
-      return workspaceMembersQuery.data?.workspaceMembers.some(
-        (item) => item.organizationMemberId !== member.id,
+      return !workspaceMembersQuery.data?.workspaceMembers.some(
+        (item) => item.organizationMemberId === member.id,
       );
     }) || [];
 
   function renderContent() {
     if (!workspaceMembersQuery.isSuccess || !organizationMembersQuery.isSuccess)
       return null;
+
+    if (availableMembers.length === 0) {
+      return (
+        <div>
+          <div>
+            <div className="flex flex-col items-center p-4 text-primary">
+              <MdOutlineHelpOutline className="size-14 mb-4" />
+              <div className="text-center">
+                <p className="text-md font-medium mb-4">
+                  {dic.allOrganizationMembersAreWorkspaceMembers}.
+                </p>
+                <Button
+                  onClick={() => {
+                    setShowSerachUsers(true);
+                  }}
+                >
+                  {dic.sendInvitation}
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2">
         {availableMembers.map((member) => {
@@ -61,6 +91,10 @@ export default function AddWorkspaceMemberDialog({
           </DialogDescription>
         </DialogHeader>
         <div className="p-4 overflow-auto">{renderContent()}</div>
+        <SearchUsersDialog
+          open={showSerachUsers}
+          onOpenChange={() => setShowSerachUsers(false)}
+        />
       </DialogContent>
     </Dialog>
   );

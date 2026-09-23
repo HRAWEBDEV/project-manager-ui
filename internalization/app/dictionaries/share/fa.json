@@ -76,7 +76,7 @@
       "cancel": "انصراف"
     },
     "organizationMembers": {
-      "newMember": "افزودن",
+      "newMember": "ارسال دعوتنامه",
       "owner": "مالک",
       "admin": "ادمین",
       "member": "عضو",
@@ -104,7 +104,9 @@
       "results": "نتایج",
       "preview": "نمایش",
       "accessibility": "دسترسی",
-      "remove": "حذف"
+      "remove": "حذف",
+      "allOrganizationMembersAreWorkspaceMembers": "تمامی اعضای سازمان به میزکار اضافه شدند",
+      "sendInvitation": "ارسال دعوت‌نامه"
     },
     "searchUsers": {
       "title": "جستجو کاربر",
