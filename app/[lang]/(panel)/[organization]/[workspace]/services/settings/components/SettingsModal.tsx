@@ -21,6 +21,7 @@ import UserInterfaceWrapper from "@/app/[lang]/(panel)/services/userInterface/co
 import MyInvitations from "@/app/[lang]/(panel)/users/components/UserInvitations";
 import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/services/workspaces/workspacesContext";
 import { Badge } from "@/components/ui/badge";
+import WorkspaceMembersWrapper from "../../../../workspaces/components/WorkspaceMembersWrapper";
 
 export default function SettingsModal() {
   const { open, activeTab, toggleOpen, setShowConfirmlogout } =
@@ -46,6 +47,8 @@ export default function SettingsModal() {
         return <UserInterfaceWrapper />;
       case "workspace":
         return <EditWorkspace workspace={activeWorkspace} />;
+      case "workspaceMembers":
+        return <WorkspaceMembersWrapper />;
       case "myWorkspaces":
         return <WorkspacesWrapper />;
       case "shortcuts":
