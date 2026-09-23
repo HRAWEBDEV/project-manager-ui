@@ -11,6 +11,7 @@ import {
   type UpdateWorkspaceMember,
   workspacesBaseApi,
   workspaceMembersApi,
+  workspacePermissionsApi,
   getWorkspaces,
   updateWorkspace,
   createWorkspace,
@@ -19,6 +20,7 @@ import {
   addWorkspaceMember,
   updateWorkspaceMember,
   deleteWrokspaceMember,
+  getWorkspacePermissions,
 } from "../services/workspacesApiActions";
 
 function useWorkspaces() {
@@ -135,6 +137,19 @@ function useDeleteWorkspaceMember() {
   return deleteWorkspaceMemberMutation;
 }
 
+function useWorkspacePermissions({ enabled = true }: { enabled?: boolean }) {
+  const permissionsQuery = useQuery({
+    enabled,
+    staleTime: "static",
+    queryKey: [workspacePermissionsApi],
+    async queryFn({ signal }) {
+      const res = await getWorkspacePermissions({ signal });
+      return res.data;
+    },
+  });
+  return permissionsQuery;
+}
+
 export {
   useWorkspaces,
   useUpdateWorkspace,
@@ -144,4 +159,5 @@ export {
   useAddWorkspaceMember,
   useUpdateWorkspaceMember,
   useDeleteWorkspaceMember,
+  useWorkspacePermissions,
 };

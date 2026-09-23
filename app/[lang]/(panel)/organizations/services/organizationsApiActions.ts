@@ -58,6 +58,7 @@ const organizationsBaseApi = "/organizations";
 const organizationsLogoApi = `${organizationsBaseApi}/logo`;
 const organizationMembersApi = `${organizationsBaseApi}/members`;
 const organizationInvitationsApi = `${organizationsBaseApi}/invitations`;
+const organizationPermissionsApi = `${organizationsBaseApi}/permissions`;
 
 function updateOrganization(props: UpdateOrganization) {
   return axios.patch<{ id: string }>(organizationsBaseApi, props);
@@ -104,6 +105,12 @@ function deleteUserInvitation(id: string) {
   return axios.delete<{ id: string }>(`${organizationInvitationsApi}/${id}`);
 }
 
+function getOrganizationPermissions({ signal }: { signal: AbortSignal }) {
+  return axios.get<unknown>(organizationPermissionsApi, {
+    signal,
+  });
+}
+
 export type {
   Organization,
   OrganizationMember,
@@ -117,6 +124,7 @@ export {
   organizationsLogoApi,
   organizationMembersApi,
   organizationInvitationsApi,
+  organizationPermissionsApi,
   updateOrganization,
   updateOrganizationLogo,
   deleteOrganizationLogo,
@@ -124,4 +132,5 @@ export {
   getOrganizationInvitations,
   inviteUserToOrganization,
   deleteUserInvitation,
+  getOrganizationPermissions,
 };

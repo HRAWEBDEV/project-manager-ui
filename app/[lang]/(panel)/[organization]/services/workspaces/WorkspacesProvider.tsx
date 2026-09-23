@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import WorkspaceAxiosInterceptor from "./WorkspaceAxiosInterceptor";
 import { useOrganizationContext } from "@/app/[lang]/(panel)/services/organization/organizationContext";
+import { useWorkspacePermissions } from "../../workspaces/hooks/useWorkspaces";
 import { useWorkspaces } from "../../workspaces/hooks/useWorkspaces";
 import { useClearQueries } from "@/app/[lang]/hooks/useClearQueries";
 import { getActiveWorkspace, saveActiveWorkspace } from "./workspaceManager";
@@ -57,6 +58,10 @@ export default function WorkspacesProvider({
     workspacesQuery.data,
     workspacesQuery.isSuccess,
   ]);
+
+  const workspacePermissionsQuery = useWorkspacePermissions({
+    enabled: !!activeWorkspace,
+  });
 
   const handleChangeWorkspace = useCallback(
     (organzationSlug: string, workspaceSlug: string) => {

@@ -8,6 +8,7 @@ import {
   type GetOrganizationInvitationsProps,
   organizationMembersApi,
   organizationInvitationsApi,
+  organizationPermissionsApi,
   updateOrganization,
   updateOrganizationLogo,
   deleteOrganizationLogo,
@@ -15,6 +16,7 @@ import {
   getOrganizationInvitations,
   inviteUserToOrganization,
   deleteUserInvitation,
+  getOrganizationPermissions,
 } from "../services/organizationsApiActions";
 
 function useUpdateOrganization() {
@@ -127,6 +129,19 @@ function useDeleteUserInvitation() {
   return deleteUserInvitationMutation;
 }
 
+function useOrganizationPermissions({ enabled = true }: { enabled?: boolean }) {
+  const permissionsQuery = useQuery({
+    enabled,
+    staleTime: "static",
+    queryKey: [organizationPermissionsApi],
+    async queryFn({ signal }) {
+      const res = await getOrganizationPermissions({ signal });
+      return res.data;
+    },
+  });
+  return permissionsQuery;
+}
+
 export {
   useUpdateOrganization,
   useUpdateOrganizationLogo,
@@ -135,4 +150,5 @@ export {
   useOrganizationInvitations,
   useInviteUserToOrganization,
   useDeleteUserInvitation,
+  useOrganizationPermissions,
 };

@@ -48,6 +48,7 @@ type CreateWorkspace = Pick<Workspace, "name" | "description">;
 
 const workspacesBaseApi = "/workspaces";
 const workspaceMembersApi = `${workspacesBaseApi}/members`;
+const workspacePermissionsApi = `${workspacesBaseApi}/permissions`;
 
 function getWorkspaces({ signal }: { signal: AbortSignal }) {
   return axios.get<{ workspaces: Workspace[] }>(workspacesBaseApi, { signal });
@@ -95,6 +96,10 @@ function deleteWrokspaceMember(id: string) {
   return axios.delete(`${workspaceMembersApi}/${id}`);
 }
 
+function getWorkspacePermissions({ signal }: { signal: AbortSignal }) {
+  return axios.get<unknown>(workspacePermissionsApi, { signal });
+}
+
 export type {
   Workspace,
   WorkspaceMember,
@@ -107,6 +112,7 @@ export type {
 export {
   workspacesBaseApi,
   workspaceMembersApi,
+  workspacePermissionsApi,
   getWorkspaces,
   updateWorkspace,
   createWorkspace,
@@ -115,4 +121,5 @@ export {
   addWorkspaceMember,
   deleteWrokspaceMember,
   updateWorkspaceMember,
+  getWorkspacePermissions,
 };
