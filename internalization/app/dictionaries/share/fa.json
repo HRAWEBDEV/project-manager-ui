@@ -91,6 +91,21 @@
       "accessibility": "دسترسی",
       "remove": "حذف"
     },
+    "workspaceMembers": {
+      "newMember": "افزودن",
+      "admin": "ادمین",
+      "member": "عضو",
+      "search": "جستجو",
+      "username": "نام کاربری",
+      "fullName": "نام کامل",
+      "addedBy": "",
+      "role": "نقش کاربر",
+      "pendingInvitation": "در انتظار تایید",
+      "results": "نتایج",
+      "preview": "نمایش",
+      "accessibility": "دسترسی",
+      "remove": "حذف"
+    },
     "searchUsers": {
       "title": "جستجو کاربر",
       "email": "ایمیل",
