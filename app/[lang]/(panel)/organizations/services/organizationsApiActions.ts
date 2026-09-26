@@ -1,4 +1,5 @@
 import { axios } from "@/app/utils/defaultAxios";
+import { type Permission } from "../../utils/permissions";
 
 interface Organization {
   id: string;
@@ -30,6 +31,8 @@ interface OrganizationMember {
   userEmail: string;
   userPhoneNumber: string | null;
 }
+
+type OrganizationPermission = Record<OrganizationRole, Permission[]>;
 
 type InvitationStatus = "pending" | "accepted" | "declined";
 interface Invitation {
@@ -106,7 +109,9 @@ function deleteUserInvitation(id: string) {
 }
 
 function getOrganizationPermissions({ signal }: { signal: AbortSignal }) {
-  return axios.get<unknown>(organizationPermissionsApi, {
+  return axios.get<{
+    permissions: OrganizationPermission;
+  }>(organizationPermissionsApi, {
     signal,
   });
 }

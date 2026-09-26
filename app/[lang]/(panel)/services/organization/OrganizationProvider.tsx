@@ -2,7 +2,6 @@
 import { OrganizationContext } from "./organizationContext";
 import { ReactNode, useMemo, useEffect, useCallback } from "react";
 import { useUserOrganizations } from "@/app/[lang]/(panel)/users/hooks/useUsers";
-import { useOrganizationPermissions } from "../../organizations/hooks/useOrganizations";
 import { useParams, useRouter } from "next/navigation";
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import LinearLoading from "@/components/LinearLoading";
@@ -28,8 +27,7 @@ export default function OrganizationProvider({
       const activeOrganization = userOrganizationsQuery.data.organizations.find(
         (item) => item.slug === organizationParam,
       );
-      if (activeOrganization && activeOrganization.userRole !== "member")
-        return activeOrganization;
+      if (activeOrganization) return activeOrganization;
     }
     const localActiveOrganization = getActiveOrganization();
     if (localActiveOrganization) {
@@ -49,10 +47,6 @@ export default function OrganizationProvider({
     userOrganizationsQuery.data,
     userOrganizationsQuery.isSuccess,
   ]);
-
-  const organizationPermissionsQuery = useOrganizationPermissions({
-    enabled: !!activeOrganization,
-  });
 
   const ctx = {
     userOrganizationsQuery,

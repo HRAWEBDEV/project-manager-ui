@@ -20,8 +20,15 @@ import { Spinner } from "@/components/ui/spinner";
 import { toast } from "sonner";
 import { useProfile } from "../../services/profile/profileContext";
 import { Badge } from "@/components/ui/badge";
+import { useCheckPermission } from "../../[organization]/hooks/useCheckPermision";
 
 export default function UserInfoForm() {
+  const { checkPermission } = useCheckPermission();
+  const test = checkPermission({
+    type: "organization",
+    perm: "organization:update",
+  });
+  console.log(test);
   const {
     shareDictionary: {
       components: { userInfo: dic },

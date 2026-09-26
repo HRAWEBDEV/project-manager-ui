@@ -38,7 +38,7 @@ export default function WorkspacesWrapper() {
   return (
     <>
       <div className="p-4 pt-0">
-        <div className="py-4 sticky top-0 bg-background">
+        <div className="py-4 sticky top-0 bg-background dark:bg-neutral-900">
           {workspacesQuery.isFetching && (
             <div className="absolute top-0 inset-x-0">
               <LinearLoading />

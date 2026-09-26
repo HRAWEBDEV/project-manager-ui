@@ -1,5 +1,5 @@
 import { axios } from "@/app/utils/defaultAxios";
-import { OrganizationMember } from "../../../organizations/services/organizationsApiActions";
+import { type Permission } from "../../../utils/permissions";
 
 interface Workspace {
   id: string;
@@ -11,10 +11,11 @@ interface Workspace {
   organizationName: string;
   organizationRole: string;
   organizationSlug: string;
-  workspaceMemberRole: string;
+  workspaceMemberRole: WorkspaceMemberRole;
 }
 
 type WorkspaceMemberRole = "admin" | "member";
+type WorkspacePermissions = Record<WorkspaceMemberRole, Permission[]>;
 
 interface WorkspaceMember {
   id: string;
@@ -97,7 +98,9 @@ function deleteWrokspaceMember(id: string) {
 }
 
 function getWorkspacePermissions({ signal }: { signal: AbortSignal }) {
-  return axios.get<unknown>(workspacePermissionsApi, { signal });
+  return axios.get<{
+    permissions: WorkspacePermissions;
+  }>(workspacePermissionsApi, { signal });
 }
 
 export type {
