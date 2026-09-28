@@ -9,14 +9,31 @@ import {
 import { FaPlus, FaSearch } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import { type FilterTasksSchemas } from "../schemas/tasksSchema";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
+import {
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox";
+import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
+import { useProjects } from "../../projects/hooks/useProjects";
+import { Project } from "../../projects/services/projectsApiActions";
 
 export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
-  const { register } = useFormContext<FilterTasksSchemas>();
+  const { register, control, setFocus } = useFormContext<FilterTasksSchemas>();
+  const projectsQuery = useProjects();
+  const {
+    shareDictionary: {
+      components: { noItemFound },
+    },
+  } = useShareDictionary();
 
   return (
     <header className="p-4 relative bg-background">
-      <div className="grid grid-cols-[minmax(10rem,14rem)_max-content] gap-2">
+      <div className="grid grid-cols-[minmax(10rem,14rem)_minmax(10rem,14rem)_max-content] gap-2">
         <Field>
           <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
             <InputGroupInput
@@ -30,6 +47,40 @@ export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
             </InputGroupAddon>
           </InputGroup>
         </Field>
+        <Controller
+          name="project"
+          control={control}
+          render={({ field: { value, onChange, ref, ...other } }) => (
+            <Combobox
+              items={projectsQuery.data?.projects || []}
+              value={value}
+              onValueChange={(val) => {
+                onChange(val);
+              }}
+              itemToStringLabel={(op) => op.name}
+              isItemEqualToValue={(item, val) => {
+                return item.id === val.id;
+              }}
+              inputRef={ref}
+              {...other}
+            >
+              <ComboboxInput
+                placeholder={dic.filters.project}
+                className="bg-neutral-100 dark:bg-neutral-900"
+              />
+              <ComboboxContent>
+                <ComboboxEmpty>{noItemFound.title}</ComboboxEmpty>
+                <ComboboxList>
+                  {(item: Project) => (
+                    <ComboboxItem key={item.id} value={item}>
+                      {item.name}
+                    </ComboboxItem>
+                  )}
+                </ComboboxList>
+              </ComboboxContent>
+            </Combobox>
+          )}
+        />
         <Button>
           <FaPlus className="size-3" />
           {dic.filters.newTask}

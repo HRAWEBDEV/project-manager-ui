@@ -21,6 +21,7 @@ export default function TasksControlProvider({
     resolver: zodResolver(createFilterTasksSchema()),
     defaultValues: {
       search: "",
+      project: null,
     },
   });
 

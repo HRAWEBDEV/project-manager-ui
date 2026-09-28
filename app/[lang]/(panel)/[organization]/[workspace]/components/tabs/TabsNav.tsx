@@ -26,7 +26,7 @@ export default function TabsNav() {
   return (
     <>
       {isMatched ? (
-        <nav className="fixed bottom-0 inset-e-0 inset-s-0">
+        <nav className="h-(--panel-tab-height) fixed bottom-0 inset-e-0 inset-s-0 border-t border-border z-(--panel-tab-zindex) transition-transform in-data-[scroll-dicretion='down']:translate-y-20">
           <Tabs value={activePath}>
             <TabsList className="w-full rounded-none h-auto!">
               {navigationItems
