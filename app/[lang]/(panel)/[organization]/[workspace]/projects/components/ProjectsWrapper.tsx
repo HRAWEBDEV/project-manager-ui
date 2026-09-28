@@ -5,7 +5,6 @@ import ProjectsFilters from "./ProjectsFilters";
 import ProjectsList from "./ProjectsList";
 import EditProjectDialog from "./EditProjectDialog";
 import { useProjectsContext } from "../services/control/projectsContext";
-import LinearLoading from "@/components/LinearLoading";
 
 export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
   const { projectsInfo, visibleProjects } = useProjectsContext();
@@ -15,14 +14,10 @@ export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
     visibleProjects.find((project) => project.id === editingProjectId) ?? null;
 
   return (
-    <div className="p-4 relative">
-      {projectsInfo.isFetching && (
-        <div className="absolute top-0 inset-x-0">
-          <LinearLoading />
-        </div>
-      )}
+    <div className="relative">
       <ProjectsFilters
         dic={dic}
+        isFetching={projectsInfo.isFetching}
         onCreate={() => {
           setEditingProjectId(null);
           setDialogOpen(true);

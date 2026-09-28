@@ -2,6 +2,7 @@ import { type ProjectsDictionary } from "@/internalization/app/dictionaries/pane
 import { type Project } from "../services/projectsApiActions";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FaRegEdit } from "react-icons/fa";
 
 export default function ProjectsItem({
   project,
@@ -12,31 +13,42 @@ export default function ProjectsItem({
   onEdit: () => void;
 }) {
   return (
-    <Button
-      variant="outline"
-      className="h-auto flex-col items-stretch gap-2 p-3 text-start rounded-xl border-px border-neutral-100 dark:border-neutral-900 shadow-lg relative overflow-hidden"
-      onClick={onEdit}
-    >
-      <div
-        style={{
-          backgroundColor: project.color || "",
-          opacity: 0.1,
-        }}
-        className="absolute inset-0"
-      ></div>
-      <div className="flex flex-col items-center gap-2">
-        <div>
-          <Avatar className="size-18 bg-background">
-            <AvatarImage
-              src={`${process.env.NEXT_PUBLIC_SERVER_URI}${project.icon}`}
-              alt="project icon"
-            />
-
-            <AvatarFallback>{project.name[0]}</AvatarFallback>
-          </Avatar>
-        </div>
-        <h3 className="font-medium">{project.name}</h3>
+    <div className="relative">
+      <div className="absolute top-1 inset-e-1 z-1">
+        <Button
+          onClick={onEdit}
+          variant="outline"
+          size="icon-lg"
+          className="rounded-full"
+        >
+          <FaRegEdit className="size-5" />
+        </Button>
       </div>
-    </Button>
+      <Button
+        variant="outline"
+        className="h-auto w-full flex-col items-stretch gap-2 p-3 text-start rounded-xl border-px border-neutral-100 dark:border-neutral-900 shadow-lg relative overflow-hidden"
+      >
+        <div
+          style={{
+            backgroundColor: project.color || "",
+            opacity: 0.1,
+          }}
+          className="absolute inset-0"
+        ></div>
+        <div className="flex flex-col items-center gap-2">
+          <div>
+            <Avatar className="size-18">
+              <AvatarImage
+                src={`${process.env.NEXT_PUBLIC_SERVER_URI}${project.icon}`}
+                alt="project icon"
+              />
+
+              <AvatarFallback>{project.name[0]}</AvatarFallback>
+            </Avatar>
+          </div>
+          <h3 className="font-medium">{project.name}</h3>
+        </div>
+      </Button>
+    </div>
   );
 }

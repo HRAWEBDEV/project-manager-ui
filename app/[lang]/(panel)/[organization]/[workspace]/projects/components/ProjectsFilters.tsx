@@ -10,19 +10,27 @@ import { Button } from "@/components/ui/button";
 import { useFormContext } from "react-hook-form";
 import { type FilterProjectsSchemas } from "../schemas/projectsSchemas";
 import { useProjectsContext } from "../services/control/projectsContext";
+import LinearLoading from "@/components/LinearLoading";
 
 export default function ProjectsFilters({
   dic,
+  isFetching,
   onCreate,
 }: {
   dic: ProjectsDictionary;
+  isFetching: boolean;
   onCreate: () => void;
 }) {
   const { register } = useFormContext<FilterProjectsSchemas>();
   const { visibleProjects } = useProjectsContext();
 
   return (
-    <div className="mb-4">
+    <div className="p-4 relative bg-background">
+      {isFetching && (
+        <div className="absolute top-0 inset-x-0">
+          <LinearLoading />
+        </div>
+      )}
       <div className="grid grid-cols-[minmax(10rem,20rem)_max-content] gap-2">
         <Field>
           <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
