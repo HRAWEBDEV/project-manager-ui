@@ -69,6 +69,7 @@ export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
               {...other}
             >
               <ComboboxInput
+                showClear
                 placeholder={dic.filters.project}
                 className="bg-neutral-100 dark:bg-neutral-900"
               />
