@@ -14,6 +14,7 @@ import {
   getActiveColorPallete,
   saveActiveColorPallete,
 } from "@/utils/colorPalleteManager";
+import { DirectionProvider } from "@/components/ui/direction";
 
 interface Props {
   activeLocale: Locale;
@@ -76,9 +77,11 @@ export default function BaseConfigProvider({ children, activeLocale }: Props) {
 
   return (
     <baseConfigContext.Provider value={ctx}>
-      <ThemeProvider attribute="class" defaultTheme="system">
-        {children}
-      </ThemeProvider>
+      <DirectionProvider direction={activeLocaleInfo.contentDirection}>
+        <ThemeProvider attribute="class" defaultTheme="system">
+          {children}
+        </ThemeProvider>
+      </DirectionProvider>
     </baseConfigContext.Provider>
   );
 }
