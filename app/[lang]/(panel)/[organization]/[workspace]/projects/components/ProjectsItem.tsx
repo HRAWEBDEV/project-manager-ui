@@ -34,7 +34,7 @@ export default function ProjectsItem({
             opacity: 0.1,
           }}
           className="absolute inset-0"
-        ></div>
+        ></div>{" "}
         <div className="flex flex-col items-center gap-2">
           <div>
             <Avatar className="size-18">

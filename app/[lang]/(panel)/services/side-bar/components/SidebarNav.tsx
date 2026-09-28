@@ -28,10 +28,10 @@ export default function SidebarNav() {
               data-active={item.type === activePath}
               variant="ghost"
               key={item.type}
-              className="h-auto text-start text-neutral-600 dark:text-neutral-300 justify-stretch min-h-11 gap-3 hover:bg-neutral-200 dark:hover:border-b-neutral-700 data-[active='true']:bg-primary data-[active='true']:text-primary-foreground rounded-sm"
+              className="h-auto text-start text-neutral-600 dark:text-neutral-300 justify-stretch min-h-11 gap-4 hover:bg-neutral-200 dark:hover:border-b-neutral-700 data-[active='true']:bg-primary data-[active='true']:text-primary-foreground rounded-sm"
               render={
                 <Link href={`${basePath}/${item.path}`}>
-                  {getNavigationIcon(item.type, { className: "size-5" })}
+                  {getNavigationIcon(item.type, { className: "size-6" })}
                   <span className="font-medium">{dic[item.type]}</span>
                 </Link>
               }

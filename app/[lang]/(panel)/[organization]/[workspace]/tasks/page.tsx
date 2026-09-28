@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { getTasksDictionary } from "@/internalization/app/dictionaries/panel/tasks/dictionary";
 import { type Locale } from "@/internalization/app/localization";
+import TasksWrapper from "./components/TasksWrapper";
+import TasksProvider from "./services/control/TasksControlProvider";
 
 export const generateMetadata = async (
   props: LayoutProps<"/[lang]/[organization]/[workspace]">,
@@ -15,5 +17,11 @@ export const generateMetadata = async (
 export default async function TasksPage({
   params,
 }: PageProps<"/[lang]/[organization]/[workspace]/tasks">) {
-  return <div>tasks</div>;
+  const { lang } = await params;
+  const dic = await getTasksDictionary({ locale: lang as Locale });
+  return (
+    <TasksProvider dic={dic}>
+      <TasksWrapper dic={dic} />
+    </TasksProvider>
+  );
 }

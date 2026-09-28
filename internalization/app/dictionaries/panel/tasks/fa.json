@@ -1,3 +1,8 @@
 {
-  "title": "وظایف"
+  "title": "وظایف",
+  "filters": {
+    "newTask": "وظیفه جدید",
+    "search": "جستجو",
+    "project": "پروژه"
+  }
 }

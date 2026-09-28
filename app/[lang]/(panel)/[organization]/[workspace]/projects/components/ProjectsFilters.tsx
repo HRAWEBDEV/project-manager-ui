@@ -25,7 +25,7 @@ export default function ProjectsFilters({
   const { visibleProjects } = useProjectsContext();
 
   return (
-    <div className="p-4 relative bg-background">
+    <header className="p-4 relative bg-background">
       {isFetching && (
         <div className="absolute top-0 inset-x-0">
           <LinearLoading />
@@ -58,6 +58,6 @@ export default function ProjectsFilters({
           </span>
         </div>
       </div>
-    </div>
+    </header>
   );
 }
