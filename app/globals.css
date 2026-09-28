@@ -87,7 +87,7 @@
   --sidebar-ring: oklch(0.708 0 0);
   --panel-header-height: 3.2rem;
   --panel-tab-height: 3.2rem;
-  --panel-tab-zindex: 100;
+  --panel-tab-zindex: 40;
 }
 
 .default {
