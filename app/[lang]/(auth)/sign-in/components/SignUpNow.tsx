@@ -9,7 +9,9 @@ export default function SignUpNow({ dic }: { dic: AuthDictionary }) {
   return (
     <FieldDescription className="text-center">
       {dic.signIn.doNotHaveAnAccount}{" "}
-      <Link href={`/${locale}/signup`}>{dic.signIn.singUp}</Link>
+      <Link href={`/${locale}/signup`} className="text-primary">
+        {dic.signIn.singUp}
+      </Link>
     </FieldDescription>
   );
 }

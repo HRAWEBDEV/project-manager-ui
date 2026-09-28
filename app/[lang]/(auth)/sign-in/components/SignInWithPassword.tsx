@@ -105,7 +105,9 @@ export default function SignInWithPassword({ dic }: { dic: AuthDictionary }) {
             </FieldError>
           )}
           <FieldDescription>
-            <Link href="#">{dic.signIn.withPassword.forgotPassword}</Link>
+            <Link href="#" className="text-primary">
+              {dic.signIn.withPassword.forgotPassword}
+            </Link>
           </FieldDescription>
         </FieldContent>
       </Field>
