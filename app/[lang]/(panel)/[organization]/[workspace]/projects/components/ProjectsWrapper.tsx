@@ -4,6 +4,7 @@ import { type ProjectsDictionary } from "@/internalization/app/dictionaries/pane
 import ProjectsFilters from "./ProjectsFilters";
 import ProjectsList from "./ProjectsList";
 import EditProjectDialog from "./EditProjectDialog";
+import ProjectsFloatingActions from "./ProjectsFloatingActions";
 import { useProjectsContext } from "../services/control/projectsContext";
 
 export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
@@ -13,15 +14,17 @@ export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
   const editingProject =
     visibleProjects.find((project) => project.id === editingProjectId) ?? null;
 
+  function handleCreate() {
+    setEditingProjectId(null);
+    setDialogOpen(true);
+  }
+
   return (
-    <div className="relative">
+    <div className="relative flex flex-col grow">
       <ProjectsFilters
         dic={dic}
         isFetching={projectsInfo.isFetching}
-        onCreate={() => {
-          setEditingProjectId(null);
-          setDialogOpen(true);
-        }}
+        onCreate={handleCreate}
       />
       <ProjectsList
         dic={dic}
@@ -30,6 +33,7 @@ export default function ProjectsWrapper({ dic }: { dic: ProjectsDictionary }) {
           setDialogOpen(true);
         }}
       />
+      <ProjectsFloatingActions dic={dic} onCreate={handleCreate} />
       <EditProjectDialog
         project={editingProject}
         dic={dic}

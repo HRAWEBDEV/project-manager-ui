@@ -6,8 +6,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { FaPlus, FaSearch } from "react-icons/fa";
-import { Button } from "@/components/ui/button";
+import { FaSearch } from "react-icons/fa";
 import { type FilterTasksSchemas } from "../schemas/tasksSchema";
 import { useFormContext, Controller } from "react-hook-form";
 import {
@@ -21,9 +20,11 @@ import {
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 import { useProjects } from "../../projects/hooks/useProjects";
 import { Project } from "../../projects/services/projectsApiActions";
+import NewTaskButton from "./NewTaskButton";
+import FilterTaskButton from "./FilterTaskButton";
 
 export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
-  const { register, control, setFocus } = useFormContext<FilterTasksSchemas>();
+  const { register, control } = useFormContext<FilterTasksSchemas>();
   const projectsQuery = useProjects();
   const {
     shareDictionary: {
@@ -32,8 +33,11 @@ export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
   } = useShareDictionary();
 
   return (
-    <header className="p-4 relative bg-background">
-      <div className="grid grid-cols-[minmax(10rem,14rem)_minmax(10rem,14rem)_max-content] gap-2">
+    <header className="p-4 bg-background sticky top-0">
+      <div className="grid grid-cols-2 md:grid-cols-[max-content_minmax(8rem,14rem)_minmax(8rem,14rem)_max-content] gap-2">
+        <div className="hidden md:flex">
+          <FilterTaskButton dic={dic} />
+        </div>
         <Field>
           <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
             <InputGroupInput
@@ -81,10 +85,9 @@ export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
             </Combobox>
           )}
         />
-        <Button>
-          <FaPlus className="size-3" />
-          {dic.filters.newTask}
-        </Button>
+        <div className="hidden md:flex">
+          <NewTaskButton dic={dic} />
+        </div>
       </div>
     </header>
   );

@@ -11,6 +11,7 @@ import { useFormContext } from "react-hook-form";
 import { type FilterProjectsSchemas } from "../schemas/projectsSchemas";
 import { useProjectsContext } from "../services/control/projectsContext";
 import LinearLoading from "@/components/LinearLoading";
+import NewProjectButton from "./NewProjectButton";
 
 export default function ProjectsFilters({
   dic,
@@ -31,7 +32,7 @@ export default function ProjectsFilters({
           <LinearLoading />
         </div>
       )}
-      <div className="grid grid-cols-[minmax(10rem,20rem)_max-content] gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-[minmax(10rem,20rem)_max-content] gap-2">
         <Field>
           <InputGroup className="bg-neutral-100 dark:bg-neutral-900">
             <InputGroupInput
@@ -45,10 +46,9 @@ export default function ProjectsFilters({
             </InputGroupAddon>
           </InputGroup>
         </Field>
-        <Button onClick={onCreate}>
-          <FaPlus className="size-3" />
-          {dic.filters.createProject}
-        </Button>
+        <div className="hidden md:flex">
+          <NewProjectButton dic={dic} onCreate={onCreate} />
+        </div>
       </div>
       <div className="mt-0.5">
         <div className="text-xs">

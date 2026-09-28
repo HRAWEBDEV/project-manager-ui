@@ -3,6 +3,7 @@
   "filters": {
     "newTask": "وظیفه جدید",
     "search": "جستجو",
-    "project": "پروژه"
+    "project": "پروژه",
+    "filters": "فیلترها"
   }
 }

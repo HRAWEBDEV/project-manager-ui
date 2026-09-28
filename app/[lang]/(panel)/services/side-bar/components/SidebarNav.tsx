@@ -7,8 +7,10 @@ import { useWorkspacesContext } from "@/app/[lang]/(panel)/[organization]/servic
 import { useBaseConfig } from "@/services/base-config/baseConfigContext";
 import Link from "next/link";
 import { useHistoryContext } from "../../../[organization]/[workspace]/services/history/historyContext";
+import { useSidebar } from "../sidebarContext";
 
 export default function SidebarNav() {
+  const { setOpenMobile } = useSidebar();
   const { activeOrganization } = useOrganizationContext();
   const { activePath } = useHistoryContext();
   const { activeWorkspace } = useWorkspacesContext();
@@ -28,6 +30,7 @@ export default function SidebarNav() {
               data-active={item.type === activePath}
               variant="ghost"
               key={item.type}
+              onClick={() => setOpenMobile(false)}
               className="h-auto text-start text-neutral-600 dark:text-neutral-300 justify-stretch min-h-11 gap-4 hover:bg-neutral-200 dark:hover:border-b-neutral-700 data-[active='true']:bg-primary data-[active='true']:text-primary-foreground rounded-sm"
               render={
                 <Link href={`${basePath}/${item.path}`}>
