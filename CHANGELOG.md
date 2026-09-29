@@ -18,7 +18,8 @@
 
 #### workspace members
 
-- add delete workspace member
+- add delete workspace member (hra-done)
+- check removing workspace member errors
 - add change workspace member role
 
 #### projects

@@ -3,6 +3,7 @@ import {
   userInfoApi,
   userOrganizationsApi,
 } from "@/app/[lang]/(panel)/users/services/usersApiActions";
+import { workspaceMembersApi } from "@/app/[lang]/(panel)/[organization]/workspaces/services/workspacesApiActions";
 import {
   type UpdateOrganization,
   type GetOrganizationInvitationsProps,
@@ -13,6 +14,7 @@ import {
   updateOrganizationLogo,
   deleteOrganizationLogo,
   getOrganizationMembers,
+  deleteOrganizationMember,
   getOrganizationInvitations,
   inviteUserToOrganization,
   deleteUserInvitation,
@@ -84,6 +86,24 @@ function useOrganizationMembers() {
   return organizationMembersQuery;
 }
 
+function useDeleteOrganizationMember() {
+  const queryClient = useQueryClient();
+  const deleteOrganizationMemberMutation = useMutation({
+    mutationFn(id: string) {
+      return deleteOrganizationMember(id);
+    },
+    onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: [organizationMembersApi],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [workspaceMembersApi],
+      });
+    },
+  });
+  return deleteOrganizationMemberMutation;
+}
+
 function useOrganizationInvitations({
   enabled = true,
   ...props
@@ -147,6 +167,7 @@ export {
   useUpdateOrganizationLogo,
   useDeleteOrganizationLogo,
   useOrganizationMembers,
+  useDeleteOrganizationMember,
   useOrganizationInvitations,
   useInviteUserToOrganization,
   useDeleteUserInvitation,

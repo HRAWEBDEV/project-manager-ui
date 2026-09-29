@@ -81,6 +81,10 @@ function getOrganizationMembers({ signal }: { signal: AbortSignal }) {
   }>(organizationMembersApi, { signal });
 }
 
+function deleteOrganizationMember(id: string) {
+  return axios.delete<{ id: string }>(`${organizationMembersApi}/${id}`);
+}
+
 interface GetOrganizationInvitationsProps {
   userId?: string;
 }
@@ -135,6 +139,7 @@ export {
   deleteOrganizationLogo,
   getOrganizationMembers,
   getOrganizationInvitations,
+  deleteOrganizationMember,
   inviteUserToOrganization,
   deleteUserInvitation,
   getOrganizationPermissions,

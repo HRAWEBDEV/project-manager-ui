@@ -90,7 +90,10 @@
       "results": "نتایج",
       "preview": "نمایش",
       "accessibility": "دسترسی",
-      "remove": "حذف"
+      "remove": "حذف",
+      "removeOrganizationMemberConfirmMessage": "آیا از حذف این عضو از سازمان اطمینان دارید؟",
+      "confirm": "تایید",
+      "cancel": "انصراف"
     },
     "workspaceMembers": {
       "newMember": "افزودن",
