@@ -8,7 +8,8 @@
 
 #### organization members
 
-- add delete organization member
+- add delete organization member (hra-done)
+- check removing organization member errors
 - add change organization member role
 
 #### workspaces

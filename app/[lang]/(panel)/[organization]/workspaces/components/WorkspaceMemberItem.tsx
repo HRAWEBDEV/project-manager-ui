@@ -1,5 +1,7 @@
 "use client";
+import { useState } from "react";
 import { type WorkspaceMember } from "../services/workspacesApiActions";
+import { useDeleteWorkspaceMember } from "../hooks/useWorkspaces";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IoEllipsisVerticalSharp } from "react-icons/io5";
 import {
@@ -11,6 +13,18 @@ import {
 import { IoKey } from "react-icons/io5";
 import { FaTrashCan } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogMedia,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { IoIosWarning } from "react-icons/io";
 import { useShareDictionary } from "@/services/share-dictionary/shareDictionaryContext";
 
 export default function WorkspaceMemberItem({
@@ -18,6 +32,8 @@ export default function WorkspaceMemberItem({
 }: {
   member: WorkspaceMember;
 }) {
+  const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
+  const deleteWorkspaceMemberMutation = useDeleteWorkspaceMember();
   const {
     shareDictionary: {
       components: { workspaceMembers: dic },
@@ -40,12 +56,53 @@ export default function WorkspaceMemberItem({
               <IoKey className="size-5" />
               {dic.accessibility}
             </DropdownMenuItem>
-            <DropdownMenuItem variant="destructive" className="h-11">
+            <DropdownMenuItem
+              variant="destructive"
+              className="h-11"
+              onClick={() => setConfirmDeleteOpen(true)}
+            >
               <FaTrashCan className="size-5" />
               {dic.remove}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <AlertDialog
+          open={confirmDeleteOpen}
+          onOpenChange={setConfirmDeleteOpen}
+        >
+          <AlertDialogContent size="sm">
+            <AlertDialogHeader>
+              <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+                <IoIosWarning />
+              </AlertDialogMedia>
+              <AlertDialogTitle>
+                {dic.removeWorkspaceMemberConfirmMessage}
+              </AlertDialogTitle>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                disabled={deleteWorkspaceMemberMutation.isPending}
+                variant="outline"
+              >
+                {dic.cancel}
+              </AlertDialogCancel>
+              <AlertDialogAction
+                disabled={deleteWorkspaceMemberMutation.isPending}
+                variant="destructive"
+                onClick={() => {
+                  deleteWorkspaceMemberMutation
+                    .mutateAsync(member.id)
+                    .then(() => {
+                      setConfirmDeleteOpen(false);
+                    });
+                }}
+              >
+                {deleteWorkspaceMemberMutation.isPending && <Spinner />}
+                {dic.confirm}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
       <Button
         variant="outline"

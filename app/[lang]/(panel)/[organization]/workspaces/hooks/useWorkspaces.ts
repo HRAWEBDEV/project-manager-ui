@@ -19,7 +19,7 @@ import {
   getWorkspaceMembers,
   addWorkspaceMember,
   updateWorkspaceMember,
-  deleteWrokspaceMember,
+  deleteWorkspaceMember,
   getWorkspacePermissions,
 } from "../services/workspacesApiActions";
 
@@ -126,7 +126,7 @@ function useDeleteWorkspaceMember() {
   const queryClient = useQueryClient();
   const deleteWorkspaceMemberMutation = useMutation({
     mutationFn(id: string) {
-      return deleteWrokspaceMember(id);
+      return deleteWorkspaceMember(id);
     },
     onSuccess() {
       queryClient.invalidateQueries({

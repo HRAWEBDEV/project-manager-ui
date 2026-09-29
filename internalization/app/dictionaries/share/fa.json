@@ -106,6 +106,9 @@
       "preview": "نمایش",
       "accessibility": "دسترسی",
       "remove": "حذف",
+      "removeWorkspaceMemberConfirmMessage": "آیا از حذف این عضو از میزکار اطمینان دارید؟",
+      "confirm": "تایید",
+      "cancel": "انصراف",
       "allOrganizationMembersAreWorkspaceMembers": "تمامی اعضای سازمان به میزکار اضافه شدند",
       "sendInvitation": "ارسال دعوت‌نامه"
     },

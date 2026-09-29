@@ -75,6 +75,12 @@ function getWorkspaceMembers({ signal }: { signal: AbortSignal }) {
   });
 }
 
+function deleteWorkspaceMember(id: string) {
+  return axios.delete<{
+    id: string;
+  }>(`${workspaceMembersApi}/${id}`);
+}
+
 function addWorkspaceMember({
   organizationMemberId,
   role,
@@ -91,10 +97,6 @@ function updateWorkspaceMember(id: string, { role }: UpdateWorkspaceMember) {
   return axios.patch(`${workspaceMembersApi}/${id}`, {
     role,
   });
-}
-
-function deleteWrokspaceMember(id: string) {
-  return axios.delete(`${workspaceMembersApi}/${id}`);
 }
 
 function getWorkspacePermissions({ signal }: { signal: AbortSignal }) {
@@ -122,7 +124,7 @@ export {
   deleteWorkspace,
   getWorkspaceMembers,
   addWorkspaceMember,
-  deleteWrokspaceMember,
   updateWorkspaceMember,
+  deleteWorkspaceMember,
   getWorkspacePermissions,
 };
