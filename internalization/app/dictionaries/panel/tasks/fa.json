@@ -5,5 +5,11 @@
     "search": "جستجو",
     "project": "پروژه",
     "filters": "فیلترها"
+  },
+  "editTask": {
+    "addTask": "ایجاد وظیفه",
+    "editTask": "ویرایش وظیفه",
+    "saveChanges": "ذخیره تغییرات",
+    "close": "بستن"
   }
 }

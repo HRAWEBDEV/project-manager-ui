@@ -22,6 +22,8 @@ import { useProjects } from "../../projects/hooks/useProjects";
 import { Project } from "../../projects/services/projectsApiActions";
 import NewTaskButton from "./NewTaskButton";
 import FilterTaskButton from "./FilterTaskButton";
+import { useTasksCotnext } from "../services/control/tasksControlContext";
+import LinearLoading from "@/components/LinearLoading";
 
 export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
   const { register, control } = useFormContext<FilterTasksSchemas>();
@@ -31,9 +33,15 @@ export default function TasksFilters({ dic }: { dic: TasksDictionary }) {
       components: { noItemFound },
     },
   } = useShareDictionary();
+  const { tasksQuery } = useTasksCotnext();
 
   return (
     <header className="p-4 bg-background sticky top-0">
+      {tasksQuery.isFetching && (
+        <div className="absolute top-0 inset-x-0">
+          <LinearLoading />
+        </div>
+      )}
       <div className="grid grid-cols-2 md:grid-cols-[max-content_minmax(8rem,14rem)_minmax(8rem,14rem)_max-content] gap-2">
         <div className="hidden md:flex">
           <FilterTaskButton dic={dic} />
