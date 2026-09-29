@@ -11,5 +11,13 @@
     "editTask": "ویرایش وظیفه",
     "saveChanges": "ذخیره تغییرات",
     "close": "بستن"
+  },
+  "tasks": {
+    "tableDescription": "لیست وظایف کاربر",
+    "title": "عنوان",
+    "description": "توضیحات",
+    "assignees": "انجام دهنده",
+    "project": "پروژه",
+    "priority": "اولویت"
   }
 }
